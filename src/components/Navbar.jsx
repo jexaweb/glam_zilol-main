@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "./LanguageContext";
+import MobileFab from "./MobileFab";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -164,6 +165,7 @@ export default function Navbar() {
           ))}
         </ul>
       </div>
+    <MobileFab />  
     </>
   );
 }

@@ -13,7 +13,7 @@ function ErrorAlert({ message, onClose }) {
     <div className="fixed top-5 left-1/2 -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
       <div className="flex justify-between items-center gap-4">
         <span>{message}</span>
-        <button onClick={onClose}>✕</button>
+        <button clas onClick={onClose}>✕</button>
       </div>
     </div>
   );
@@ -56,6 +56,22 @@ function Home() {
         "Профессиональное оборудование и экологичные шампуни.",
       text3_ru: "Результат как новый всего за 1–2 часа!",
     },
+    {
+      imgDesktop:
+        "https://biryusa.ru/up/opti/resizetmp/2520_3000_1/27d166727599573d9fa491436e510f7b/SM2_3.jpg",
+      imgMobile:
+        "https://images.unsplash.com/photo-1616627452395-3a6c02b6a5b2?q=80&w=800",
+
+      text1_uz: "Pardalarni mukammal yuvish xizmati!",
+      text2_uz:
+        "Zamonaviy uskunalarda yuvish va professional quritish.",
+      text3_uz: "Tozalik va xushbo‘y nafislik kafolati!",
+
+      text1_ru: "Профессиональная стирка штор!",
+      text2_ru:
+        "Современное оборудование и качественная сушка.",
+      text3_ru: "Гарантия чистоты и приятного аромата!",
+    },
   ];
 
   const [index, setIndex] = useState(0);
@@ -71,11 +87,17 @@ function Home() {
   const prev = () =>
     setIndex((prev) => (prev - 1 + slides.length) % slides.length);
 
-  /* ================= FORM ================= */
+  /* ================= MODAL & FORM ================= */
   const formRef = useRef();
   const [formData, setFormData] = useState({ name: "", phone: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowModal(true), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -97,20 +119,80 @@ function Home() {
       .then(() => {
         alert("Yuborildi!");
         setFormData({ name: "", phone: "" });
+        setShowModal(false);
       })
       .catch(() => setError("Xatolik yuz berdi"))
       .finally(() => setLoading(false));
   };
 
   /* ================= SERVICES ================= */
-const services = [ { title: language === "ru" ? "Стирка ковров" : "Gilam yuvish", image: "/images/gilam.jpg", link: "/gilam", }, { title: language === "ru" ? "Стирка штор" : "Parda yuvish", image: "/images/parda.jpg", link: "/parda", }, { title: language === "ru" ? "Стирка дорожек" : "Yakkandoz yuvish", image: "/images/yakkandoz.jpg", link: "/yakkandoz", }, { title: language === "ru" ? "Стирка одеял" : "Ko‘rpa yuvish", image: "/images/korpa.jpg", link: "/korpa", }, { title: language === "ru" ? "Чистка мебели" : "Mebel yuvish", image: "/images/mebel.jpg", link: "/mebel", }, { title: language === "ru" ? "Чистка матрасов" : "Matras yuvish", image: "/images/matras.jpg", link: "/matras", }, { title: language === "ru" ? "Чистка на месте" : "Joyida yuvish", image: "/images/kovrolin.jpg", link: "/kovrolin", }, { title: language === "ru" ? "Чистка игрушек" : "O‘yinchoqlar yuvish", image: "/images/ofis.jpg", link: "/ofis", }, { title: language === "ru" ? "Стирка подушек" : "Yostiqlar yuvish", image: "/images/antiseptik.jpg", link: "/antiseptik", }, { title: language === "ru" ? "Стирка авто чехлов" : "Avto chixol yuvish", image: "/images/avto.jpg", link: "/avto", }, ];
+  const services = [
+    { title: "Gilam yuvish", image: "/images/gilam.jpg", link: "/gilam" },
+    { title: "Parda yuvish", image: "/images/parda.jpg", link: "/parda" },
+    { title: "Mebel yuvish", image: "/images/mebel.jpg", link: "/mebel" },
+    { title: "Matras yuvish", image: "/images/matras.jpg", link: "/matras" },
+  ];
+
   return (
     <div className="pt-10">
 
       <ErrorAlert message={error} onClose={() => setError("")} />
 
+      {/* ================= MODAL ================= */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
+          <form
+            ref={formRef}
+            onSubmit={sendEmail}
+            className="bg-white rounded-2xl p-6 w-80 shadow-2xl text-center"
+          > 
+            <button
+              type="button"
+              onClick={() => setShowModal(false)}
+            className="absolute ml-25 top-30  text-gray-500 hover:text-pink-700 bg-amber-50 text-2xl"
+
+
+            >
+              ✕
+            </button>
+
+            <h2 className="text-xl font-bold mb-4">
+              Birinchi buyurtma uchun chegirma
+            </h2>
+
+            <input
+              type="text"
+              name="name"
+              placeholder="Ismingiz"
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+              className="w-full mb-3 px-4 py-2 border rounded-lg"
+            />
+
+            <PhoneInput
+              value={formData.phone}
+              onChange={(val) =>
+                setFormData({ ...formData, phone: val })
+              }
+              name="phone"
+            />
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-blue-600 text-white py-2 rounded-lg mt-4"
+            >
+              {loading ? "Yuborilmoqda..." : "Yuborish"}
+            </button>
+          </form>
+        </div>
+      )}
+
       {/* ================= HERO SLIDER ================= */}
-      <section className="relative w-full h-[90vh] mt-7 sm:mt-4 md:mt-7 lg:mt-9  overflow-hidden">
+   <section className="relative w-full min-h-[90vh] overflow-hidden mt-7 sm:mt-10 md:mt-9">
+
 
         {slides.map((item, i) => (
           <div
@@ -119,11 +201,14 @@ const services = [ { title: language === "ru" ? "Стирка ковров" : "G
               i === index ? "opacity-100 z-20" : "opacity-0 z-10"
             }`}
           >
+            {/* Desktop */}
             <img
               src={item.imgDesktop}
               className="hidden lg:block w-full h-full object-cover"
               alt=""
             />
+
+            {/* Mobile */}
             <img
               src={item.imgMobile}
               className="block lg:hidden w-full h-full object-cover"
@@ -132,12 +217,15 @@ const services = [ { title: language === "ru" ? "Стирка ковров" : "G
 
             <div className="absolute inset-0 bg-black/50"></div>
 
-            <div className="absolute bottom-20 left-1/2 -translate-x-1/2 text-center text-white max-w-4xl px-4 z-30">
-              <h2 className="animate-slideUp font-extrabold text-3xl md:text-5xl mb-4">
+            <div className="absolute bottom-20 left-1/2 -translate-x-1/2 text-center text-white px-4 z-30">
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
                 {item[`text1_${language}`]}
               </h2>
-              <p className="animate-slideUp text-lg md:text-2xl">
+              <p className="text-lg md:text-2xl">
                 {item[`text2_${language}`]}
+              </p>
+              <p className="text-lg md:text-xl mt-2">
+                {item[`text3_${language}`]}
               </p>
             </div>
 
@@ -154,16 +242,30 @@ const services = [ { title: language === "ru" ? "Стирка ковров" : "G
             >
               ›
             </button>
+
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-3">
+              {slides.map((_, dotIndex) => (
+                <button
+                  key={dotIndex}
+                  onClick={() => setIndex(dotIndex)}
+                  className={`w-3 h-3 rounded-full ${
+                    dotIndex === index
+                      ? "bg-yellow-400 scale-125"
+                      : "bg-white/60"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         ))}
       </section>
 
       {/* ================= SERVICES ================= */}
-      <section className="py-20 px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 bg-gray-700">
         {services.map((s, i) => (
           <ServiceCard key={i} {...s} />
         ))}
-      </section> 
+      </div>
 
       <CarpetComparison />
 
