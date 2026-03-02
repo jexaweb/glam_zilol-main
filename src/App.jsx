@@ -15,6 +15,7 @@ import Kovrolin from "./pages/services/Kovrolin";
 import Ofis from "./pages/services/Ofis";
 import Antiseptik from "./pages/services/Antiseptik";
 import Avto from "./pages/services/Avto";
+import Ariza from "./pages/services/Ariza";
 
 function App() {
   const router = createBrowserRouter([
@@ -36,6 +37,8 @@ function App() {
         { path: "ofis", element: <Ofis /> },
         { path: "antiseptik", element: <Antiseptik /> },
         { path: "avto", element: <Avto /> },
+        {path:"ariza",element:<Ariza/>}
+
       ],
     },
   ]);

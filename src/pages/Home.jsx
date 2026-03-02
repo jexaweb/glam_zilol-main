@@ -49,7 +49,7 @@ function Home() {
       text1_uz: "Mebel va divanlarni joyida tozalaymiz!",
       text2_uz:
         "Professional uskunalar va ekologik vositalar bilan xizmat.",
-      text3_uz: "Atigi 1–2 soatda yangidek natija!",
+      text3_uz: "Atigi 1  2 soatda yangidek natija!",
 
       text1_ru: "Чистим мебель у вас дома!",
       text2_ru:

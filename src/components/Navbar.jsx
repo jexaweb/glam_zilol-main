@@ -31,65 +31,64 @@ export default function Navbar() {
 
   const t = translations[language] || translations.uz;
 
-  // Sticky navbar
   useEffect(() => {
     const onScroll = () => setIsSticky(window.scrollY > 80);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Body scroll lock
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
   }, [isOpen]);
 
-  // Click outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (mobileMenuRef.current && !mobileMenuRef.current.contains(e.target)) {
         setIsOpen(false);
       }
     };
-
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
   return (
     <>
-      {/* Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          isSticky ? "bg-white/95 shadow-md backdrop-blur" : "bg-stone-600/50"
+          isSticky
+            ? "bg-white/90 backdrop-blur-md shadow-xl"
+            : "bg-white/40 backdrop-blur-md"
         }`}
       >
-        <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3 ">
-          {/* Logo (desktop) */}
+        <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
+
+          {/* Logo Desktop */}
           <Link to="/" className="hidden md:block">
             <img
               src="/logo.jpg"
               alt="ZILOL logo"
-              className="w-36 h-auto object-contain"
+              className="w-36 transition-transform duration-300 hover:scale-105"
             />
           </Link>
 
-          {/* Desktop menu */}
-          <nav className="hidden md:flex items-center gap-8 uppercase font-medium text-gray-700">
+          {/* Desktop Menu */}
+          <nav className="hidden md:flex items-center gap-1 uppercase font-semibold text-gray-800">
             {[t.home, t.about, t.services, t.news, t.contact].map(
               (label, i) => (
                 <Link
                   key={i}
                   to={["/", "/about", "/services", "/news", "/contact"][i]}
-                  className="hover:text-amber-500 transition text-1xl"
+                  className="relative px-4 py-2 rounded-full bg-white/70 hover:bg-amber-400/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
                 >
                   {label}
                 </Link>
@@ -98,22 +97,29 @@ export default function Navbar() {
 
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-2 hover:text-amber-500"
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 hover:bg-amber-400/20 transition"
             >
               <img
                 src={language === "uz" ? "/uzb.jpg" : "/ru.jpg"}
                 alt="lang"
-                className="w-5 h-5"
+                className="w-5 h-5 rounded-full"
               />
               {t.switch}
             </button>
+
+            <Link
+              to="/ariza"
+              className="bg-amber-500 text-white px-5 py-2 rounded-full shadow-lg hover:shadow-amber-400/50 hover:-translate-y-1 transition-all duration-300"
+            >
+              Ariza qoldirish
+            </Link>
           </nav>
 
-          {/* Mobile actions */}
+          {/* Mobile Buttons */}
           <div className="flex items-center gap-2 md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-full hover:bg-amber-400"
+              className="p-2 rounded-full bg-white/70 hover:bg-amber-400/30 transition"
             >
               {isOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
@@ -123,18 +129,18 @@ export default function Navbar() {
                 toggleLanguage();
                 setIsOpen(false);
               }}
-              className="text-sm font-semibold px-3 py-1 rounded-full hover:bg-amber-400 transition"
+              className="text-sm font-semibold px-3 py-1 rounded-full bg-white/70 hover:bg-amber-400/30 transition"
             >
               {t.switch}
             </button>
           </div>
 
-          {/* Logo (mobile) */}
+          {/* Logo Mobile */}
           <Link to="/" className="md:hidden mx-auto">
             <img
               src="/logo.jpg"
               alt="ZILOL logo"
-              className="w-28 h-auto object-contain"
+              className="w-28 transition-transform duration-300 hover:scale-105"
             />
           </Link>
         </div>
@@ -143,29 +149,25 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <div
         ref={mobileMenuRef}
-        className={`fixed top-0 left-0 h-full w-64 z-[9999] transform transition-transform duration-300 ${
+        className={`fixed top-0 left-0 h-full w-72 z-[9999] transform transition-transform duration-500 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-        style={{
-          backgroundImage: "url('/bg-mobil2.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+        } bg-white/95 backdrop-blur-xl shadow-2xl`}
       >
-        <ul className="mt-24 px-6 space-y-6 uppercase font-medium text-gray-800">
+        <ul className="mt-24 px-8 space-y-6 uppercase font-semibold text-gray-800">
           {[t.home, t.about, t.services, t.news, t.contact].map((label, i) => (
             <Link
               key={i}
               to={["/", "/about", "/services", "/news", "/contact"][i]}
               onClick={() => setIsOpen(false)}
-              className="block text-lg hover:text-purple-700"
+              className="block text-lg hover:text-amber-500 transition-all duration-300 hover:translate-x-2"
             >
               {label}
             </Link>
           ))}
         </ul>
       </div>
-    <MobileFab />  
+
+      <MobileFab />
     </>
   );
 }

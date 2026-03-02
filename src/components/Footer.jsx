@@ -3,8 +3,8 @@ import Services from "../components/Services";
 
 function Footer() {
   return (
-    <footer className="w-full  bg-[linear-gradient(135deg,#059669,#4338ca,#7e22ce)] text-white ">
-      <div className=" max-w-1xl mx-auto px-7 grid grid-cols-1 md:grid-cols-2 gap-10  ">
+    <footer className="w-full py-20 bg-[linear-gradient(135deg,#059669,#4338ca,#7e22ce)] text-white ">
+      <div className=" max-w-1xl mx-auto px-7  grid grid-cols-1 md:grid-cols-2 gap-10  ">
         {/* Services bo'limi */}
         <div className="  ">
           <Services />
