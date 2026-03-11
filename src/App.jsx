@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayouts from "./layouts/MainLayouts";
 import Home from "./pages/Home";
 import { LanguageProvider } from "./components/LanguageContext";
 
-// Xizmat sahifalarini import qilish
+// Xizmat sahifalari
 import Gilam from "./pages/services/Gilam";
 import Parda from "./pages/services/Parda";
 import Korpa from "./pages/services/Korpa";
@@ -18,6 +18,9 @@ import Avto from "./pages/services/Avto";
 import Ariza from "./pages/services/Ariza";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  // Router
   const router = createBrowserRouter([
     {
       path: "/",
@@ -25,8 +28,6 @@ function App() {
       errorElement: <div>Marshrut xatosi</div>,
       children: [
         { index: true, element: <Home /> },
-
-        // ⭐ 10 ta xizmat routelari
         { path: "gilam", element: <Gilam /> },
         { path: "parda", element: <Parda /> },
         { path: "korpa", element: <Korpa /> },
@@ -37,11 +38,34 @@ function App() {
         { path: "ofis", element: <Ofis /> },
         { path: "antiseptik", element: <Antiseptik /> },
         { path: "avto", element: <Avto /> },
-        {path:"ariza",element:<Ariza/>}
-
+        { path: "ariza", element: <Ariza /> },
       ],
     },
   ]);
+
+  // Loader
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
+        <div className="text-center">
+          <img
+            src="/lowding.gif"
+            alt="Loading"
+            className="w-full mx-auto mb-4"
+          />
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <LanguageProvider>

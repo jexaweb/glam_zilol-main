@@ -28,7 +28,7 @@ export default function MobileFab() {
 
         {/* Instagram */}
         <a
-          href="https://instagram.com/yourusername"
+          href="https://www.instagram.com/zilolgilam_yuvish?igsh=MXVmZ3p6OTd5b20zdA%3D%3D&utm_source=qr"
           className=" w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-lg hover:scale-110 transition duration-300"
         >
           {/* <img src="/instagram.png" alt="Instagram" className="w-12 h-12" /> */}
@@ -38,82 +38,80 @@ export default function MobileFab() {
 
       {/* ARIZA QOLDIRISH — FAFAQAT MOBIL, CENTERDA */}
  <div className="fixed bottom-6 left-1/2 -translate-x-1/2 lg:hidden z-50">
-  <Link
-    to="/ariza"
+<Link
+  to="/ariza"
+  className="
+    group
+    relative
+    inline-flex
+    items-center
+    justify-center
+    min-w-[130px] sm:min-w-[160px] md:min-w-[180px]
+    min-h-[45px] sm:min-h-[55px]
+    px-4 sm:px-6
+    py-2 sm:py-3
+    text-xs sm:text-sm md:text-base
+    font-bold
+    uppercase
+    tracking-wider
+    text-[#313133]
+    rounded-full
+   bg-yellow-300
+    shadow-[12px_12px_24px_rgba(79,209,197,0.64)]
+    transition-all
+    duration-300
+    hover:-translate-y-2
+    overflow-hidden
+  "
+>
+  Ariza qoldirish
+
+  {/* Hover glow border */}
+  <span
     className="
-      relative
-      inline-flex
-      items-center
-      justify-center
-      min-w-[150px]
-      min-h-[55px]
-px-6
-py-3
-      
-      font-bold
-      uppercase
-      tracking-wider
-      text-[#313133]
+      absolute
+      inset-0
       rounded-full
-      bg-gradient-to-r
-      from-[#eeff00]
-      to-[#eaff00]
-      shadow-[12px_12px_24px_rgba(79,209,197,0.64)]
+      border-[4px] sm:border-[6px]
+      border-[#00FFCB]
+      shadow-[0_0_60px_rgba(0,255,203,0.64)]
+      opacity-0
       transition-all
       duration-300
-      hover:-translate-y-2
-      overflow-hidden
+      group-hover:opacity-100
     "
-  >
-    Ariza qoldirish
+  ></span>
 
-    {/* Hover glow border */}
-    <span
-      className="
-        absolute
-        inset-0
-        rounded-full
-        border-[6px]
-        border-[#00FFCB]
-        shadow-[0_0_60px_rgba(0,255,203,0.64)]
-        opacity-0
-        transition-all
-        duration-300
-        group-hover:opacity-100
-      "
-    ></span>
+  {/* Ring animation */}
+  <span
+    className="
+      absolute
+      w-[20px] sm:w-[30px]
+      h-[20px] sm:h-[30px]
+      rounded-full
+      border-[4px] sm:border-[6px]
+      border-[#00FFCB]
+      animate-[ring_1.5s_infinite]
+    "
+  ></span>
 
-    {/* Ring animation */}
-    <span
-      className="
-        absolute
-        w-[30px]
-        h-[30px]
-        rounded-full
-        border-[6px]
-        border-[#00FFCB]
-        animate-[ring_1.5s_infinite]
-      "
-    ></span>
-
-    {/* Keyframe */}
-    <style>
-      {`
-        @keyframes ring {
-          0% {
-            width: 30px;
-            height: 30px;
-            opacity: 1;
-          }
-          100% {
-            width: 260px;
-            height: 260px;
-            opacity: 0;
-          }
+  <style>
+    {`
+      @keyframes ring {
+        0% {
+          width: 30px;
+          height: 30px;
+          opacity: 1;
         }
-      `}
-    </style>
-  </Link>
+        100% {
+          width: 260px;
+          height: 260px;
+          opacity: 0;
+        }
+      }
+    `}
+  </style>
+</Link>
 </div>
     </>
   );

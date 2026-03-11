@@ -4,6 +4,12 @@ import CarpetComparison from "../components/CarpetComparison";
 import PhoneInput from "../components/PhoneInput";
 import { useLanguage } from "../components/LanguageContext";
 import ServiceCard from "../components/ServiceCard";
+import { AiFillSetting, AiFillStar } from "react-icons/ai";
+import { FaRegCalendarDays, FaUserPlus, FaUsers, FaUsersLine } from "react-icons/fa6";
+import { FaTools } from "react-icons/fa";
+import { IoIosAlarm } from "react-icons/io";
+import CountUp from "../components/CountUp";
+import { BiUserCircle } from "react-icons/bi";
 
 /* ================= ERROR ALERT ================= */
 function ErrorAlert({ message, onClose }) {
@@ -126,12 +132,68 @@ function Home() {
   };
 
   /* ================= SERVICES ================= */
-  const services = [
-    { title: "Gilam yuvish", image: "/images/gilam.jpg", link: "/gilam" },
-    { title: "Parda yuvish", image: "/images/parda.jpg", link: "/parda" },
-    { title: "Mebel yuvish", image: "/images/mebel.jpg", link: "/mebel" },
-    { title: "Matras yuvish", image: "/images/matras.jpg", link: "/matras" },
-  ];
+const services = [
+  { 
+    title: language === "ru" ? "Стирка ковров" : "Gilam yuvish",
+    image: "/gilam.png",
+    link: "/gilam",
+    bgColor: "bg-blue-200"
+  },
+
+  { 
+    title: language === "ru" ? "Чистка мебели" : "Mebel yuvish",
+    image: "/mebel2.png",
+    link: "/mebel1"
+  },
+
+  { 
+    title: language === "ru" ? "Стирка штор" : "Parda yuvish",
+    image: "/images/parda.jpg",
+    link: "/parda"
+  },
+
+  { 
+    title: language === "ru" ? "Стирка дорожек" : "Yakkandoz yuvish",
+    image: "/images/yakkandoz.jpg",
+    link: "/yakkandoz"
+  },
+
+  { 
+    title: language === "ru" ? "Стирка одеял" : "Ko‘rpa yuvish",
+    image: "/images/korpa.jpg",
+    link: "/korpa"
+  },
+
+  { 
+    title: language === "ru" ? "Чистка матрасов" : "Matras yuvish",
+    image: "/images/matras.jpg",
+    link: "/matras"
+  },
+
+  { 
+    title: language === "ru" ? "Чистка на месте" : "Joyida yuvish",
+    image: "/images/kovrolin.jpg",
+    link: "/kovrolin"
+  },
+
+  { 
+    title: language === "ru" ? "Чистка игрушек" : "O‘yinchoqlar yuvish",
+    image: "/images/ofis.jpg",
+    link: "/ofis"
+  },
+
+  { 
+    title: language === "ru" ? "Стирка подушек" : "Yostiqlar yuvish",
+    image: "/images/antiseptik.jpg",
+    link: "/antiseptik"
+  },
+
+  { 
+    title: language === "ru" ? "Стирка авто чехлов" : "Avto chixol yuvish",
+    image: "/images/avto.jpg",
+    link: "/avto"
+  }
+];
 
   return (
     <div className="pt-10">
@@ -140,7 +202,7 @@ function Home() {
 
       {/* ================= MODAL ================= */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 ">
           <form
             ref={formRef}
             onSubmit={sendEmail}
@@ -259,13 +321,182 @@ function Home() {
           </div>
         ))}
       </section>
+<section className="pb-20 pt-20 bg-white bg-[url('/bg3.jpg')] bg-no-repeat bg-right bg-cover">
+  <div className="max-w-7xl mx-auto px-1">
+
+    {/* Title */}
+    <div className="text-center mb-12">
+     
+      <h2 className="text-3xl md:text-4xl font-bold mb-4">
+         Nega aynan bizni tanlashadi?
+      </h2>
+       <div className="w-24 h-1 bg-yellow-400 mx-auto mb-4"></div>
+      <p className="text-gray-600 max-w-2xl mx-auto">
+        Biz mijozlarimizga xuddi o‘zimizga xizmat ko‘rsatayotgandek yondashamiz.
+        Ularning fikr-mulohazalarini qadrlaymiz va xizmat sifatini doimiy ravishda yaxshilaymiz.
+      </p>
+    </div>
+
+    {/* Content */}
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-center">
+
+      {/* Left Side */}
+      <div className="space-y-8">
+        <div className="flex  col-auto gap-4">
+    
+          <AiFillStar  className="text-white text-1xl w-30 h-30   border-2 bg-yellow-400 hover:bg-black " />
+
+          <div>
+            <h4 className="text-lg font-semibold mb-2">
+                  Eng yaxshi tozalash yechimlari
+            </h4>
+            <p className="text-gray-600">
+            Biz har bir buyurtmaga mas’uliyat bilan yondashamiz va mijozlarimiz
+            mamnunligi uchun sifatni birinchi o‘ringa qo‘yamiz.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-4">
+         <FaUsersLine className="text-white text-1xl w-30 h-30   border-2 bg-yellow-400  hover:bg-black" />
+          <div>
+            <h4 className="text-lg font-semibold mb-2">
+                Malakali mutaxassislar
+            </h4>
+            <p className="text-gray-600">
+                   Xodimlarimiz zamonaviy texnologiyalar bo‘yicha doimiy ravishda
+            o‘qitiladi va yuqori standart asosida xizmat ko‘rsatadi.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Center Image */}
+      <div className="">
+        <img
+          src="/bg-imgse.jpg"
+          alt="Service Man"
+          className="rounded-xl w-110 h-110  "
+        />
+      </div>
+
+      {/* Right Side */}
+      <div className="space-y-8">
+        <div className="flex items-start gap-4">
+         <FaTools className="text-white text-1xl w-21 h-28 p-2  border-2 bg-yellow-400  hover:bg-black" />
+          <div>
+            <h4 className="text-lg font-semibold mb-2">
+              Zamonaviy uskunalar
+            </h4>
+            <p className="text-gray-600">
+                        Ekologik xavfsiz va samarali tozalash vositalaridan foydalanamiz,
+            natijada mukammal tozalikka erishamiz.
+
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-4">
+      <IoIosAlarm className="text-white w-15 h-29 p-2 bg-yellow-400 hover:bg-black " />
+          <div>
+            <h4 className="text-lg font-semibold mb-2">
+            24/7 qo‘llab-quvvatlash
+            </h4>
+            <p className="text-gray-600">
+             Bizning call-markazimiz kecha-kunduz ishlaydi va tezkor javob beradi.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section className="px-5 py-24 bg-[url('/bg-imgs.jpg')] bg-cover bg-center bg-black/60 bg-blend-darken">
+  <div className="max-w-7xl mx-auto">
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+      {/* Card 1 */}
+      <div className="group border-2 border-dashed border-amber-400 rounded-2xl p-8 text-center hover:scale-105 transition duration-300 backdrop-blur-md">
+        
+        <div className="flex justify-center mb-5">
+          <div className="w-16 h-16 flex items-center justify-center rounded-full bg-yellow-400/20 group-hover:bg-yellow-400 transition ">
+            <FaUsers className="text-yellow-400 group-hover:text-black w-8 h-8 transition"/>
+          </div>
+        </div>
+
+        <h3 className="text-white text-4xl font-bold mb-2">
+          <CountUp to={10000} duration={2} separator="," />+
+        </h3>
+
+        <p className="text-gray-300 text-3xl">
+          Mijozlar
+        </p>
+      </div>
+
+      {/* Card 2 */}
+      <div className="group border-2 border-dashed border-amber-400 rounded-2xl p-8 text-center hover:scale-105 transition duration-300">
+         <div className="flex justify-center mb-5">
+           <div className="w-16 h-16 flex items-center justify-center rounded-full bg-yellow-400/20 group-hover:bg-yellow-400 transition ">
+         <FaRegCalendarDays className="text-yellow-400 group-hover:text-black w-8 h-8 transition "  />
+          </div>
+          </div>
+       
+        <h3 className="text-white text-4xl font-bold mb-2">
+          <CountUp to={8} duration={2} separator="," />-yilk
+        </h3>
+
+        <p className="text-gray-300 text-4xl">
+          Tajriba
+        </p>
+      </div>
+
+      {/* Card 3 */}
+      <div className="group border-2 border-dashed border-amber-400 rounded-2xl p-8 text-center hover:scale-105 transition duration-300 backdrop-blur-md">
+          <div className="flex justify-center mb-5">
+           <div className="w-16 h-16 flex items-center justify-center rounded-full bg-yellow-400/20 group-hover:bg-yellow-400 transition ">
+         <AiFillSetting className="text-yellow-400 group-hover:text-black w-8 h-8 transition "  />
+          </div>
+          </div>
+        <h3 className="text-white text-4xl font-bold mb-2">
+          <CountUp to={12} duration={2} separator="," />-xil
+        </h3>
+
+        <p className="text-gray-300 text-4xl">
+          Xizmatlar
+        </p>
+      </div>
+
+      {/* Card 4 */}
+      <div className="group border-2 border-dashed border-amber-400 rounded-2xl p-8 text-center hover:scale-105 transition duration-300">
+            <div className="flex justify-center mb-5">
+           <div className="w-16 h-16 flex items-center justify-center rounded-full bg-yellow-400/20 group-hover:bg-yellow-400 transition ">
+         <BiUserCircle className="text-yellow-400 group-hover:text-black w-8 h-8 transition "  />
+          </div>
+          </div>
+        <h3 className="text-white text-4xl font-bold mb-2">
+          <CountUp to={300} duration={2} separator="," />-Ortiq
+        </h3>
+
+        <p className="text-gray-300 text-4xl">
+           Malakali mutaxassislar
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
 
       {/* ================= SERVICES ================= */}
-      <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 bg-gray-700">
-        {services.map((s, i) => (
-          <ServiceCard key={i} {...s} />
-        ))}
-      </div>
+  <div className="grid p-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+  {services.map((service, index) => (
+    <ServiceCard key={index} {...service} />
+  ))}
+</div>
 
       <CarpetComparison />
 
