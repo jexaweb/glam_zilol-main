@@ -9,7 +9,7 @@ function ServiceCard({ title, image, link, bgColor = "bg-white" }) {
         shadow-md 
         transition-all duration-500 ease-out
         hover:-translate-y-2 hover:shadow-2xl
-        
+      
         ${bgColor}
       `}
     >

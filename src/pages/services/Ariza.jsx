@@ -1,189 +1,259 @@
 import React, { useState } from "react";
-import emailjs from "@emailjs/browser";
 
 export default function Ariza() {
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    service: "",
-      quantity: "", 
-    tariff: "",
-    address: "",
-    note: "",
+
+const serviceData = {
+  "Gilam yuvish": {
+    unit: "m²",
+    tariffs: {
+      Standart: 8000,
+      Premium: 15000,
+      VIP: 25000,
+    },
+  },
+
+  "Parda yuvish": {
+    unit: "kg",
+    tariffs: {
+      Standart: 20000,
+      Premium: 30000,
+    },
+  },
+};
+
+const [form, setForm] = useState({
+  name: "",
+  phone: "",
+  address: "",
+  note: "",
+});
+
+const [selectedServices, setSelectedServices] = useState({});
+
+const toggleService = (service) => {
+
+  const updated = { ...selectedServices };
+
+  if (updated[service]) {
+    delete updated[service];
+  } else {
+    updated[service] = { tariff: "", quantity: "" };
+  }
+
+  setSelectedServices(updated);
+};
+
+const handleServiceChange = (service, field, value) => {
+
+  setSelectedServices({
+    ...selectedServices,
+    [service]: {
+      ...selectedServices[service],
+      [field]: value,
+    },
   });
 
-  const [loading, setLoading] = useState(false);
+};
 
-  const services = [
-    "Gilam yuvish",
-    "Yakkandoz yuvish",
-    "Parda yuvish",
-    "Ko‘rpa yuvish",
-    "Mebel yuvish",
-    "O‘rindiq yuvish",
-    "Kovrolin yuvish",
-    "Pol yuvish",
-    "Deraza tozalash",
-    "Ofis tozalash",
-  ];
+const sendTelegram = async () => {
 
-  const tariffs = ["Standart", "Premium", "VIP"];
+let message = `🧼 Yangi ariza
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+👤 Ism: ${form.name}
+📞 Telefon: ${form.phone}
+📍 Manzil: ${form.address}
 
-  const getLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const loc = `Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude}`;
-        setFormData({ ...formData, address: loc });
-      });
-    } else {
-      alert("Geolocation ishlamayapti");
-    }
-  };
+`;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
+Object.entries(selectedServices).forEach(
+([service, data], index) => {
 
-    emailjs
-      .send(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
-        formData,
-        "YOUR_PUBLIC_KEY"
-      )
-      .then(() => {
-        alert("Ariza muvaffaqiyatli yuborildi ✅");
-        setFormData({
-          name: "",
-          phone: "",
-          service: "",
-          tariff: "",
-          address: "",
-          note: "",
-        });
-      })
-      .catch(() => {
-        alert("Xatolik yuz berdi ❌");
-      })
-      .finally(() => setLoading(false));
-  };
+const price = serviceData[service].tariffs[data.tariff];
+const unit = serviceData[service].unit;
 
-  return (
-    <div className="min-h-screen mt-10 bg-gray-100 flex items-center justify-center p-4">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl p-8 space-y-6"
-      >
-        <h2 className="text-2xl font-bold text-center text-gray-800">
-          Ariza qoldirish
-        </h2>
+message += `${index + 1}️⃣ Xizmat: ${service} - ${data.tariff} ${price.toLocaleString()} so'm / 1 ${unit} - Soni: ${data.quantity} ta
 
-        {/* Ism */}
-        <input
-          type="text"
-          name="name"
-          placeholder="Ismingiz"
-          value={formData.name}
-          onChange={handleChange}
-          required
-          className="w-full border p-3 rounded-xl focus:ring-2 focus:ring-amber-400 outline-none"
-        />
+`;
 
-        {/* Telefon */}
-        <input
-          type="tel"
-          name="phone"
-          placeholder="Telefon raqam"
-          value={formData.phone}
-          onChange={handleChange}
-          required
-          className="w-full border p-3 rounded-xl focus:ring-2 focus:ring-amber-400 outline-none"
-        />
+}
+);
 
-        {/* Xizmat */}
-        <select
-          name="service"
-          value={formData.service}
-          onChange={handleChange}
-          required
-          className="w-full border p-3 rounded-xl focus:ring-2 focus:ring-amber-400 outline-none"
-        >
-          <option value="">Xizmat tanlang</option>
-          {services.map((s, i) => (
-            <option key={i} value={s}>
-              {s}
-            </option>
-          ))}
-        </select>
+message += `✏️ Izoh: ${form.note}`;
+
+await fetch(
+"https://api.telegram.org/botBOT_TOKEN/sendMessage",
+{
+method: "POST",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify({
+chat_id: "CHAT_ID",
+text: message,
+}),
+}
+);
+
+};
+
+const handleSubmit = (e) => {
+
+e.preventDefault();
+sendTelegram();
+alert("Ariza yuborildi ✅");
+
+};
+
+return (
+
+<section className="min-h-screen bg-gray-100 flex justify-center items-center p-6">
+
+<form
+onSubmit={handleSubmit}
+className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-xl space-y-5"
+>
+
+<h2 className="text-3xl font-bold text-center">
+Ariza qoldirish
+</h2>
+
 <input
-  type="number"
-  name="quantity"
-  placeholder="Nechta? (masalan 3 ta)"
-  value={formData.quantity}
-  onChange={handleChange}
-  min="1"
-  required
-  className="w-full border p-3 rounded-xl focus:ring-2 focus:ring-amber-400 outline-none"
+className="input"
+placeholder="Ismingiz"
+required
+onChange={(e) =>
+setForm({ ...form, name: e.target.value })
+}
 />
-        {/* Tarif */}
-        <select
-          name="tariff"
-          value={formData.tariff}
-          onChange={handleChange}
-          required
-          className="w-full border p-3 rounded-xl focus:ring-2 focus:ring-amber-400 outline-none"
-        >
-          <option value="">Tarif tanlang</option>
-          {tariffs.map((t, i) => (
-            <option key={i} value={t}>
-              {t}
-            </option>
-          ))}
-        </select>
 
-        {/* Lokatsiya */}
-        <div className="flex gap-3">
-          <input
-            type="text"
-            name="address"
-            placeholder="Manzil (Lokatsiya)"
-            value={formData.address}
-            onChange={handleChange}
-            required
-            className="w-full border p-3 rounded-xl focus:ring-2 focus:ring-amber-400 outline-none"
-          />
-          <button
-            type="button"
-            onClick={getLocation}
-            className="bg-blue-500 text-white px-4 rounded-xl hover:bg-blue-600 transition"
-          >
-            Lokatsiya
-          </button>
-        </div>
+<input
+className="input"
+placeholder="Telefon"
+required
+onChange={(e) =>
+setForm({ ...form, phone: e.target.value })
+}
+/>
 
-        {/* Izoh */}
-        <textarea
-          name="note"
-          placeholder="Izoh"
-          value={formData.note}
-          onChange={handleChange}
-          rows="4"
-          className="w-full border p-3 rounded-xl focus:ring-2 focus:ring-amber-400 outline-none"
-        />
+{/* xizmatlar */}
 
-        {/* Submit */}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-amber-500 text-white py-3 rounded-xl font-semibold hover:bg-amber-600 transition"
-        >
-          {loading ? "Yuborilmoqda..." : "Ariza yuborish"}
-        </button>
-      </form>
-    </div>
-  );
+<div className="space-y-2">
+
+<p className="font-semibold">Xizmatlar:</p>
+
+{Object.keys(serviceData).map((service) => (
+
+<label key={service} className="flex gap-2 items-center">
+
+<input
+type="checkbox"
+onChange={() => toggleService(service)}
+/>
+
+{service}
+
+</label>
+
+))}
+
+</div>
+
+{/* xizmat sozlamalari */}
+
+{Object.entries(selectedServices).map(
+([service, data], index) => (
+
+<div key={service} className="border p-4 rounded-xl space-y-2">
+
+<p className="font-semibold">{service}</p>
+
+<select
+className="input"
+onChange={(e) =>
+handleServiceChange(
+service,
+"tariff",
+e.target.value
+)
+}
+>
+
+<option>Tarif tanlang</option>
+
+{Object.entries(serviceData[service].tariffs).map(
+([name, price]) => (
+
+<option key={name} value={name}>
+
+{name} - {price.toLocaleString()} so'm / 1{" "}
+{serviceData[service].unit}
+
+</option>
+
+)
+)}
+
+</select>
+
+<input
+type="number"
+className="input"
+placeholder={`Soni (${serviceData[service].unit})`}
+onChange={(e) =>
+handleServiceChange(
+service,
+"quantity",
+e.target.value
+)
+}
+/>
+
+{/* preview */}
+
+{data.tariff && data.quantity && (
+
+<div className="bg-yellow-50 border p-2 rounded">
+
+{index + 1}️⃣ Xizmat: {service} - {data.tariff}{" "}
+{serviceData[service].tariffs[
+data.tariff
+].toLocaleString()} so'm / 1{" "}
+{serviceData[service].unit} - Soni: {data.quantity} ta
+
+</div>
+
+)}
+
+</div>
+
+)
+)}
+
+<input
+className="input"
+placeholder="Manzil"
+required
+onChange={(e) =>
+setForm({ ...form, address: e.target.value })
+}
+/>
+
+<textarea
+className="input"
+placeholder="Izoh"
+onChange={(e) =>
+setForm({ ...form, note: e.target.value })
+}
+/>
+
+<button className="w-full bg-amber-500 text-white py-3 rounded-xl font-semibold">
+
+Ariza yuborish
+
+</button>
+
+</form>
+
+</section>
+
+);
+
 }

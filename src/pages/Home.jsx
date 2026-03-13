@@ -142,56 +142,65 @@ const services = [
 
   { 
     title: language === "ru" ? "Чистка мебели" : "Mebel yuvish",
-    image: "/mebel2.png",
-    link: "/mebel1"
+    image: "/mebel.png",
+    link: "/mebel1",
+    bgColor: "bg-blue-200"
   },
 
   { 
     title: language === "ru" ? "Стирка штор" : "Parda yuvish",
-    image: "/images/parda.jpg",
-    link: "/parda"
+    image: "/parda.png",
+    link: "/parda",
+     bgColor: "bg-blue-200",
   },
 
   { 
     title: language === "ru" ? "Стирка дорожек" : "Yakkandoz yuvish",
-    image: "/images/yakkandoz.jpg",
-    link: "/yakkandoz"
+    image: "/yakandoz.png",
+    link: "/yakkandoz",
+    bgColor: "bg-blue-200",
   },
 
   { 
     title: language === "ru" ? "Стирка одеял" : "Ko‘rpa yuvish",
-    image: "/images/korpa.jpg",
-    link: "/korpa"
+    image: "/korpa1.png",
+    link: "/korpa",
+    bgColor: "bg-blue-200",
   },
 
   { 
     title: language === "ru" ? "Чистка матрасов" : "Matras yuvish",
-    image: "/images/matras.jpg",
-    link: "/matras"
+    image: "/matras.png",
+    link: "/matras",
+      bgColor: "bg-blue-200",
   },
 
   { 
     title: language === "ru" ? "Чистка на месте" : "Joyida yuvish",
-    image: "/images/kovrolin.jpg",
-    link: "/kovrolin"
+    image: "/joyda.png",
+    link: "/kovrolin",
+    bgColor: "bg-blue-200"
   },
 
   { 
     title: language === "ru" ? "Чистка игрушек" : "O‘yinchoqlar yuvish",
-    image: "/images/ofis.jpg",
-    link: "/ofis"
+    image: "/oyinchoqlar1.png",
+    link: "/ofis",
+    bgColor: "bg-blue-200"
   },
 
   { 
     title: language === "ru" ? "Стирка подушек" : "Yostiqlar yuvish",
-    image: "/images/antiseptik.jpg",
-    link: "/antiseptik"
+    image: "/yostiq.png",
+    link: "/antiseptik",
+    bgColor: "bg-blue-200"
   },
 
   { 
     title: language === "ru" ? "Стирка авто чехлов" : "Avto chixol yuvish",
-    image: "/images/avto.jpg",
-    link: "/avto"
+    image: "/avto.png",
+    link: "/avto",
+    bgColor: "bg-blue-200"
   }
 ];
 
@@ -478,7 +487,7 @@ const services = [
           </div>
           </div>
         <h3 className="text-white text-4xl font-bold mb-2">
-          <CountUp to={300} duration={2} separator="," />-Ortiq
+          <CountUp to={300} duration={2} separator="," />+
         </h3>
 
         <p className="text-gray-300 text-4xl">
@@ -492,11 +501,24 @@ const services = [
 </section>
 
       {/* ================= SERVICES ================= */}
-  <div className="grid p-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+<section className=" bg-[url('/bg3.jpg')] bg-no-repeat bg-right bg-cover pt-10 pb-10">
+ <h2 className="mx-auto mb-10  flex items-center justify-center w-44 h-12 
+bg-indigo-500 text-white font-bold text-lg rounded-xl 
+border-b-4 border-amber-400 shadow-lg 
+hover:bg-indigo-700 transition">
+  Xizmatlar
+</h2> 
+<h3 className="max-w-3xl mx-auto text-center text-gray-700 text-lg leading-relaxed mt-4 px-4 font-medium">
+  Xonadoningizda <span className="text-indigo-600 font-semibold">poklik</span>  
+      va <span className="text-amber-500 font-semibold">qulaylik</span> ni ta’minlash uchun 
+  tajribali jamoamiz tomonidan professional xizmatlar ko‘rsatamiz.
+</h3>
+<div className="grid p-6 pt-20 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+
   {services.map((service, index) => (
     <ServiceCard key={index} {...service} />
   ))}
-</div>
+</div></section>
 
       <CarpetComparison />
 

@@ -131,3 +131,15 @@ button {
   animation: slideUp 0.8s ease-out forwards;
 }
 
+.input{
+width:100%;
+padding:12px;
+border:1px solid #ddd;
+border-radius:12px;
+outline:none;
+}
+
+.input:focus{
+border-color:#f59e0b;
+box-shadow:0 0 0 2px #fde68a;
+}
