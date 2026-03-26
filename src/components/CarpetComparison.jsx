@@ -1,7 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-import { FcInTransit } from "react-icons/fc";
-import { CgSmartHomeWashMachine } from "react-icons/cg";
-import { useLanguage } from "./LanguageContext";
 
 export default function CarpetComparison() {
   const containerRef = useRef(null);
