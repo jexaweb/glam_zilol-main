@@ -116,10 +116,10 @@ export default function Navbar() {
           </nav>
 
           {/* Mobile Buttons */}
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-2 md:hidden ">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-full bg-white/70 hover:bg-amber-400/30 transition"
+              className="p-2 rounded-full bg-white/70 hover:bg-amber-400/30 transition text-black"
             >
               {isOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
@@ -129,7 +129,7 @@ export default function Navbar() {
                 toggleLanguage();
                 setIsOpen(false);
               }}
-              className="text-sm font-semibold px-3 py-1 rounded-full bg-white/70 hover:bg-amber-400/30 transition"
+              className="text-sm font-semibold px-3 py-1 rounded-full bg-white/70 hover:bg-amber-400/30 transition text-black"
             >
               {t.switch}
             </button>

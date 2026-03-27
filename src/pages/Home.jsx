@@ -236,19 +236,19 @@ const [activeVideo, setActiveVideo] = useState(null);
   const videos = [
   {
     video: "/videos/gilam1.mp4",
-    img: "https://picsum.photos/300/500?1",
+    img: "/zilolclengi.png",
   },
   {
-    video: "https://www.youtube.com/embed/1OrSZR0aaAE",
-    img: "https://picsum.photos/300/500?2",
+    video: "/videos/gilam.mp4",
+    img: "/zilolclengi.1.png",
   },
   {
-    video: "https://www.youtube.com/embed/1OrSZR0aaAE",
-    img: "https://picsum.photos/300/500?3",
+    video: "/videos/mebel.mp4",
+    img: "/zilolclengi.2.png",
   },
   {
-    video: "https://www.youtube.com/embed/1OrSZR0aaAE",
-    img: "https://picsum.photos/300/500?4",
+    video: "/videos/yakandoz.mp4",
+    img: "/zilolclengi.3.png",
   },
 ];
 
@@ -674,7 +674,7 @@ hover:bg-indigo-700 transition">
             {/* IMAGE */}
             <img
               src={item.img}
-              className="w-full aspect-[9/16] object-cover group-hover:scale-105 transition duration-300"
+              className="w-full aspect-[9/16]  group-hover:scale-105 transition duration-300"
             />
 
             {/* PLAY ICON */}
