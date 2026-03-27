@@ -67,7 +67,7 @@ export default function Navbar() {
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           isSticky
             ? "bg-white/90 backdrop-blur-md shadow-xl"
-            : "bg-white/40 backdrop-blur-md"
+            : "bg-white backdrop-blur-md"
         }`}
       >
         <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
@@ -111,7 +111,7 @@ export default function Navbar() {
               to="/ariza"
               className="bg-amber-500 text-white px-5 py-2 rounded-full shadow-lg hover:shadow-amber-400/50 hover:-translate-y-1 transition-all duration-300"
             >
-              Ariza qoldirish
+              Bururtma qoldirish
             </Link>
           </nav>
 

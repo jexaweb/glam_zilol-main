@@ -4,21 +4,45 @@ export default function Ariza() {
 
 const serviceData = {
   "Gilam yuvish": {
-    unit: "m²",
+    unit: "dona",
     tariffs: {
-      Standart: 8000,
-      Premium: 15000,
       VIP: 25000,
+      Premium: 15000,
+      Standart: 8000,
     },
   },
 
+  "Mebel yuvish": { unit: "dona" },
+
   "Parda yuvish": {
-    unit: "kg",
+    unit: "dona",
     tariffs: {
       Standart: 20000,
       Premium: 30000,
     },
   },
+
+  "Yakkandoz yuvish": {
+    unit: "dona",
+    tariffs: {
+      Standart: 10000,
+      Premium: 15000,
+    },
+  },
+
+  "Ko'rpa yuvish": {
+    unit: "dona",
+    tariffs: {
+      Standart: 15000,
+      Premium: 25000,
+    },
+  },
+
+  "Matras yuvish": { unit: "dona" },
+  "Joyida yuvish": { unit: "dona" },
+  "O'yinchoqlar yuvish": { unit: "dona" },
+  "Yostiqlar yuvish": { unit: "dona" },
+  "Avto chixol yuvish": { unit: "dona" },
 };
 
 const [form, setForm] = useState({
@@ -65,86 +89,119 @@ let message = `🧼 Yangi ariza
 
 `;
 
-Object.entries(selectedServices).forEach(
-([service, data], index) => {
+Object.entries(selectedServices).forEach(([service, data], index) => {
 
-const price = serviceData[service].tariffs[data.tariff];
 const unit = serviceData[service].unit;
 
-message += `${index + 1}️⃣ Xizmat: ${service} - ${data.tariff} ${price.toLocaleString()} so'm / 1 ${unit} - Soni: ${data.quantity} ta
+if (serviceData[service].tariffs && data.tariff) {
+
+const price = serviceData[service].tariffs[data.tariff];
+
+message += `${index + 1}️⃣ ${service}
+Tarif: ${data.tariff}
+${price.toLocaleString()} so'm / 1 ${unit}
+Soni: ${data.quantity}
+
+`;
+
+} else {
+
+message += `${index + 1}️⃣ ${service}
+Soni: ${data.quantity} ${unit}
 
 `;
 
 }
-);
+
+});
 
 message += `✏️ Izoh: ${form.note}`;
 
-await fetch(
-"https://api.telegram.org/botBOT_TOKEN/sendMessage",
-{
+await fetch("https://api.telegram.org/bot8789952135:AAEq5VuGMUAa7b094Les1nJm1DCnvM_TaK0/sendMessage", {
 method: "POST",
 headers: { "Content-Type": "application/json" },
 body: JSON.stringify({
-chat_id: "CHAT_ID",
+chat_id: "6904234957",
 text: message,
 }),
-}
-);
+});
 
 };
 
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
 
 e.preventDefault();
-sendTelegram();
+
+// xizmat tanlangan bo‘lsa soni kiritilganini tekshiradi
+for (const service in selectedServices) {
+  if (!selectedServices[service].quantity) {
+    alert(`${service} uchun sonini kiriting ❗`);
+    return;
+  }
+}
+
+await sendTelegram();
+
 alert("Ariza yuborildi ✅");
 
+// formni tozalash
+setForm({
+  name: "",
+  phone: "",
+  address: "",
+  note: "",
+});
+
+setSelectedServices({});
 };
 
 return (
 
-<section className="min-h-screen bg-gray-100 flex justify-center items-center p-6">
+<section className="min-h-screen bg-gray-100 flex justify-center items-center p-3 mt-20 sm:p-6">
 
 <form
 onSubmit={handleSubmit}
-className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-xl space-y-5"
+className="bg-white p-5 sm:p-8 rounded-2xl shadow-xl w-full max-w-xl space-y-5"
 >
 
-<h2 className="text-3xl font-bold text-center">
-Ariza qoldirish
+<h2 className="text-2xl sm:text-3xl font-bold text-center">
+Bururtma qoldirish
 </h2>
 
 <input
-className="input"
+className="input w-full"
 placeholder="Ismingiz"
 required
-onChange={(e) =>
-setForm({ ...form, name: e.target.value })
-}
+value={form.name}
+onChange={(e) => setForm({ ...form, name: e.target.value })}
 />
 
 <input
-className="input"
+className="input w-full"
 placeholder="Telefon"
 required
-onChange={(e) =>
-setForm({ ...form, phone: e.target.value })
-}
+value={form.phone}
+onChange={(e) => setForm({ ...form, phone: e.target.value })}
 />
 
-{/* xizmatlar */}
-
-<div className="space-y-2">
+<div className="space-y-3">
 
 <p className="font-semibold">Xizmatlar:</p>
 
-{Object.keys(serviceData).map((service) => (
+{Object.keys(serviceData).map((service) => {
 
-<label key={service} className="flex gap-2 items-center">
+const selected = selectedServices[service];
+const hasTariff = serviceData[service].tariffs;
+
+return (
+
+<div key={service} className="border p-3 sm:p-4 rounded-xl">
+
+<label className="flex gap-2 items-center text-sm sm:text-base">
 
 <input
 type="checkbox"
+checked={!!selected}
 onChange={() => toggleService(service)}
 />
 
@@ -152,102 +209,75 @@ onChange={() => toggleService(service)}
 
 </label>
 
-))}
+{selected && (
 
-</div>
+<div className="mt-3 space-y-2">
 
-{/* xizmat sozlamalari */}
-
-{Object.entries(selectedServices).map(
-([service, data], index) => (
-
-<div key={service} className="border p-4 rounded-xl space-y-2">
-
-<p className="font-semibold">{service}</p>
+{hasTariff && (
 
 <select
-className="input"
+className="input w-full"
 onChange={(e) =>
-handleServiceChange(
-service,
-"tariff",
-e.target.value
-)
+handleServiceChange(service,"tariff",e.target.value)
 }
 >
 
-<option>Tarif tanlang</option>
+<option>Narx bo'yicha</option>
 
-{Object.entries(serviceData[service].tariffs).map(
-([name, price]) => (
+{Object.entries(serviceData[service].tariffs).map(([name, price]) => (
 
 <option key={name} value={name}>
-
-{name} - {price.toLocaleString()} so'm / 1{" "}
-{serviceData[service].unit}
-
+{name} - {price.toLocaleString()} so'm / 1 {serviceData[service].unit}
 </option>
 
-)
-)}
+))}
 
 </select>
 
+)}
+
 <input
 type="number"
-className="input"
+className="input w-full"
 placeholder={`Soni (${serviceData[service].unit})`}
 onChange={(e) =>
-handleServiceChange(
-service,
-"quantity",
-e.target.value
-)
+handleServiceChange(service,"quantity",e.target.value)
 }
 />
 
-{/* preview */}
-
-{data.tariff && data.quantity && (
-
-<div className="bg-yellow-50 border p-2 rounded">
-
-{index + 1}️⃣ Xizmat: {service} - {data.tariff}{" "}
-{serviceData[service].tariffs[
-data.tariff
-].toLocaleString()} so'm / 1{" "}
-{serviceData[service].unit} - Soni: {data.quantity} ta
-
 </div>
 
 )}
 
 </div>
 
-)
-)}
+);
+
+})}
+
+</div>
 
 <input
-className="input"
+className="input w-full"
 placeholder="Manzil"
 required
+value={form.address}
 onChange={(e) =>
 setForm({ ...form, address: e.target.value })
 }
 />
 
 <textarea
-className="input"
+className="input w-full"
 placeholder="Izoh"
+value={form.note}
 onChange={(e) =>
 setForm({ ...form, note: e.target.value })
 }
 />
 
-<button className="w-full bg-amber-500 text-white py-3 rounded-xl font-semibold">
-
+<button className="w-full bg-amber-500 hover:bg-amber-600 transition text-white py-3 rounded-xl font-semibold">
 Ariza yuborish
-
 </button>
 
 </form>

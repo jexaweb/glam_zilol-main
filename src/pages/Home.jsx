@@ -25,8 +25,34 @@ function ErrorAlert({ message, onClose }) {
   );
 }
 
+
+
 function Home() {
   const { language } = useLanguage();
+   const [active, setActive] = useState(0);
+  /* ================= faq-data ================= */
+     const data = [
+    {
+      q: "How do I create an account?",
+      a: "Click the Sign Up button and follow the registration process."
+    },
+    {
+      q: "I forgot my password. What should I do?",
+      a: "Use the Forgot Password option and follow the steps sent to your email."
+    },
+    {
+      q: "How do I update my profile?",
+      a: "Go to account settings and edit your profile information."
+    },
+      {
+      q: "How do I update my profile?",
+      a: "Go to account settings and edit your profile information."
+    },  {
+      q: "How do I update my profile?",
+      a: "Go to account settings and edit your profile information."
+    }
+  ];
+
 
   /* ================= SLIDES ================= */
   const slides = [
@@ -144,14 +170,14 @@ const services = [
     title: language === "ru" ? "Чистка мебели" : "Mebel yuvish",
     image: "/mebel.png",
     link: "/mebel1",
-    bgColor: "bg-blue-200"
+    bgColor: "bg-blue-400"
   },
 
   { 
     title: language === "ru" ? "Стирка штор" : "Parda yuvish",
     image: "/parda.png",
     link: "/parda",
-     bgColor: "bg-blue-200",
+     bgColor: "bg-indigo-600",
   },
 
   { 
@@ -204,6 +230,29 @@ const services = [
   }
 ];
 
+
+const [activeVideo, setActiveVideo] = useState(null);
+
+  const videos = [
+  {
+    video: "/videos/gilam1.mp4",
+    img: "https://picsum.photos/300/500?1",
+  },
+  {
+    video: "https://www.youtube.com/embed/1OrSZR0aaAE",
+    img: "https://picsum.photos/300/500?2",
+  },
+  {
+    video: "https://www.youtube.com/embed/1OrSZR0aaAE",
+    img: "https://picsum.photos/300/500?3",
+  },
+  {
+    video: "https://www.youtube.com/embed/1OrSZR0aaAE",
+    img: "https://picsum.photos/300/500?4",
+  },
+];
+
+
   return (
     <div className="pt-10">
 
@@ -211,7 +260,7 @@ const services = [
 
       {/* ================= MODAL ================= */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 ">
+        <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50  ">
           <form
             ref={formRef}
             onSubmit={sendEmail}
@@ -336,7 +385,7 @@ const services = [
     {/* Title */}
     <div className="text-center mb-12">
      
-      <h2 className="text-3xl md:text-4xl font-bold mb-4">
+      <h2 className=" text-3xl md:text-4xl font-bold mb-4 text-gray-800">
          Nega aynan bizni tanlashadi?
       </h2>
        <div className="w-24 h-1 bg-yellow-400 mx-auto mb-4"></div>
@@ -356,7 +405,7 @@ const services = [
           <AiFillStar  className="text-white text-1xl w-30 h-30   border-2 bg-yellow-400 hover:bg-black " />
 
           <div>
-            <h4 className="text-lg font-semibold mb-2">
+            <h4 className="text-lg font-semibold mb-2 text-black">
                   Eng yaxshi tozalash yechimlari
             </h4>
             <p className="text-gray-600">
@@ -369,7 +418,7 @@ const services = [
         <div className="flex items-start gap-4">
          <FaUsersLine className="text-white text-1xl w-30 h-30   border-2 bg-yellow-400  hover:bg-black" />
           <div>
-            <h4 className="text-lg font-semibold mb-2">
+            <h4 className="text-lg font-semibold mb-2 text-black">
                 Malakali mutaxassislar
             </h4>
             <p className="text-gray-600">
@@ -394,7 +443,7 @@ const services = [
         <div className="flex items-start gap-4">
          <FaTools className="text-white text-1xl w-21 h-28 p-2  border-2 bg-yellow-400  hover:bg-black" />
           <div>
-            <h4 className="text-lg font-semibold mb-2">
+            <h4 className="text-lg font-semibold mb-2 text-black">
               Zamonaviy uskunalar
             </h4>
             <p className="text-gray-600">
@@ -408,7 +457,7 @@ const services = [
         <div className="flex items-start gap-4">
       <IoIosAlarm className="text-white w-15 h-29 p-2 bg-yellow-400 hover:bg-black " />
           <div>
-            <h4 className="text-lg font-semibold mb-2">
+            <h4 className="text-lg font-semibold mb-2 text-black">
             24/7 qo‘llab-quvvatlash
             </h4>
             <p className="text-gray-600">
@@ -426,7 +475,7 @@ const services = [
 <section className="px-5 py-24 bg-[url('/bg-imgs.jpg')] bg-cover bg-center bg-black/60 bg-blend-darken">
   <div className="max-w-7xl mx-auto">
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
       {/* Card 1 */}
       <div className="group border-2 border-dashed border-amber-400 rounded-2xl p-8 text-center hover:scale-105 transition duration-300 backdrop-blur-md">
@@ -437,13 +486,13 @@ const services = [
           </div>
         </div>
 
-        <h3 className="text-white text-4xl font-bold mb-2">
+        <h3 className="text-white text-3xl font-bold mb-2">
           <CountUp to={10000} duration={2} separator="," />+
         </h3>
 
-        <p className="text-gray-300 text-3xl">
-          Mijozlar
-        </p>
+       <p className="text-gray-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+  Mijozlar
+</p>
       </div>
 
       {/* Card 2 */}
@@ -458,7 +507,7 @@ const services = [
           <CountUp to={8} duration={2} separator="," />-yilk
         </h3>
 
-        <p className="text-gray-300 text-4xl">
+        <p className="text-gray-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
           Tajriba
         </p>
       </div>
@@ -474,7 +523,7 @@ const services = [
           <CountUp to={12} duration={2} separator="," />-xil
         </h3>
 
-        <p className="text-gray-300 text-4xl">
+        <p className="text-gray-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
           Xizmatlar
         </p>
       </div>
@@ -490,7 +539,7 @@ const services = [
           <CountUp to={300} duration={2} separator="," />+
         </h3>
 
-        <p className="text-gray-300 text-4xl">
+        <p className="text-gray-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
            Malakali mutaxassislar
         </p>
       </div>
@@ -507,22 +556,171 @@ bg-indigo-500 text-white font-bold text-lg rounded-xl
 border-b-4 border-amber-400 shadow-lg 
 hover:bg-indigo-700 transition">
   Xizmatlar
-</h2> 
+</h2>
+<progress className="progress w-56"></progress> 
 <h3 className="max-w-3xl mx-auto text-center text-gray-700 text-lg leading-relaxed mt-4 px-4 font-medium">
   Xonadoningizda <span className="text-indigo-600 font-semibold">poklik</span>  
       va <span className="text-amber-500 font-semibold">qulaylik</span> ni ta’minlash uchun 
   tajribali jamoamiz tomonidan professional xizmatlar ko‘rsatamiz.
 </h3>
-<div className="grid p-6 pt-20 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+<div className="max-w-7xl mx-auto mt-12 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 px-4">
 
-  {services.map((service, index) => (
-    <ServiceCard key={index} {...service} />
-  ))}
+  {services.map((service, index) => {
+    const colors = [
+      "bg-blue-200",
+      "bg-indigo-300",
+      "bg-cyan-200"
+    ];
+
+    return (
+      <div
+        key={index}
+        className={`
+          ${colors[index % 3]}
+          opacity-0
+          translate-y-10
+          animate-[fadeUp_0.6s_ease_forwards]
+          rounded-2xl
+          
+        `}
+        style={{ animationDelay: `${index * 0.35}s` }}
+      >
+        <ServiceCard {...service} />
+      </div>
+    );
+  })}
+
 </div></section>
-
+ 
       <CarpetComparison />
+<div>
+  <h2 className="bg-white text-3xl text-black p-3  text-center">bizdan   doyimi so'yardigan  sovolar</h2>
+<div className="w-full  bg-gray-50 flex items-center justify-center px-4 sm:px-6 lg:px-8 p-10">
+
+  <div className="w-full max-w-6xl space-y-4 sm:space-y-5">
+
+    {data.map((item, i) => (
+      <div
+        key={i}
+        onClick={() => setActive(i === active ? null : i)}
+        className={`group relative rounded-xl sm:rounded-2xl transition duration-300 ${
+          active === i
+            ? "bg-gradient-to-r from-indigo-50 to-purple-50 border-indigo-300"
+            : "bg-white"
+        } border border-gray-200 hover:border-indigo-400`}
+      >
+
+        {/* glow */}
+        <div className="absolute inset-0 rounded-xl sm:rounded-2xl opacity-0 group-hover:opacity-100 transition duration-500 blur-lg bg-indigo-100"></div>
+
+        <div className="relative p-4 sm:p-5">
+
+          {/* HEADER */}
+          <div className="flex items-center justify-between gap-3">
+            <h3 className="text-gray-800 text-sm sm:text-base md:text-lg font-semibold leading-snug">
+              {item.q}
+            </h3>
+
+            {/* ICON */}
+            <div
+              className={`flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full border transition duration-300 ${
+                active === i
+                  ? "border-indigo-500 text-indigo-500 rotate-180"
+                  : "border-gray-300 text-gray-400"
+              }`}
+            >
+              ↓
+            </div>
+          </div>
+
+          {/* CONTENT */}
+          <div
+            className={`transition-all duration-500 overflow-hidden ${
+              active === i ? "max-h-40 sm:max-h-52 mt-3 sm:mt-4" : "max-h-0"
+            }`}
+          >
+            <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
+              {item.a}
+            </p>
+          </div>
+
+        </div>
+      </div>
+    ))}
+
+  </div>
+</div>  
+    <div className="w-full bg-white py-12 px-4 sm:px-6 lg:px-8">
+
+      {/* TITLE */}
+      <div className="text-center mb-8">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+          Bizning haqiqiy 
+        </h2>
+        <p className="text-gray-500 mt-2">
+       tozalash natijalarimizni ko‘ring
+        </p>
+      </div>
+
+      {/* GRID */}
+      <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+
+        {videos.map((item, i) => (
+          <div
+            key={i}
+            onClick={() => setActiveVideo(item.video)}
+            className="relative cursor-pointer rounded-2xl overflow-hidden group shadow-md"
+          >
+            {/* IMAGE */}
+            <img
+              src={item.img}
+              className="w-full aspect-[9/16] object-cover group-hover:scale-105 transition duration-300"
+            />
+
+            {/* PLAY ICON */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="bg-black/50 w-12 h-12 rounded-full flex items-center justify-center text-white text-xl backdrop-blur-sm group-hover:scale-110 transition">
+                ▶
+              </div>
+            </div>
+          </div>
+        ))}
+
+      </div>
+
+      {/* MODAL */}
+      {activeVideo && (
+        <div
+          onClick={() => setActiveVideo(null)}
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+        >
+          <div
+            className="relative w-full max-w-md"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <video
+              src={activeVideo}
+              controls
+              autoPlay
+              className="w-full rounded-xl"
+            />
+
+            {/* CLOSE */}
+            <button
+              onClick={() => setActiveVideo(null)}
+              className="absolute -top-10 right-0 text-white text-2xl"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
 
     </div>
+
+</div>
+    </div>
+    
   );
 }
 

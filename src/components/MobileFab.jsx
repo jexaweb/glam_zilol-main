@@ -64,7 +64,7 @@ export default function MobileFab() {
     overflow-hidden
   "
 >
-  Ariza qoldirish
+  Bururtma qoldirish
 
   {/* Hover glow border */}
   <span
