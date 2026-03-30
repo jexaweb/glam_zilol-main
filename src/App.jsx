@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayouts from "./layouts/MainLayouts";
 import Home from "./pages/Home";
+import About from "./pages/about";
+
+
 import { LanguageProvider } from "./components/LanguageContext";
 
 // Xizmat sahifalari
@@ -15,7 +18,9 @@ import Kovrolin from "./pages/services/Kovrolin";
 import Ofis from "./pages/services/Ofis";
 import Antiseptik from "./pages/services/Antiseptik";
 import Avto from "./pages/services/Avto";
-import Ariza from "./pages/services/Ariza";
+
+import Services from "./components/Services";
+
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -28,6 +33,7 @@ function App() {
       errorElement: <div>Marshrut xatosi</div>,
       children: [
         { index: true, element: <Home /> },
+
         { path: "gilam", element: <Gilam /> },
         { path: "parda", element: <Parda /> },
         { path: "korpa", element: <Korpa /> },
@@ -38,7 +44,11 @@ function App() {
         { path: "ofis", element: <Ofis /> },
         { path: "antiseptik", element: <Antiseptik /> },
         { path: "avto", element: <Avto /> },
-        { path: "ariza", element: <Ariza /> },
+      
+        { path: "about", element: <About /> },
+      
+
+   
       ],
     },
   ]);

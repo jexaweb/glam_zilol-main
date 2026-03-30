@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import emailjs from "@emailjs/browser";
+
 import CarpetComparison from "../components/CarpetComparison";
 import PhoneInput from "../components/PhoneInput";
 import { useLanguage } from "../components/LanguageContext";
@@ -10,6 +10,7 @@ import { FaTools } from "react-icons/fa";
 import { IoIosAlarm } from "react-icons/io";
 import CountUp from "../components/CountUp";
 import { BiUserCircle } from "react-icons/bi";
+import Ariza from "../components/Ariza";
 
 /* ================= ERROR ALERT ================= */
 function ErrorAlert({ message, onClose }) {
@@ -105,6 +106,59 @@ function Home() {
       text3_ru: "Гарантия чистоты и приятного аромата!",
     },
   ];
+  /* ================= ozif ================= */
+const testimonials = [
+  {
+    name: "Nurmatjon.",
+    text: "Ассалому алайкум хайирли тонг барчага ювдирган гилам ,адёл ва юмшок уйинчогларимиз жуддаям тоза ва сифатли ювилибти  каттакон рахмат оллох рози булсин мехнатиларни рохатини курилар омадиларни берсин 🤲🤲🤲🤲",
+    img: "/image/nurmatjon.jpg",
+  },
+  {
+    name: "SHoxsanam.",
+    text: "zor allohga shukur judayam yoqdi omadlarizni bersin robbim ilohim musofirda turib duo qildik raxmat yana bir bor",
+    img: "/image/shoxsanam.jpg",
+  },
+  {
+    name: "Barno.",
+    text: "Ассалому алайкум. Рахмат Зилол гилам ювиш корхонасига. Гилам ва якандозларимни конглимдагидек килиб ювиб беришди. Хурсандман. Ишларинга ривож.",
+    img: "/image/barno.jpg",
+  },
+  {
+    name: "Гламур.",
+    text: "Хайрли кеч!Сизларда гилам ва адёлларимни доим ювдираман.Сифатига гап йук.Аъло даражада👍.Куч-кувват берсин.Ишларингга омад! Ювдирмокчи булганларга тавсия киламан.",
+    img: "/image/glamur.jpg",
+  },
+  {
+    name: "Gulchexra B.",
+    text: "Zilol hodimlari xalqни xizmatida  charchamelar  parda gilamlarim judayam chiroyli tozza yuvilipti raxamat ishlarizga rivoj",
+    img: "/image/gulchexra.jpg",
+  },
+  {
+    name: "Margʻuba  A.",
+    text: "Zilol xodimlari xodimlari xamelarga  kotta raxmat yakandozlar juda xam chiroyli yuvilibti xizmatilarga rozi boʻlinglar",
+    img: "/image/marguba.jpg",
+  },
+  {
+    name: "Mahliyo G.",
+    text: "Katta rahmat soĝ bolinglar. Shirin hidli , toza qilib yuvibsizlar. Mehnatlarizga rozi bolinglar. Korxonalarin bundanam katta bolib Allohim rivojini bersin. 🤲🤲Quvasoydan alangali salom. Gruppadagilar Zilol da hamma narsalariz zilol suvdek top-toza boladi😊TAVSIYA QILAMAN😊",
+    img: "/image/mahliyo.jpg",
+  },
+  {
+    name: "Shahzod E.",
+    text: "Operatorlar juda muloyim, xizmat ham tez.",
+    img: "https://i.pravatar.cc/100?img=8",
+  },
+  {
+    name: "Nigora B.",
+    text: "Oldingi rangiga qaytibdi, juda hayron qoldim!",
+    img: "https://i.pravatar.cc/100?img=9",
+  },
+  {
+    name: "Umidjon P.",
+    text: "Professional darajada ishlashadi, gap yo‘q 👍",
+    img: "https://i.pravatar.cc/100?img=10",
+  },
+];
 
   const [index, setIndex] = useState(0);
 
@@ -131,30 +185,27 @@ function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  const sendEmail = (e) => {
+  
+  const sliderRef = useRef(null);
+  const [isDown, setIsDown] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const handleMouseDown = (e) => {
+    setIsDown(true);
+    setStartX(e.pageX - sliderRef.current.offsetLeft);
+    setScrollLeft(sliderRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => setIsDown(false);
+  const handleMouseUp = () => setIsDown(false);
+
+  const handleMouseMove = (e) => {
+    if (!isDown) return;
     e.preventDefault();
-
-    if (!formData.name || !formData.phone) {
-      setError("Ma'lumotlarni to‘liq kiriting.");
-      return;
-    }
-
-    setLoading(true);
-
-    emailjs
-      .sendForm(
-        "service_u8uok6n",
-        "template_l0no0ke",
-        formRef.current,
-        "yqeQcMyCRd4i1twMv"
-      )
-      .then(() => {
-        alert("Yuborildi!");
-        setFormData({ name: "", phone: "" });
-        setShowModal(false);
-      })
-      .catch(() => setError("Xatolik yuz berdi"))
-      .finally(() => setLoading(false));
+    const x = e.pageX - sliderRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    sliderRef.current.scrollLeft = scrollLeft - walk;
   };
 
   /* ================= SERVICES ================= */
@@ -191,14 +242,14 @@ const services = [
     title: language === "ru" ? "Стирка одеял" : "Ko‘rpa yuvish",
     image: "/korpa1.png",
     link: "/korpa",
-    bgColor: "bg-blue-200",
+    bgColor: "bg-blue-400",
   },
 
   { 
     title: language === "ru" ? "Чистка матрасов" : "Matras yuvish",
     image: "/matras.png",
     link: "/matras",
-      bgColor: "bg-blue-200",
+      bgColor: "bg-indigo-600",
   },
 
   { 
@@ -212,14 +263,14 @@ const services = [
     title: language === "ru" ? "Чистка игрушек" : "O‘yinchoqlar yuvish",
     image: "/oyinchoqlar1.png",
     link: "/ofis",
-    bgColor: "bg-blue-200"
+    bgColor: "bg-blue-400"
   },
 
   { 
     title: language === "ru" ? "Стирка подушек" : "Yostiqlar yuvish",
     image: "/yostiq.png",
     link: "/antiseptik",
-    bgColor: "bg-blue-200"
+    bgColor: "bg-indigo-600"
   },
 
   { 
@@ -254,61 +305,32 @@ const [activeVideo, setActiveVideo] = useState(null);
 
 
   return (
-    <div className="pt-10">
+    <div className="pt-10 ">
 
       <ErrorAlert message={error} onClose={() => setError("")} />
 
       {/* ================= MODAL ================= */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50  ">
-          <form
-            ref={formRef}
-            onSubmit={sendEmail}
-            className="bg-white rounded-2xl p-6 w-80 shadow-2xl text-center"
-          > 
-            <button
-              type="button"
-              onClick={() => setShowModal(false)}
-            className="absolute ml-25 top-30  text-gray-500 hover:text-pink-700 bg-amber-50 text-2xl"
+  <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 ">
 
+    {/* Modal box */}
+    <div className="  max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl relative p-4">
 
-            >
-              ✕
-            </button>
+      {/* ❌ Close button */}
+      <button
+        type="button"
+        onClick={() => setShowModal(false)}
+         className="absolute top-3 right-3 text-black text-xl bg-gray-200 px-2 rounded hover:text-red-600"
+      >
+        ✕
+      </button>
 
-            <h2 className="text-xl font-bold mb-4">
-              Birinchi buyurtma uchun chegirma
-            </h2>
+      {/* 🔥 BU YERGA ARIZA */}
+      <Ariza />
 
-            <input
-              type="text"
-              name="name"
-              placeholder="Ismingiz"
-              value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
-              className="w-full mb-3 px-4 py-2 border rounded-lg"
-            />
-
-            <PhoneInput
-              value={formData.phone}
-              onChange={(val) =>
-                setFormData({ ...formData, phone: val })
-              }
-              name="phone"
-            />
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-blue-600 text-white py-2 rounded-lg mt-4"
-            >
-              {loading ? "Yuborilmoqda..." : "Yuborish"}
-            </button>
-          </form>
-        </div>
-      )}
+    </div>
+  </div>
+)}
 
       {/* ================= HERO SLIDER ================= */}
    <section className="relative w-full min-h-[90vh] overflow-hidden mt-7 sm:mt-10 md:mt-9">
@@ -379,17 +401,17 @@ const [activeVideo, setActiveVideo] = useState(null);
           </div>
         ))}
       </section>
-<section className="pb-20 pt-20 bg-white bg-[url('/bg3.jpg')] bg-no-repeat bg-right bg-cover">
+<section className="pb-20 pt-20  ">
   <div className="max-w-7xl mx-auto px-1">
 
     {/* Title */}
     <div className="text-center mb-12">
      
-      <h2 className=" text-3xl md:text-4xl font-bold mb-4 text-gray-800">
+      <h2 className=" text-3xl md:text-4xl font-bold mb-4 ">
          Nega aynan bizni tanlashadi?
       </h2>
        <div className="w-24 h-1 bg-yellow-400 mx-auto mb-4"></div>
-      <p className="text-gray-600 max-w-2xl mx-auto">
+      <p className=" max-w-2xl mx-auto">
         Biz mijozlarimizga xuddi o‘zimizga xizmat ko‘rsatayotgandek yondashamiz.
         Ularning fikr-mulohazalarini qadrlaymiz va xizmat sifatini doimiy ravishda yaxshilaymiz.
       </p>
@@ -402,13 +424,13 @@ const [activeVideo, setActiveVideo] = useState(null);
       <div className="space-y-8">
         <div className="flex  col-auto gap-4">
     
-          <AiFillStar  className="text-white text-1xl w-30 h-30   border-2 bg-yellow-400 hover:bg-black " />
+          <AiFillStar  className=" text-1xl w-30 h-30   border-2 bg-yellow-400 hover:bg-black " />
 
           <div>
-            <h4 className="text-lg font-semibold mb-2 text-black">
+            <h4 className="text-lg font-semibold mb-2 ">
                   Eng yaxshi tozalash yechimlari
             </h4>
-            <p className="text-gray-600">
+            <p >
             Biz har bir buyurtmaga mas’uliyat bilan yondashamiz va mijozlarimiz
             mamnunligi uchun sifatni birinchi o‘ringa qo‘yamiz.
             </p>
@@ -418,10 +440,10 @@ const [activeVideo, setActiveVideo] = useState(null);
         <div className="flex items-start gap-4">
          <FaUsersLine className="text-white text-1xl w-30 h-30   border-2 bg-yellow-400  hover:bg-black" />
           <div>
-            <h4 className="text-lg font-semibold mb-2 text-black">
+            <h4 className="text-lg font-semibold mb-2 ">
                 Malakali mutaxassislar
             </h4>
-            <p className="text-gray-600">
+            <p >
                    Xodimlarimiz zamonaviy texnologiyalar bo‘yicha doimiy ravishda
             o‘qitiladi va yuqori standart asosida xizmat ko‘rsatadi.
             </p>
@@ -443,10 +465,10 @@ const [activeVideo, setActiveVideo] = useState(null);
         <div className="flex items-start gap-4">
          <FaTools className="text-white text-1xl w-21 h-28 p-2  border-2 bg-yellow-400  hover:bg-black" />
           <div>
-            <h4 className="text-lg font-semibold mb-2 text-black">
+            <h4 className="text-lg font-semibold mb-2 ">
               Zamonaviy uskunalar
             </h4>
-            <p className="text-gray-600">
+            <p className="">
                         Ekologik xavfsiz va samarali tozalash vositalaridan foydalanamiz,
             natijada mukammal tozalikka erishamiz.
 
@@ -455,12 +477,12 @@ const [activeVideo, setActiveVideo] = useState(null);
         </div>
 
         <div className="flex items-start gap-4">
-      <IoIosAlarm className="text-white w-15 h-29 p-2 bg-yellow-400 hover:bg-black " />
+      <IoIosAlarm className="text-white w-15 h-29 p-2 border-2 bg-yellow-400 hover:bg-black " />
           <div>
-            <h4 className="text-lg font-semibold mb-2 text-black">
+            <h4 className="text-lg font-semibold mb-2 ">
             24/7 qo‘llab-quvvatlash
             </h4>
-            <p className="text-gray-600">
+            <p >
              Bizning call-markazimiz kecha-kunduz ishlaydi va tezkor javob beradi.
             </p>
           </div>
@@ -487,7 +509,7 @@ const [activeVideo, setActiveVideo] = useState(null);
         </div>
 
         <h3 className="text-white text-3xl font-bold mb-2">
-          <CountUp to={10000} duration={2} separator="," />+
+          10000+
         </h3>
 
        <p className="text-gray-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
@@ -550,15 +572,15 @@ const [activeVideo, setActiveVideo] = useState(null);
 </section>
 
       {/* ================= SERVICES ================= */}
-<section className=" bg-[url('/bg3.jpg')] bg-no-repeat bg-right bg-cover pt-10 pb-10">
+<section id="services"  className="  pt-10 pb-20">
  <h2 className="mx-auto mb-10  flex items-center justify-center w-44 h-12 
 bg-indigo-500 text-white font-bold text-lg rounded-xl 
 border-b-4 border-amber-400 shadow-lg 
 hover:bg-indigo-700 transition">
   Xizmatlar
 </h2>
-<progress className="progress w-56"></progress> 
-<h3 className="max-w-3xl mx-auto text-center text-gray-700 text-lg leading-relaxed mt-4 px-4 font-medium">
+
+<h3 className="max-w-3xl mx-auto text-center  text-lg leading-relaxed mt-4 px-4 font-medium">
   Xonadoningizda <span className="text-indigo-600 font-semibold">poklik</span>  
       va <span className="text-amber-500 font-semibold">qulaylik</span> ni ta’minlash uchun 
   tajribali jamoamiz tomonidan professional xizmatlar ko‘rsatamiz.
@@ -590,12 +612,13 @@ hover:bg-indigo-700 transition">
     );
   })}
 
-</div></section>
+</div>
+</section>
  
-      <CarpetComparison />
+      <CarpetComparison  />
 <div>
-  <h2 className="bg-white text-3xl text-black p-3  text-center">bizdan   doyimi so'yardigan  sovolar</h2>
-<div className="w-full  bg-gray-50 flex items-center justify-center px-4 sm:px-6 lg:px-8 p-10">
+  <h2 className=" text-3xl p-3  text-center">bizdan   doyimi so'yardigan  sovolar</h2>
+<div className="w-full   flex items-center justify-center px-4 sm:px-6 lg:px-8 p-10">
 
   <div className="w-full max-w-6xl space-y-4 sm:space-y-5">
 
@@ -605,7 +628,7 @@ hover:bg-indigo-700 transition">
         onClick={() => setActive(i === active ? null : i)}
         className={`group relative rounded-xl sm:rounded-2xl transition duration-300 ${
           active === i
-            ? "bg-gradient-to-r from-indigo-50 to-purple-50 border-indigo-300"
+            ? "bg-white"
             : "bg-white"
         } border border-gray-200 hover:border-indigo-400`}
       >
@@ -623,7 +646,7 @@ hover:bg-indigo-700 transition">
 
             {/* ICON */}
             <div
-              className={`flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full border transition duration-300 ${
+              className={` w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full border transition duration-300 ${
                 active === i
                   ? "border-indigo-500 text-indigo-500 rotate-180"
                   : "border-gray-300 text-gray-400"
@@ -650,20 +673,20 @@ hover:bg-indigo-700 transition">
 
   </div>
 </div>  
-    <div className="w-full bg-white py-12 px-4 sm:px-6 lg:px-8">
+    <div className="w-full  py-12 px-4 sm:px-6 lg:px-8 text-black dark:bg-white   ">
 
       {/* TITLE */}
-      <div className="text-center mb-8">
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+      <div className="text-center  mb-8">
+        <h2 className="text-2xl sm:text-3xl font-bold ">
           Bizning haqiqiy 
         </h2>
-        <p className="text-gray-500 mt-2">
+        <p className=" mt-2">
        tozalash natijalarimizni ko‘ring
         </p>
       </div>
 
       {/* GRID */}
-      <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+   <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 ">
 
         {videos.map((item, i) => (
           <div
@@ -674,7 +697,7 @@ hover:bg-indigo-700 transition">
             {/* IMAGE */}
             <img
               src={item.img}
-              className="w-full aspect-[9/16]  group-hover:scale-105 transition duration-300"
+              className="w-full aspect-9  group-hover:scale-105 transition duration-300"
             />
 
             {/* PLAY ICON */}
@@ -717,7 +740,66 @@ hover:bg-indigo-700 transition">
       )}
 
     </div>
+   <section className="py-20 ">
+      <div className="max-w-7xl mx-auto px-4">
 
+        {/* Header */}
+        <div className="text-center mb-14">
+          <h2 className="text-3xl md:text-5xl font-bold ">
+            Mijozlarimiz biz haqimizda 💬
+          </h2>
+          <p className=" mt-3">
+            1000+ mijozlar bizni tanladi va mamnun bo‘ldi
+          </p>
+        </div>
+
+        {/* Slider */}
+        <div
+          ref={sliderRef}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          className="flex gap-6 overflow-x-auto cursor-grab active:cursor-grabbing select-none scrollbar-hide"
+        >
+          {testimonials.map((item, i) => (
+            <div
+              key={i}
+              className="min-w-[280px] max-w-[280px] bg-black p-6 rounded-2xl shadow-md hover:shadow-2xl transition duration-300"
+            >
+              {/* User */}
+              <div className="flex items-center gap-3 mb-4">
+                <img
+                  src={item.img}
+                  alt={item.name}
+                  className="w-12 h-12 rounded-full object-cover ring-2 ring-green-400"
+                />
+                <div>
+                  <h3 className="font-semibold text-white">{item.name}</h3>
+                  <span className="text-xs text-green-500">
+                    ✔ mijozimiz
+                  </span>
+                </div>
+              </div>
+
+              {/* Text */}
+              <p className=" text-sm leading-relaxed text-white">
+                “{item.text}”
+              </p>
+
+              {/* Stars */}
+              <div className="mt-4 flex gap-1 text-yellow-400">
+                {Array(5)
+                  .fill()
+                  .map((_, i) => (
+                    <span key={i}>⭐</span>
+                  ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
 </div>
     </div>
     

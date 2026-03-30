@@ -2,22 +2,29 @@ import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "./LanguageContext";
+import { useNavigate } from "react-router-dom";
 import MobileFab from "./MobileFab";
+import Ariza from "../components/Ariza";
+import ThemeToggle from "./Themes";
+import Themes from "./Themes";
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const mobileMenuRef = useRef(null);
   const { language, toggleLanguage } = useLanguage();
+    const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   const translations = {
     uz: {
       home: "Asosiy",
       about: "Biz haqimizda",
       services: "Xizmatlar",
-      news: "Yangiliklar",
+      news: "Ishlarimiz",
       contact: "Aloqa",
-      switch: "UZ",
+      switch: "RU",
     },
     ru: {
       home: "Главная",
@@ -25,7 +32,7 @@ export default function Navbar() {
       services: "Услуги",
       news: "Новости",
       contact: "Контакты",
-      switch: "RU",
+      switch: "UZ",
     },
   };
 
@@ -82,12 +89,12 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Menu */}
-          <nav className="hidden md:flex items-center gap-1 uppercase font-semibold text-gray-800">
+          <nav className="hidden md:flex items-center gap-1 uppercase font-semibold text-gray-800 ">
             {[t.home, t.about, t.services, t.news, t.contact].map(
               (label, i) => (
                 <Link
                   key={i}
-                  to={["/", "/about", "/services", "/news", "/contact"][i]}
+                  to={["/", "/about", "/#services", "/#news", "/#contact"][i]}
                   className="relative px-4 py-2 rounded-full bg-white/70 hover:bg-amber-400/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
                 >
                   {label}
@@ -100,19 +107,20 @@ export default function Navbar() {
               className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 hover:bg-amber-400/20 transition"
             >
               <img
-                src={language === "uz" ? "/uzb.jpg" : "/ru.jpg"}
+                src={language === "uz" ? "/ru.jpg" : "/uzb.jpg"}
                 alt="lang"
                 className="w-5 h-5 rounded-full"
               />
               {t.switch}
             </button>
 
-            <Link
-              to="/ariza"
-              className="bg-amber-500 text-white px-5 py-2 rounded-full shadow-lg hover:shadow-amber-400/50 hover:-translate-y-1 transition-all duration-300"
-            >
-              Bururtma qoldirish
-            </Link>
+             <button
+        onClick={() => setShowModal(true)}
+        className="bg-amber-500 text-white  px-5 py-2 rounded-full shadow-lg hover:shadow-amber-400/50 hover:-translate-y-1 transition-all duration-300"
+      >
+        Buyurtma qoldirish
+      </button>
+           <Themes/>
           </nav>
 
           {/* Mobile Buttons */}
@@ -149,7 +157,7 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <div
         ref={mobileMenuRef}
-        className={`fixed top-0 left-0 h-full w-72 z-[9999] transform transition-transform duration-500 ${
+        className={`fixed top-0 left-0 h-full w-72 z-99 transform transition-transform duration-500 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } bg-white/95 backdrop-blur-xl shadow-2xl`}
       >
@@ -157,7 +165,7 @@ export default function Navbar() {
           {[t.home, t.about, t.services, t.news, t.contact].map((label, i) => (
             <Link
               key={i}
-              to={["/", "/about", "/services", "/news", "/contact"][i]}
+              to={["/", "/about", "/#services", "/#news", "/#contact"][i]}
               onClick={() => setIsOpen(false)}
               className="block text-lg hover:text-amber-500 transition-all duration-300 hover:translate-x-2"
             >
@@ -166,7 +174,26 @@ export default function Navbar() {
           ))}
         </ul>
       </div>
+{showModal && (
+  <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+    
+    <div className="  max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl relative p-4">
+      
+      {/* ❌ yopish tugmasi */}
+      <button
+        onClick={() => setShowModal(false)}
+   className="absolute top-3 right-3 text-black text-xl bg-gray-200 px-2 rounded hover:text-red-600"
+      >
+        ✕
+      </button>
 
+      {/* 🔥 ARIZA ICHIDA */}
+      <Ariza />
+
+    </div>
+
+  </div>
+)}
       <MobileFab />
     </>
   );

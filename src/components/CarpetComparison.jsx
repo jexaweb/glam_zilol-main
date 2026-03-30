@@ -71,7 +71,7 @@ export default function BeforeAfterSection() {
   }, [isDragging]);
 
   return (
-    <section className="bg-[#e5f6f5] py-16 md:py-20 px-4 md:px-6 text-black">
+    <section id="news" className="bg-[#e5f6f5] py-16 md:py-20 px-4 md:px-6 text-black">
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800 text-center">Before & After</h1>
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
   
