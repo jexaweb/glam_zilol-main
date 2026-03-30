@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayouts from "./layouts/MainLayouts";
 import Home from "./pages/Home";
-import About from "./pages/about";
+import About from "./pages/About";
 
 
 import { LanguageProvider } from "./components/LanguageContext";
