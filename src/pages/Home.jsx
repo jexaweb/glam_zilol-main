@@ -207,6 +207,35 @@ const testimonials = [
     const walk = (x - startX) * 1.5;
     sliderRef.current.scrollLeft = scrollLeft - walk;
   };
+ const [phone, setPhone] = useState("");
+
+  const BOT_TOKEN = "YOUR_BOT_TOKEN";
+  const CHAT_ID = "YOUR_CHAT_ID";
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const text = `📞 Yangi mijoz!\nTelefon: ${phone}`;
+
+    try {
+      await fetch("https://api.telegram.org/bot8789952135:AAEq5VuGMUAa7b094Les1nJm1DCnvM_TaK0/sendMessage", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: "6904234957",
+          text: text,
+        }),
+      });
+
+      alert("Yuborildi ✅");
+      setPhone("");
+    } catch (error) {
+      alert("Xatolik ❌");
+      console.error(error);
+    }
+  };
 
   /* ================= SERVICES ================= */
 const services = [
@@ -220,7 +249,7 @@ const services = [
   { 
     title: language === "ru" ? "Чистка мебели" : "Mebel yuvish",
     image: "/mebel.png",
-    link: "/mebel1",
+    link: "/mebel",
     bgColor: "bg-blue-400"
   },
 
@@ -424,7 +453,7 @@ const [activeVideo, setActiveVideo] = useState(null);
       <div className="space-y-8">
         <div className="flex  col-auto gap-4">
     
-          <AiFillStar  className=" text-1xl w-30 h-30   border-2 bg-yellow-400 hover:bg-black " />
+          <AiFillStar  className=" text-1xl w-30 h-30 text-white   border-2 bg-yellow-400 hover:bg-black " />
 
           <div>
             <h4 className="text-lg font-semibold mb-2 ">
@@ -765,7 +794,7 @@ hover:bg-indigo-700 transition">
           {testimonials.map((item, i) => (
             <div
               key={i}
-              className="min-w-[280px] max-w-[280px] bg-black p-6 rounded-2xl shadow-md hover:shadow-2xl transition duration-300"
+              className="min-w-70 max-w-70 bg-black p-6 rounded-2xl shadow-md hover:shadow-2xl transition duration-300"
             >
               {/* User */}
               <div className="flex items-center gap-3 mb-4">
@@ -797,6 +826,78 @@ hover:bg-indigo-700 transition">
               </div>
             </div>
           ))}
+        </div>
+      </div>
+    </section>
+     <section className="relative py-1  overflow-hidden">
+      
+      {/* Background blur effect */}
+      <div className="absolute top-0 left-0 w-72 h-72 bg-amber-400/20 blur-3xl rounded-full"></div>
+      <div className="absolute bottom-0 right-0 w-72 h-72 bg-purple-500/20 blur-3xl rounded-full"></div>
+
+      <div className="relative max-w-6xl mx-auto px-4">
+        
+        <div className="grid md:grid-cols-2 gap-14 items-center">
+          
+          {/* IMAGE */}
+          <div
+            data-aos="fade-up"
+            className="relative flex justify-center"
+          >
+            <div className="absolute inset-0  to-transparent rounded-3xl blur-2xl"></div>
+            
+            <img
+              src="/bg-img2.png"
+              alt="Bepul maslahat"
+              className="relative w-full max-w-md rounded-3xl  hover:scale-105 transition duration-500"
+            />
+          </div>
+
+          {/* CONTENT */}
+          <div data-aos="fade-left">
+            
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
+              Bepul maslahat oling 
+            </h2>
+
+            <p className="text-gray-300 text-lg mb-10 leading-relaxed">
+              Telefon raqamingizni qoldiring — biz siz bilan tez orada bog‘lanamiz
+              va xizmat haqida batafsil tushuntirib beramiz.
+            </p>
+
+            {/* FORM */}
+            <form className="general__form" onSubmit={handleSubmit} >
+              
+              <div className="flex flex-col sm:flex-row gap-4 bg-white/10 backdrop-blur-xl p-4 rounded-2xl border border-white/20 shadow-lg">
+                
+                <input
+                  required
+                  type="tel"
+                  placeholder="+998 90"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="flex-1 bg-transparent px-4 py-3 rounded-xl outline-none "
+                />
+
+                <button
+                  type="submit"
+                  className="px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-500 text-black font-bold shadow-lg transition duration-300 hover:scale-105 active:scale-95"
+                >
+                  Jo‘natish
+                </button>
+              </div>
+
+            </form>
+
+            {/* TRUST BADGES */}
+            <div className="flex gap-6 mt-8 text-sm text-gray-400">
+              <span>✔ Tez aloqa</span>
+              <span>✔ 100% bepul</span>
+              <span>✔ Ishonchli xizmat</span>
+            </div>
+
+          </div>
+
         </div>
       </div>
     </section>

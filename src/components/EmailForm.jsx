@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
 import { useLanguage } from "./LanguageContext";
 
 function EmailForm() {
@@ -16,15 +15,17 @@ function EmailForm() {
       address: "Manzilingiz (masalan: Farg‘ona, Marg‘ilon)",
       message: "Xabaringizni kiriting...",
       send: "Yuborish",
+      sending: "Yuborilmoqda...",
       success: "✅ Ma’lumot muvaffaqiyatli yuborildi!",
       error: "❌ Xatolik yuz berdi, qayta urinib ko‘ring!",
     },
     ru: {
       name: "Имя",
       phone: "Номер телефона",
-      address: " Aдрес (например: Фергана, Маргилан)",
-      message: " Cообщение...",
+      address: "Адрес (например: Фергана, Маргилан)",
+      message: "Сообщение...",
       send: "Отправить",
+      sending: "Отправка...",
       success: "✅ Данные успешно отправлены!",
       error: "❌ Произошла ошибка, попробуйте снова!",
     },
@@ -32,17 +33,18 @@ function EmailForm() {
 
   const t = translations[language] || translations["uz"];
 
-  // Telefon formatlash
+  // 📞 Telefon formatlash
   const formatPhone = (val) => {
     val = val.replace(/\D/g, "");
     if (!val.startsWith("998")) val = "998" + val;
     const d = val.slice(3);
 
     let f = "+998";
-    if (d.length > 0) f += " (" + d.slice(0, 2).padEnd(2, "_") + ")";
-    if (d.length > 2) f += " " + d.slice(2, 5).padEnd(3, "_");
-    if (d.length > 5) f += "-" + d.slice(5, 7).padEnd(2, "_");
-    if (d.length > 7) f += "-" + d.slice(7, 9).padEnd(2, "_");
+    if (d.length > 0) f += " (" + d.slice(0, 2);
+    if (d.length >= 2) f += ")";
+    if (d.length > 2) f += " " + d.slice(2, 5);
+    if (d.length > 5) f += "-" + d.slice(5, 7);
+    if (d.length > 7) f += "-" + d.slice(7, 9);
 
     return f;
   };
@@ -53,85 +55,105 @@ function EmailForm() {
     setPhone(formatted);
   };
 
-  const sendEmail = (e) => {
+  // 🚀 TELEGRAM SEND
+  const sendEmail = async (e) => {
     e.preventDefault();
     setLoading(true);
     setStatus("");
 
-    emailjs
-      .sendForm(
-        "service_u8uok6n",
-        "template_l0no0ke",
-        form.current,
-        "yqeQcMyCRd4i1twMv"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          setStatus(t.success);
-          setLoading(false);
-          e.target.reset();
-          setPhone("");
+    const formData = new FormData(form.current);
+
+    const name = formData.get("name");
+    const phone = formData.get("phone");
+    const address = formData.get("address");
+    const message = formData.get("message");
+
+    const text = `
+📥 Yangi buyurtma!
+
+👤 Ism: ${name}
+📞 Telefon: ${phone}
+📍 Manzil: ${address}
+💬 Xabar: ${message}
+    `;
+
+    try {
+      await fetch(`https://api.telegram.org/botYOUR_BOT_TOKEN/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        (error) => {
-          console.error(error.text);
-          setStatus(t.error);
-          setLoading(false);
-        }
-      );
+        body: JSON.stringify({
+          chat_id: "YOUR_CHAT_ID",
+          text: text,
+        }),
+      });
+
+      setStatus(t.success);
+      setPhone("");
+      e.target.reset();
+    } catch (error) {
+      console.error(error);
+      setStatus(t.error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="flex items-center justify-center mt-15">
+    <div className="flex items-center justify-center mt-15 ">
       <form
         ref={form}
         onSubmit={sendEmail}
-        className="w-full flex flex-col gap-4"
+        className="w-full  flex flex-col gap-4  "
       >
+        {/* Name */}
         <input
           type="text"
           name="name"
           placeholder={t.name}
           required
-          className="w-full px-4 py-3 rounded-full border-2 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 outline-none text-white placeholder-white transition"
+          className="w-full px-4 py-3 rounded-full border-2 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 outline-none text-white placeholder-white bg-transparent"
         />
 
+        {/* Phone */}
         <input
           type="tel"
-          name="name"
+          name="phone"
           value={phone}
           onChange={handleChange}
           placeholder={t.phone}
           required
-          className="w-full px-4 py-3 rounded-full border-2 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 outline-none text-white placeholder-white transition"
+          className="w-full px-4 py-3 rounded-full border-2 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 outline-none text-white placeholder-white bg-transparent"
         />
 
+        {/* Address */}
         <input
           type="text"
-          name="message"
+          name="address"
           placeholder={t.address}
           required
-          className="w-full px-4 py-3 rounded-full border-2 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 outline-none text-white placeholder-white transition"
+          className="w-full px-4 py-3 rounded-full border-2 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 outline-none text-white placeholder-white bg-transparent"
         />
 
+        {/* Message */}
         <textarea
           name="message"
           placeholder={t.message}
           rows="4"
-          className="w-full px-4 py-3 rounded-2xl border-2 focus:ring-2 focus:ring-amber-300 focus:border-amber-400 outline-none text-white placeholder-white resize-none transition"
+          className="w-full px-4 py-3 rounded-2xl border-2 focus:ring-2 focus:ring-amber-300 focus:border-amber-400 outline-none text-white placeholder-white resize-none bg-transparent"
         ></textarea>
 
+        {/* Button */}
         <button
           type="submit"
-          className="mt-2 bg-amber-400 text-black font-semibold py-3 rounded-4xl hover:bg-white transition shadow-md hover:shadow-lg active:scale-[0.98]"
+          disabled={loading}
+          className="mt-2 bg-amber-400 text-black font-semibold py-3 rounded-full hover:bg-white transition shadow-md hover:shadow-lg active:scale-[0.98]"
         >
-          {loading
-            ? language === "ru"
-              ? "Отправка..."
-              : "Yuborilmoqda..."
-            : t.send}
+          {loading ? t.sending : t.send}
         </button>
 
+        {/* Status */}
         {status && (
           <p className="text-center mt-2 text-white font-medium">{status}</p>
         )}

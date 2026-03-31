@@ -300,7 +300,7 @@ const toggleTariff = (service, tariff) => {
           <button
             type="button"
             onClick={getLocation}
-            className="bg-amber-500 text-white px-4 rounded-xl min-w-[60px]"
+            className="bg-amber-500 text-white px-4 rounded-xl min-w-10"
           >
             {loadingLoc ? "..." : "📍"}
           </button>

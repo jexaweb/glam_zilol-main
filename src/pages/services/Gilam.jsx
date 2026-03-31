@@ -1,283 +1,228 @@
 import { useState } from "react";
-import TariffCard from "../../components/TariffCard";
-import { tariffDescriptions } from "../../hook/tariffData";
+import Ariza from "../../components/Ariza";
+import { useNavigate } from "react-router-dom";
 
 export default function Gilam() {
-  const [selectedMainTariff, setSelectedMainTariff] = useState(null);
-  const [mainQuantity, setMainQuantity] = useState(1);
-  const [selectedExtra, setSelectedExtra] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [activeVideo, setActiveVideo] = useState(null);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    address: "",
-    pickupDate: "",
-    pickupTime: "",
-  });
+  const navigate = useNavigate();
 
-  const gilamTariffs = [
-    { id: 1, title: "Oddiy", price: "50 000 so'm", desc: tariffDescriptions.basic },
-    { id: 2, title: "Premium", price: "100 000 so'm", desc: tariffDescriptions.premium },
-    { id: 3, title: "Premium Pro", price: "200 000 so'm", desc: tariffDescriptions.premiumPro },
+  const videos = [
+    {
+      video: "/videos/gilam1.mp4",
+      img: "/zilolclengi.png",
+    },
+    {
+      video: "/videos/gilam.mp4",
+      img: "/zilolclengi.1.png",
+    },
+    {
+      video: "/videos/mebel.mp4",
+      img: "/zilolclengi.2.png",
+    },
+    {
+      video: "/videos/yakandoz.mp4",
+      img: "/zilolclengi.3.png",
+    },
   ];
 
-  const otherServices = {
-    Parda: ["80 000 so'm", "150 000 so'm", "200 000 so'm"],
-    Yakkandoz: ["30 000 so'm", "60 000 so'm", "100 000 so'm"],
-    Korpa: ["30 000 so'm", "50 000 so'm", "80 000 so'm"],
-    Matras: ["40 000 so'm", "70 000 so'm", "120 000 so'm"],
-    Mebel: ["50 000 so'm", "100 000 so'm", "180 000 so'm"],
-  };
-
-  const handleExtraSelect = (serviceName, price) => {
-    setSelectedExtra((prev) => ({
-      ...prev,
-      [serviceName]: {
-        price,
-        quantity: prev[serviceName]?.quantity || 1,
-      },
-    }));
-  };
-
-  const handleExtraQuantityChange = (serviceName, value) => {
-    setSelectedExtra((prev) => ({
-      ...prev,
-      [serviceName]: {
-        ...prev[serviceName],
-        quantity: Number(value),
-      },
-    }));
-  };
-
-  const removeService = (serviceName) => {
-    const updated = { ...selectedExtra };
-    delete updated[serviceName];
-    setSelectedExtra(updated);
-  };
-
-  const handleSubmit = () => {
-    const { name, phone, address, pickupDate, pickupTime } = formData;
-
-    if (!name || !phone || !address || !pickupDate || !pickupTime) {
-      alert("❗ Iltimos barcha maydonlarni to‘ldiring");
-      return;
-    }
-
-    console.log({
-      mainTariff: selectedMainTariff,
-      mainQuantity,
-      extras: selectedExtra,
-      ...formData,
-    });
-
-    alert("✅ Buyurtmangiz qabul qilindi!");
-  };
-
   return (
-    <div className="p-6 mt-24 max-w-7xl mx-auto space-y-10">
+    <div className="relative overflow-hidden">
+      
+      {/* 🔥 BACKGROUND */}
+      <div className="absolute top-0 left-0 w-72 h-72 bg-amber-400/30 blur-3xl rounded-full"></div>
+      <div className="absolute bottom-0 right-0 w-72 h-72 bg-purple-500/30 blur-3xl rounded-full"></div>
 
-      <h1 className="text-3xl font-bold">Gilam — Tarif tanlang</h1>
+      {/* HERO */}
+      <section className="py-20 relative">
+        <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
+          
+          {/* LEFT */}
+          <div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              Professional Gilam Yuvish Xizmati 🧼
+            </h1>
 
-      {/* TARIFLAR */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {gilamTariffs.map((t) => (
-          <TariffCard
-            key={t.id}
-            title={t.title}
-            price={t.price}
-            desc={t.desc}
-            selected={selectedMainTariff === t.id}
-            onSelect={() => setSelectedMainTariff(t.id)}
-          />
-        ))}
-      </div>
+            <p className="mb-6">
+              Gilamlaringizni chuqur tozalaymiz, dog‘ va hidlarni yo‘q qilamiz.
+              Uyingizdan olib ketib, toza holda qaytaramiz.
+            </p>
 
-      {/* GILAM SONI */}
-      {selectedMainTariff && (
-        <div className="bg-gray-100 p-6 rounded-xl shadow-md">
-          <label className="block font-semibold mb-2">
-            Nechta gilam?
-          </label>
-          <input
-            type="number"
-            min="1"
-            value={mainQuantity}
-            onChange={(e) => setMainQuantity(Number(e.target.value))}
-            className="w-32 p-3 border rounded-lg"
-          />
-        </div>
-      )}
-
-      {/* QO‘SHIMCHA XIZMATLAR */}
-      {selectedMainTariff && (
-        <div>
-          <h2 className="text-2xl font-bold mb-4">
-            Qo‘shimcha xizmatlar
-          </h2>
-
-          {Object.keys(otherServices).map((serviceKey) => (
-            <div key={serviceKey} className="mb-8">
-              <h3 className="font-semibold text-lg mb-3">
-                {serviceKey}
-              </h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {otherServices[serviceKey].map((price, idx) => (
-                  <TariffCard
-                    key={idx}
-                    title={serviceKey}
-                    price={price}
-                    desc="Olib ketib, yuvib qaytaramiz"
-                    selected={
-                      selectedExtra[serviceKey]?.price === price
-                    }
-                    onSelect={() =>
-                      handleExtraSelect(serviceKey, price)
-                    }
-                  />
-                ))}
-              </div>
-
-              {selectedExtra[serviceKey] && (
-                <div className="flex items-center gap-4 mt-3">
-                  <input
-                    type="number"
-                    min="1"
-                    value={selectedExtra[serviceKey].quantity}
-                    onChange={(e) =>
-                      handleExtraQuantityChange(
-                        serviceKey,
-                        e.target.value
-                      )
-                    }
-                    className="w-24 p-2 border rounded-lg"
-                  />
-
-                  <button
-                    onClick={() => removeService(serviceKey)}
-                    className="text-red-600 font-semibold"
-                  >
-                    O‘chirish
-                  </button>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* BUYURTMA TAFSILOTI */}
-      {(selectedMainTariff ||
-        Object.keys(selectedExtra).length > 0) && (
-        <div className="bg-white p-8 rounded-2xl shadow-2xl space-y-4">
-
-          <h3 className="text-xl font-bold">
-            Buyurtma tafsiloti:
-          </h3>
-
-          {/* GILAM */}
-          {selectedMainTariff && (() => {
-            const selectedTariff = gilamTariffs.find(
-              (t) => t.id === selectedMainTariff
-            );
-
-            return (
-              <p>
-                Gilam ({selectedTariff.title}):{" "}
-                <span className="font-semibold">
-                  {mainQuantity} ta
-                </span>
-              </p>
-            );
-          })()}
-
-          {/* QO‘SHIMCHA XIZMATLAR */}
-          {Object.entries(selectedExtra).map(
-            ([key, value]) => (
-              <p key={key}>
-                {key} ({value.price}):{" "}
-                <span className="font-semibold">
-                  {value.quantity} ta
-                </span>
-              </p>
-            )
-          )}
-
-          {/* FORM */}
-          <div className="space-y-3 mt-6">
-            <input
-              type="text"
-              placeholder="Ismingiz"
-              value={formData.name}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  name: e.target.value,
-                })
-              }
-              className="w-full p-3 border rounded-lg"
-            />
-
-            <input
-              type="tel"
-              placeholder="Telefon"
-              value={formData.phone}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  phone: e.target.value,
-                })
-              }
-              className="w-full p-3 border rounded-lg"
-            />
-
-            <textarea
-              placeholder="Manzil"
-              value={formData.address}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  address: e.target.value,
-                })
-              }
-              className="w-full p-3 border rounded-lg"
-            />
-
-            <div className="grid grid-cols-2 gap-4">
-              <input
-                type="date"
-                value={formData.pickupDate}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    pickupDate: e.target.value,
-                  })
-                }
-                className="p-3 border rounded-lg"
-              />
-
-              <input
-                type="time"
-                value={formData.pickupTime}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    pickupTime: e.target.value,
-                  })
-                }
-                className="p-3 border rounded-lg"
-              />
-            </div>
+            <ul className="space-y-2 mb-6">
+              <li>✔ Bepul olib ketish va yetkazib berish</li>
+              <li>✔ 24 soat ichida tayyor</li>
+              <li>✔ Germaniya texnologiyasi</li>
+            </ul>
 
             <button
-              onClick={handleSubmit}
-              className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:scale-[1.02] transition"
+              onClick={() => setShowModal(true)}
+              className="bg-amber-500 text-white px-5 py-2 rounded-full shadow-lg hover:shadow-amber-400/50 hover:-translate-y-1 transition-all duration-300"
             >
-              Buyurtmani jo‘natish
+              Buyurtma qoldirish
             </button>
           </div>
+
+          {/* RIGHT - VIDEO GRID */}
+     <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+  {videos.map((item, i) => (
+    <div
+      key={i}
+      onClick={() => setActiveVideo(item.video)}
+      className="min-w-64  relative cursor-pointer rounded-2xl overflow-hidden group 
+      shadow-md hover:shadow-2xl 
+      transition-all duration-500 
+      hover:-translate-y-2 hover:scale-[1.03]"
+    >
+      {/* IMAGE */}
+      <img
+        src={item.img}
+        className="w-full h-160px object-cover group-hover:scale-105 transition duration-300"
+      />
+
+      {/* PLAY ICON */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="bg-black/50 w-12 h-12 rounded-full flex items-center justify-center text-white text-xl backdrop-blur-sm group-hover:scale-110 transition">
+          ▶
         </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+        </div>
+      </section>
+
+      {/* 🎥 VIDEO MODAL */}
+      {activeVideo && (
+       <div
+  onClick={() => setActiveVideo(null)}
+  className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 px-4"
+>
+  <button
+  onClick={(e) => {
+    e.stopPropagation();   
+    setActiveVideo(null);
+  }}
+  className="absolute top-3 right-3 w-10 h-10 flex items-center justify-center 
+  rounded-full bg-black/60 backdrop-blur-md text-white text-lg
+  hover:bg-amber-400 hover:text-black 
+  transition-all duration-300 shadow-md hover:scale-110 active:scale-95"
+>
+  ✕
+</button>
+  <div
+    onClick={(e) => e.stopPropagation()}
+    className="relative w-full max-w-2xl"
+  >
+    
+    {/* ❌ yopish tugmasi */}
+
+
+    {/* 🎥 VIDEO */}
+    <div className="rounded-2xl overflow-hidden shadow-2xl">
+      <video
+        src={activeVideo}
+        controls
+        autoPlay
+        className="w-full max-h-[70vh] object-contain bg-black"
+      />
+    </div>
+
+  </div>
+</div>
       )}
+
+      {/* SERVICES */}
+      <section className="py-20 bg-gray-50 text-black">
+        <div className="max-w-6xl mx-auto px-4">
+          
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Bizning xizmatlar
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              "Oddiy gilam yuvish",
+              "Dog‘ ketkazish",
+              "Antibakterial tozalash",
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="p-6 bg-white rounded-xl shadow hover:shadow-xl transition hover:-translate-y-1"
+              >
+                <h3 className="font-semibold text-lg mb-2">{item}</h3>
+                <p className="text-gray-500">
+                  Sifatli va professional xizmat.
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+  <div className="relative max-w-3xl mx-auto px-4">
+    
+    <h2 className="text-3xl md:text-4xl font-extrabold mb-4">
+      Hoziroq buyurtma bering 📞
+    </h2>
+
+    <p className="mb-8 text-lg text-gray-300">
+      Birinchi buyurtmaga <span className="font-bold text-amber-400">20% chegirma</span>!
+    </p>
+
+    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+      
+      {/* 📞 CALL */}
+      <a
+        href="tel:+998732001313"
+        className="px-8 py-4 rounded-xl bg-amber-400 text-black font-semibold 
+        shadow-lg hover:shadow-amber-400/50 
+        hover:scale-105 active:scale-95 
+        transition duration-300"
+      >
+        📞 Qo‘ng‘iroq qilish
+      </a>
+
+      {/* 📝 ORDER */}
+      <button
+        onClick={() => setShowModal(true)}
+        className="px-8 py-4 rounded-xl bg-white text-black font-semibold 
+        shadow-md hover:shadow-xl 
+        hover:scale-105 active:scale-95 
+        transition duration-300"
+      >
+        Buyurtma berish
+      </button>
+
+    </div>
+
+    {/* TRUST TEXT */}
+    <p className="mt-6 text-sm text-gray-400">
+      ✔ Tez javob beramiz • ✔ 100% bepul maslahat
+    </p>
+
+  </div>
+{showModal && (
+  <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+    
+    <div className="  max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl relative p-4">
+      
+      {/* ❌ yopish tugmasi */}
+      <button
+        onClick={() => setShowModal(false)}
+   className="absolute top-3 right-3 text-black text-xl bg-gray-200 px-2 rounded hover:text-red-600"
+      >
+        ✕
+      </button>
+
+      {/* 🔥 ARIZA ICHIDA */}
+      <Ariza />
+
+    </div>
+
+  </div>
+)}
     </div>
   );
 }

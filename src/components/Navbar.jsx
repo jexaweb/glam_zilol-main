@@ -74,7 +74,7 @@ export default function Navbar() {
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           isSticky
             ? "bg-white/90 backdrop-blur-md shadow-xl"
-            : "bg-white backdrop-blur-md"
+            : " backdrop-blur-md"
         }`}
       >
         <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
@@ -151,6 +151,9 @@ export default function Navbar() {
               className="w-28 transition-transform duration-300 hover:scale-105"
             />
           </Link>
+          <div className="md:hidden flex justify-center">
+  <Themes />
+</div>
         </div>
       </header>
 
@@ -159,9 +162,10 @@ export default function Navbar() {
         ref={mobileMenuRef}
         className={`fixed top-0 left-0 h-full w-72 z-99 transform transition-transform duration-500 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } bg-white/95 backdrop-blur-xl shadow-2xl`}
+        }  backdrop-blur-xl shadow-2xl`}
       >
-        <ul className="mt-24 px-8 space-y-6 uppercase font-semibold text-gray-800">
+          
+        <ul className="mt-24 px-8 space-y-6 uppercase font-semibold ">
           {[t.home, t.about, t.services, t.news, t.contact].map((label, i) => (
             <Link
               key={i}
