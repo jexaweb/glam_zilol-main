@@ -22,6 +22,7 @@ import Avto from "./pages/services/Avto";
 import Services from "./components/Services";
 
 
+
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -78,9 +79,13 @@ function App() {
   }
 
   return (
-    <LanguageProvider>
+    <>
+
+      <LanguageProvider>
       <RouterProvider router={router} />
     </LanguageProvider>
+    </>
+  
   );
 }
 

@@ -54,7 +54,20 @@ function Home() {
     }
   ];
 
+const translations = {
+    uz: {
+  
+      phone: "Telefon raqamingiz",
+     
+    },
+    ru: {
+    
+      phone: "Номер телефона",
+   
+    },
+  };
 
+  const t = translations[language] || translations["uz"];
   /* ================= SLIDES ================= */
   const slides = [
     {
@@ -63,10 +76,10 @@ function Home() {
       imgMobile:
         "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=800",
 
-      text1_uz: "Premium tezkor xizmat!",
+      text1_uz: "Gilam yuvish!",
       text2_uz:
-        "ERA 111 antibakterial, gipoallergen shampun bilan chuqur yuvish.",
-      text3_uz: "Quritish va 1 kunda yetkazib berish kafolati!",
+        "ERA 111 karpaks antibakterial,gipoallergen shampunlar bilan chuqur yuvish.",
+      text3_uz: "O'zbekistondagi eng kota korxonalardan biri! ",
 
       text1_ru: "Премиальный экспресс-сервис!",
       text2_ru:
@@ -79,10 +92,10 @@ function Home() {
       imgMobile:
         "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=800",
 
-      text1_uz: "Mebel va divanlarni joyida tozalaymiz!",
+      text1_uz: "Mebel yuvish!",
       text2_uz:
-        "Professional uskunalar va ekologik vositalar bilan xizmat.",
-      text3_uz: "Atigi 1  2 soatda yangidek natija!",
+        "Professional uskunalar va ekologik vositalar bilan mukammal xizmat.",
+      text3_uz: "Atigi 1–2 soatda yangidek toza natija!",
 
       text1_ru: "Чистим мебель у вас дома!",
       text2_ru:
@@ -95,10 +108,10 @@ function Home() {
       imgMobile:
         "https://images.unsplash.com/photo-1616627452395-3a6c02b6a5b2?q=80&w=800",
 
-      text1_uz: "Pardalarni mukammal yuvish xizmati!",
+      text1_uz: "  Primum xizmat!",
       text2_uz:
-        "Zamonaviy uskunalarda yuvish va professional quritish.",
-      text3_uz: "Tozalik va xushbo‘y nafislik kafolati!",
+        "Zamonaviy uskunalarda yuvish va tezkor quritish.",
+      text3_uz: "1 kunda  24/7 yetkazib berish va kafolat!",
 
       text1_ru: "Профессиональная стирка штор!",
       text2_ru:
@@ -165,7 +178,7 @@ const testimonials = [
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 10000);
     return () => clearInterval(timer);
   }, [slides.length]);
 
@@ -332,6 +345,112 @@ const [activeVideo, setActiveVideo] = useState(null);
   },
 ];
 
+const texts = {
+  uz: {
+    why_title: "Nega aynan bizni tanlashadi?",
+    why_desc:
+      "Biz mijozlarimizga xuddi o‘zimizga xizmat ko‘rsatayotgandek yondashamiz. Ularning fikr-mulohazalarini qadrlaymiz va xizmat sifatini doimiy ravishda yaxshilaymiz.",
+
+    best_solution: "Eng yaxshi tozalash yechimlari",
+    specialists: "Malakali mutaxassislar",
+    equipment: "Zamonaviy uskunalar",
+    support: "24/7 qo‘llab-quvvatlash",
+
+     best_solution1:"Biz har bir buyurtmaga mas’uliyat bilan yondashamiz va mijozlarimiz mamnunligi uchun sifatni birinchi o‘ringa qo‘yamiz.",
+     specialists2:"Xodimlarimiz zamonaviy texnologiyalar bo‘yicha doimiy ravishda o‘qitiladi va yuqori standart asosida xizmat ko‘rsatadi.",
+     equipment3: "Ekologik xavfsiz va samarali tozalash vositalaridan foydalanamiz, natijada mukammal tozalikka erishamiz.",
+    support4: "Bizning call-markazimiz kecha-kunduz ishlaydi va tezkor javob beradi.",
+
+
+    services: "Xizmatlar",
+    services_desc:
+      "Xonadoningizda poklik va qulaylikni ta’minlash uchun professional xizmatlar.",
+
+    clients: "Mijozlar",
+    experience: "Tajriba",
+    services_count: "Xizmatlar",
+    staff: "Malakali mutaxassislar",
+
+    video_title: "Bizning haqiqiy",
+    video_desc: "tozalash natijalarimizni ko‘ring",
+
+    testimonials_title: "Mijozlarimiz biz haqimizda 💬",
+    testimonials_desc: "1000+ mijozlar bizni tanladi va mamnun bo‘ldi",
+
+    cta_title: "Bepul maslahat oling",
+    cta_desc:
+      "Telefon raqamingizni qoldiring — biz siz bilan tez orada bog‘lanamiz.",
+    
+    send: "Jo‘natish",
+
+    trust1: "✔ Tez aloqa",
+    trust2: "✔ 100% bepul",
+    trust3: "✔ Ishonchli xizmat",
+  },
+
+  ru: {
+    why_title: "Почему выбирают именно нас?",
+    why_desc:
+      "Мы относимся к клиентам как к себе. Ценим отзывы и постоянно улучшаем качество услуг.",
+
+    best_solution: "Лучшие решения для чистки",
+    specialists: "Квалифицированные специалисты",
+    equipment: "Современное оборудование",
+    support: "Поддержка 24/7",
+  best_solution1:"Мы ответственно подходим к каждому заказу и ставим качество на первое место ради удовлетворения клиентов.",
+   specialists2:"Наши сотрудники постоянно обучаются современным технологиям и работают по высоким стандартам.",
+    equipment3: "Мы используем экологически безопасные и эффективные средства для чистки, достигая идеальной чистоты.",
+    support4: "Наш call-центр работает круглосуточно и быстро отвечает на запросы.",
+
+    services: "Услуги",
+    services_desc:
+      "Профессиональные услуги для чистоты и уюта в вашем доме.",
+
+    clients: "Клиенты",
+    experience: "Опыт",
+    services_count: "Услуги",
+    staff: "Квалифиц ированные специалисты",
+
+    video_title: "Наши реальные",
+    video_desc: "результаты чистки",
+
+    testimonials_title: "Отзывы наших клиентов 💬",
+    testimonials_desc: "Более 1000 клиентов остались довольны",
+
+    cta_title: "Получите бесплатную консультацию",
+    cta_desc:
+      "Оставьте номер телефона — мы скоро с вами свяжемся.",
+
+    send: "Отправить",
+
+    trust1: "✔ Быстрая связь",
+    trust2: "✔ 100% бесплатно",
+    trust3: "✔ Надёжный сервис",
+  },
+};
+
+const t2 = texts[language] || texts["uz"];
+
+  // 📞 Telefon formatlash
+  const formatPhone = (val) => {
+    val = val.replace(/\D/g, "");
+    if (!val.startsWith("998")) val = "998" + val;
+    const d = val.slice(3);
+
+    let f = "+998";
+    if (d.length > 0) f += " (" + d.slice(0, 2);
+    if (d.length >= 2) f += ")";
+    if (d.length > 2) f += " " + d.slice(2, 5);
+    if (d.length > 5) f += "-" + d.slice(5, 7);
+    if (d.length > 7) f += "-" + d.slice(7, 9);
+
+    return f;
+  };
+  const handleChange = (e) => {
+    const digits = e.target.value.replace(/\D/g, "");
+    const formatted = formatPhone(digits);
+    setPhone(formatted);
+  };
 
   return (
     <div className="pt-10 ">
@@ -437,12 +556,11 @@ const [activeVideo, setActiveVideo] = useState(null);
     <div className="text-center mb-12">
      
       <h2 className=" text-3xl md:text-4xl font-bold mb-4 ">
-         Nega aynan bizni tanlashadi?
+           {t2.why_title}
       </h2>
        <div className="w-24 h-1 bg-yellow-400 mx-auto mb-4"></div>
       <p className=" max-w-2xl mx-auto">
-        Biz mijozlarimizga xuddi o‘zimizga xizmat ko‘rsatayotgandek yondashamiz.
-        Ularning fikr-mulohazalarini qadrlaymiz va xizmat sifatini doimiy ravishda yaxshilaymiz.
+        {t2.why_desc}
       </p>
     </div>
 
@@ -457,11 +575,10 @@ const [activeVideo, setActiveVideo] = useState(null);
 
           <div>
             <h4 className="text-lg font-semibold mb-2 ">
-                  Eng yaxshi tozalash yechimlari
+                  <h4>{t2.best_solution}</h4>
             </h4>
             <p >
-            Biz har bir buyurtmaga mas’uliyat bilan yondashamiz va mijozlarimiz
-            mamnunligi uchun sifatni birinchi o‘ringa qo‘yamiz.
+        {t2.best_solution1}
             </p>
           </div>
         </div>
@@ -470,11 +587,10 @@ const [activeVideo, setActiveVideo] = useState(null);
          <FaUsersLine className="text-white text-1xl w-30 h-30   border-2 bg-yellow-400  hover:bg-black" />
           <div>
             <h4 className="text-lg font-semibold mb-2 ">
-                Malakali mutaxassislar
+                {t2.specialists}
             </h4>
             <p >
-                   Xodimlarimiz zamonaviy texnologiyalar bo‘yicha doimiy ravishda
-            o‘qitiladi va yuqori standart asosida xizmat ko‘rsatadi.
+             {t2.specialists2}
             </p>
           </div>
         </div>
@@ -495,11 +611,10 @@ const [activeVideo, setActiveVideo] = useState(null);
          <FaTools className="text-white text-1xl w-21 h-28 p-2  border-2 bg-yellow-400  hover:bg-black" />
           <div>
             <h4 className="text-lg font-semibold mb-2 ">
-              Zamonaviy uskunalar
+              {t2.equipment}
             </h4>
             <p className="">
-                        Ekologik xavfsiz va samarali tozalash vositalaridan foydalanamiz,
-            natijada mukammal tozalikka erishamiz.
+                     {t2.equipment3}
 
             </p>
           </div>
@@ -509,10 +624,10 @@ const [activeVideo, setActiveVideo] = useState(null);
       <IoIosAlarm className="text-white w-15 h-29 p-2 border-2 bg-yellow-400 hover:bg-black " />
           <div>
             <h4 className="text-lg font-semibold mb-2 ">
-            24/7 qo‘llab-quvvatlash
+           {t2.support}
             </h4>
             <p >
-             Bizning call-markazimiz kecha-kunduz ishlaydi va tezkor javob beradi.
+              {t2.support4}
             </p>
           </div>
         </div>
@@ -542,7 +657,7 @@ const [activeVideo, setActiveVideo] = useState(null);
         </h3>
 
        <p className="text-gray-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-  Mijozlar
+  {t2.clients}
 </p>
       </div>
 
@@ -559,7 +674,7 @@ const [activeVideo, setActiveVideo] = useState(null);
         </h3>
 
         <p className="text-gray-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-          Tajriba
+          {t2.experience}
         </p>
       </div>
 
@@ -575,7 +690,7 @@ const [activeVideo, setActiveVideo] = useState(null);
         </h3>
 
         <p className="text-gray-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-          Xizmatlar
+          {t2.services_count}
         </p>
       </div>
 
@@ -591,7 +706,7 @@ const [activeVideo, setActiveVideo] = useState(null);
         </h3>
 
         <p className="text-gray-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-           Malakali mutaxassislar
+           {t2.staff}
         </p>
       </div>
 
@@ -606,13 +721,11 @@ const [activeVideo, setActiveVideo] = useState(null);
 bg-indigo-500 text-white font-bold text-lg rounded-xl 
 border-b-4 border-amber-400 shadow-lg 
 hover:bg-indigo-700 transition">
-  Xizmatlar
+{t2.services}
 </h2>
 
 <h3 className="max-w-3xl mx-auto text-center  text-lg leading-relaxed mt-4 px-4 font-medium">
-  Xonadoningizda <span className="text-indigo-600 font-semibold">poklik</span>  
-      va <span className="text-amber-500 font-semibold">qulaylik</span> ni ta’minlash uchun 
-  tajribali jamoamiz tomonidan professional xizmatlar ko‘rsatamiz.
+ {t2.services_desc}
 </h3>
 <div className="max-w-7xl mx-auto mt-12 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 px-4">
 
@@ -707,10 +820,10 @@ hover:bg-indigo-700 transition">
       {/* TITLE */}
       <div className="text-center  mb-8">
         <h2 className="text-2xl sm:text-3xl font-bold ">
-          Bizning haqiqiy 
+          {t2.video_title}
         </h2>
         <p className=" mt-2">
-       tozalash natijalarimizni ko‘ring
+          {t2.video_desc}
         </p>
       </div>
 
@@ -775,10 +888,10 @@ hover:bg-indigo-700 transition">
         {/* Header */}
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-5xl font-bold ">
-            Mijozlarimiz biz haqimizda 💬
+            {t2.testimonials_title}
           </h2>
           <p className=" mt-3">
-            1000+ mijozlar bizni tanladi va mamnun bo‘ldi
+            {t2.testimonials_desc}
           </p>
         </div>
 
@@ -857,12 +970,11 @@ hover:bg-indigo-700 transition">
           <div data-aos="fade-left">
             
             <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
-              Bepul maslahat oling 
+              {t2.cta_title}
             </h2>
 
-            <p className="text-gray-300 text-lg mb-10 leading-relaxed">
-              Telefon raqamingizni qoldiring — biz siz bilan tez orada bog‘lanamiz
-              va xizmat haqida batafsil tushuntirib beramiz.
+            <p className=" text-lg mb-10 leading-relaxed">
+              {t2.cta_desc}
             </p>
 
             {/* FORM */}
@@ -870,30 +982,35 @@ hover:bg-indigo-700 transition">
               
               <div className="flex flex-col sm:flex-row gap-4 bg-white/10 backdrop-blur-xl p-4 rounded-2xl border border-white/20 shadow-lg">
                 
-                <input
-                  required
-                  type="tel"
-                  placeholder="+998 90"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="flex-1 bg-transparent px-4 py-3 rounded-xl outline-none "
-                />
+            
+
+                 {/* Phone */}
+                    <input
+                       type="tel"
+                        name="phone"
+                        value={phone}
+                         onChange={handleChange}
+                          placeholder={t.phone}
+                             required
+                           className="flex-1 bg-transparent px-4 py-3 rounded-xl outline-none "
+                      />
+
 
                 <button
                   type="submit"
                   className="px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-500 text-black font-bold shadow-lg transition duration-300 hover:scale-105 active:scale-95"
                 >
-                  Jo‘natish
+                  {t2.send}
                 </button>
               </div>
 
             </form>
 
             {/* TRUST BADGES */}
-            <div className="flex gap-6 mt-8 text-sm text-gray-400">
-              <span>✔ Tez aloqa</span>
-              <span>✔ 100% bepul</span>
-              <span>✔ Ishonchli xizmat</span>
+            <div className="flex gap-6 mt-8 text-sm ">
+              <span>{t2.trust1}</span>
+              <span>{t2.trust2}</span>
+              <span>{t2.trust3}</span>
             </div>
 
           </div>

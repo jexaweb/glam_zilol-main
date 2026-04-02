@@ -165,7 +165,7 @@ export default function Navbar() {
         }  backdrop-blur-xl shadow-2xl`}
       >
           
-        <ul className="mt-24 px-8 space-y-6 uppercase font-semibold ">
+        <ul className="mt-24 px-8 space-y-6 uppercase font-semibold text-white ">
           {[t.home, t.about, t.services, t.news, t.contact].map((label, i) => (
             <Link
               key={i}
