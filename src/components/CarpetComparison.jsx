@@ -22,6 +22,7 @@ export default function BeforeAfterSection() {
       stul: "Stul",
       yakkandoz: "Yakkandoz",
       matras: "Matras",
+  
     },
 
     ru: {
@@ -35,6 +36,7 @@ export default function BeforeAfterSection() {
       stul: "Стулья",
       yakkandoz: "Дорожки",
       matras: "Матрасы",
+    
     },
   };
 

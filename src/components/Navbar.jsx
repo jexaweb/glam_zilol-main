@@ -25,6 +25,8 @@ export default function Navbar() {
       news: "Ishlarimiz",
       contact: "Aloqa",
       switch: "RU",
+       text_btn_uz: "Buyurtma qoldirish",
+  
     },
     ru: {
       home: "Главная",
@@ -33,6 +35,7 @@ export default function Navbar() {
       news: "Новости",
       contact: "Контакты",
       switch: "UZ",
+        text_btn_uz: "Оставить заявку",
     },
   };
 
@@ -118,7 +121,7 @@ export default function Navbar() {
         onClick={() => setShowModal(true)}
         className="bg-amber-500 text-white  px-5 py-2 rounded-full shadow-lg hover:shadow-amber-400/50 hover:-translate-y-1 transition-all duration-300"
       >
-        Buyurtma qoldirish
+        {t.text_btn_uz}
       </button>
            <Themes/>
           </nav>

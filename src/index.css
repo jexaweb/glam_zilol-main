@@ -163,3 +163,15 @@ box-shadow:0 0 0 2px #fde68a;
 .fade-up:hover {
   animation: fadeUp 0.8s ease forwards;
 }
+@keyframes slide {
+  0% {
+    transform: translate(-100%, -50%);
+  }
+  100% {
+    transform: translate(100vw, -50%);
+  }
+}
+
+.animate-slide {
+  animation: slide 4s linear infinite;
+}

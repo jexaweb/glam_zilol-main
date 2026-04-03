@@ -11,6 +11,7 @@ import { IoIosAlarm } from "react-icons/io";
 import CountUp from "../components/CountUp";
 import { BiUserCircle } from "react-icons/bi";
 import Ariza from "../components/Ariza";
+import CleaningEffect from "../components/CleaningEffect";
 
 /* ================= ERROR ALERT ================= */
 function ErrorAlert({ message, onClose }) {
@@ -31,40 +32,68 @@ function ErrorAlert({ message, onClose }) {
 function Home() {
   const { language } = useLanguage();
    const [active, setActive] = useState(0);
-  /* ================= faq-data ================= */
-     const data = [
-    {
-      q: "How do I create an account?",
-      a: "Click the Sign Up button and follow the registration process."
-    },
-    {
-      q: "I forgot my password. What should I do?",
-      a: "Use the Forgot Password option and follow the steps sent to your email."
-    },
-    {
-      q: "How do I update my profile?",
-      a: "Go to account settings and edit your profile information."
-    },
-      {
-      q: "How do I update my profile?",
-      a: "Go to account settings and edit your profile information."
-    },  {
-      q: "How do I update my profile?",
-      a: "Go to account settings and edit your profile information."
-    }
-  ];
+
+
 
 const translations = {
     uz: {
-  
+   faq: [
+      {
+        q: "Gilamni nimada yuvasizlar?",
+        a: "Gilamlar Turkiya texnologiyasi asosidagi rotor apparatida yuviladi."
+      },
+      {
+        q: "Qanday quritasizlar?",
+        a: "Sentrafuga apparati yordamida gilamlarning 95% gacha namligi siqib chiqariladi."
+      },
+      {
+        q: "Ishingizga kafolat bormi, yoqmasa-chi?",
+        a: "Agar xizmatimiz sizga yoqsa — to‘lov qilasiz, yoqmasa — mutlaqo bepul."
+      },
+      {
+        q: "Qanday vositalardan foydalanasizlar?",
+        a: "Gilam tolalariga zarar yetkazmaydigan, rangini saqlovchi va dog‘larni samarali ketkazuvchi professional, gipallergen vositalar hamda ERA 111 shampunlaridan foydalanamiz."
+      },
+      {
+        q: "Ko‘rpa va yostiqlarni qanday yuvasizlar?",
+        a: "Maxsus apparatlarda yuvilib, siqiladi va quyosh nuri tushmaydigan issiq xonalarda quritilib, yumshoqligi tiklanadi."
+      }
+    ],
       phone: "Telefon raqamingiz",
+        faqTitle: "❓ Eng ko‘p beriladigan savollar"
      
     },
     ru: {
-    
+     faq: [
+      {
+        q: "Чем вы стираете ковры?",
+        a: "Ковры стираются с использованием турецкого оборудования — роторных аппаратов."
+      },
+      {
+        q: "Как вы сушите ковры?",
+        a: "С помощью центрифуги удаляется до 95% влаги из ковров."
+      },
+      {
+        q: "Есть ли гарантия, если не понравится?",
+        a: "Если вам понравится — вы оплачиваете, если нет — услуга абсолютно бесплатна."
+      },
+      {
+        q: "Какие средства вы используете?",
+        a: "Мы используем профессиональные гипоаллергенные средства и шампуни ERA 111, которые не повреждают волокна и сохраняют цвет ковра."
+      },
+      {
+        q: "Как вы стираете одеяла и подушки?",
+        a: "Они стираются в специальных аппаратах, отжимаются и сушатся в теплых помещениях без прямого солнечного света для сохранения мягкости."
+      }
+    ],
       phone: "Номер телефона",
+          faqTitle: "❓ Часто задаваемые вопросы"
    
     },
+
+ 
+
+  
   };
 
   const t = translations[language] || translations["uz"];
@@ -74,7 +103,7 @@ const translations = {
       imgDesktop:
         "https://d34mfkth6cubud.cloudfront.net/wp-content/uploads/2022/11/16073435/home-cleaning-services-in-Abu-Dhabi-_-Cover-16-11-22.jpg",
       imgMobile:
-        "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=800",
+        "/bg-mbl1.png",
 
       text1_uz: "Gilam yuvish!",
       text2_uz:
@@ -90,7 +119,7 @@ const translations = {
       imgDesktop:
         "https://avatars.mds.yandex.net/get-altay/15265650/2a00000194cfc14c6f5dd8df9fe271072a6a/XXL_height",
       imgMobile:
-        "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=800",
+        "/bg-mbl2.jpg",
 
       text1_uz: "Mebel yuvish!",
       text2_uz:
@@ -104,9 +133,9 @@ const translations = {
     },
     {
       imgDesktop:
-        "https://biryusa.ru/up/opti/resizetmp/2520_3000_1/27d166727599573d9fa491436e510f7b/SM2_3.jpg",
+        "/bg-run.png",
       imgMobile:
-        "https://images.unsplash.com/photo-1616627452395-3a6c02b6a5b2?q=80&w=800",
+        "/bg-mbl3.png",
 
       text1_uz: "  Primum xizmat!",
       text2_uz:
@@ -507,18 +536,30 @@ const t2 = texts[language] || texts["uz"];
 
             <div className="absolute inset-0 bg-black/50"></div>
 
-            <div className="absolute bottom-20 left-1/2 -translate-x-1/2 text-center text-white px-4 z-30">
-              <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
-                {item[`text1_${language}`]}
-              </h2>
-              <p className="text-lg md:text-2xl">
-                {item[`text2_${language}`]}
-              </p>
-              <p className="text-lg md:text-xl mt-2">
-                {item[`text3_${language}`]}
-              </p>
-            </div>
+           <div className="absolute bottom-10 md:bottom-20 left-1/2 -translate-x-1/2 text-center text-white px-4 z-30 w-full max-w-3xl">
 
+<div className="absolute bottom-10 md:bottom-20 left-1/2 -translate-x-1/2 w-full px-4 z-30 flex justify-center">
+
+  <div className="relative max-w-3xl w-full text-center text-white">
+
+    <div className="relative border-white/20 rounded-3xl p-6 md:p-10">
+
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3">
+        {item[`text1_${language}`]}
+      </h2>
+
+      <p className="text-lg sm:text-xl md:text-2xl">
+        {item[`text2_${language}`]}
+      </p>
+
+      <p className="text-base sm:text-lg md:text-xl mt-2 text-amber-300 font-semibold">
+        {item[`text3_${language}`]}
+      </p>
+
+    </div>
+  </div>
+</div>
+</div>
             <button
               onClick={prev}
               className="absolute top-1/2 left-5 -translate-y-1/2 bg-yellow-400 p-3 rounded-full"
@@ -574,8 +615,8 @@ const t2 = texts[language] || texts["uz"];
           <AiFillStar  className=" text-1xl w-30 h-30 text-white   border-2 bg-yellow-400 hover:bg-black " />
 
           <div>
-            <h4 className="text-lg font-semibold mb-2 ">
-                  <h4>{t2.best_solution}</h4>
+            < h4 className="text-lg font-semibold mb-2 ">
+                  {t2.best_solution}
             </h4>
             <p >
         {t2.best_solution1}
@@ -644,10 +685,12 @@ const t2 = texts[language] || texts["uz"];
     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
       {/* Card 1 */}
-      <div className="group border-2 border-dashed border-amber-400 rounded-2xl p-8 text-center hover:scale-105 transition duration-300 backdrop-blur-md">
+      <div className="group border-2 border-dashed border-amber-400 rounded-2xl 
+      p-8 text-center hover:scale-105 transition duration-300 backdrop-blur-md">
         
         <div className="flex justify-center mb-5">
-          <div className="w-16 h-16 flex items-center justify-center rounded-full bg-yellow-400/20 group-hover:bg-yellow-400 transition ">
+          <div className="w-16 h-16 flex items-center justify-center rounded-full
+           bg-yellow-400/20 group-hover:bg-yellow-400 transition ">
             <FaUsers className="text-yellow-400 group-hover:text-black w-8 h-8 transition"/>
           </div>
         </div>
@@ -662,9 +705,11 @@ const t2 = texts[language] || texts["uz"];
       </div>
 
       {/* Card 2 */}
-      <div className="group border-2 border-dashed border-amber-400 rounded-2xl p-8 text-center hover:scale-105 transition duration-300">
+      <div className="group border-2 border-dashed border-amber-400 rounded-2xl p-8
+       text-center hover:scale-105 transition duration-300">
          <div className="flex justify-center mb-5">
-           <div className="w-16 h-16 flex items-center justify-center rounded-full bg-yellow-400/20 group-hover:bg-yellow-400 transition ">
+           <div className="w-16 h-16 flex items-center justify-center rounded-full
+            bg-yellow-400/20 group-hover:bg-yellow-400 transition ">
          <FaRegCalendarDays className="text-yellow-400 group-hover:text-black w-8 h-8 transition "  />
           </div>
           </div>
@@ -679,9 +724,11 @@ const t2 = texts[language] || texts["uz"];
       </div>
 
       {/* Card 3 */}
-      <div className="group border-2 border-dashed border-amber-400 rounded-2xl p-8 text-center hover:scale-105 transition duration-300 backdrop-blur-md">
+      <div className="group border-2 border-dashed border-amber-400 rounded-2xl 
+      p-8 text-center hover:scale-105 transition duration-300 backdrop-blur-md">
           <div className="flex justify-center mb-5">
-           <div className="w-16 h-16 flex items-center justify-center rounded-full bg-yellow-400/20 group-hover:bg-yellow-400 transition ">
+           <div className="w-16 h-16 flex items-center justify-center rounded-full
+            bg-yellow-400/20 group-hover:bg-yellow-400 transition ">
          <AiFillSetting className="text-yellow-400 group-hover:text-black w-8 h-8 transition "  />
           </div>
           </div>
@@ -695,9 +742,11 @@ const t2 = texts[language] || texts["uz"];
       </div>
 
       {/* Card 4 */}
-      <div className="group border-2 border-dashed border-amber-400 rounded-2xl p-8 text-center hover:scale-105 transition duration-300">
+      <div className="group border-2 border-dashed border-amber-400 rounded-2xl 
+      p-8 text-center hover:scale-105 transition duration-300">
             <div className="flex justify-center mb-5">
-           <div className="w-16 h-16 flex items-center justify-center rounded-full bg-yellow-400/20 group-hover:bg-yellow-400 transition ">
+           <div className="w-16 h-16 flex items-center justify-center rounded-full
+            bg-yellow-400/20 group-hover:bg-yellow-400 transition ">
          <BiUserCircle className="text-yellow-400 group-hover:text-black w-8 h-8 transition "  />
           </div>
           </div>
@@ -759,12 +808,14 @@ hover:bg-indigo-700 transition">
  
       <CarpetComparison  />
 <div>
-  <h2 className=" text-3xl p-3  text-center">bizdan   doyimi so'yardigan  sovolar</h2>
+ <h2 className="text-3xl md:text-4xl font-bold text-center p-4">
+ {t.faqTitle} 
+</h2>
 <div className="w-full   flex items-center justify-center px-4 sm:px-6 lg:px-8 p-10">
 
   <div className="w-full max-w-6xl space-y-4 sm:space-y-5">
 
-    {data.map((item, i) => (
+    {t.faq.map((item, i) => (
       <div
         key={i}
         onClick={() => setActive(i === active ? null : i)}
@@ -776,7 +827,8 @@ hover:bg-indigo-700 transition">
       >
 
         {/* glow */}
-        <div className="absolute inset-0 rounded-xl sm:rounded-2xl opacity-0 group-hover:opacity-100 transition duration-500 blur-lg bg-indigo-100"></div>
+        <div className="absolute inset-0 rounded-xl sm:rounded-2xl opacity-0 
+        group-hover:opacity-100 transition duration-500 blur-lg bg-indigo-100"></div>
 
         <div className="relative p-4 sm:p-5">
 
@@ -788,7 +840,8 @@ hover:bg-indigo-700 transition">
 
             {/* ICON */}
             <div
-              className={` w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full border transition duration-300 ${
+              className={` w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center 
+                rounded-full border transition duration-300 ${
                 active === i
                   ? "border-indigo-500 text-indigo-500 rotate-180"
                   : "border-gray-300 text-gray-400"
@@ -844,7 +897,8 @@ hover:bg-indigo-700 transition">
 
             {/* PLAY ICON */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="bg-black/50 w-12 h-12 rounded-full flex items-center justify-center text-white text-xl backdrop-blur-sm group-hover:scale-110 transition">
+              <div className="bg-black/50 w-12 h-12 rounded-full flex 
+              items-center justify-center text-white text-xl backdrop-blur-sm group-hover:scale-110 transition">
                 ▶
               </div>
             </div>
@@ -980,7 +1034,8 @@ hover:bg-indigo-700 transition">
             {/* FORM */}
             <form className="general__form" onSubmit={handleSubmit} >
               
-              <div className="flex flex-col sm:flex-row gap-4 bg-white/10 backdrop-blur-xl p-4 rounded-2xl border border-white/20 shadow-lg">
+              <div className="flex flex-col sm:flex-row gap-4 bg-white/10 backdrop-blur-xl 
+              p-4 rounded-2xl border border-white/20 shadow-lg">
                 
             
 
@@ -998,7 +1053,8 @@ hover:bg-indigo-700 transition">
 
                 <button
                   type="submit"
-                  className="px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-500 text-black font-bold shadow-lg transition duration-300 hover:scale-105 active:scale-95"
+                  className="px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-500
+                   text-black font-bold shadow-lg transition duration-300 hover:scale-105 active:scale-95"
                 >
                   {t2.send}
                 </button>
@@ -1018,6 +1074,7 @@ hover:bg-indigo-700 transition">
         </div>
       </div>
     </section>
+  
 </div>
     </div>
     

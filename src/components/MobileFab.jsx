@@ -2,9 +2,16 @@ import { useState } from "react";
 import { FaPhone, FaTelegram } from "react-icons/fa";
 import { GrInstagram } from "react-icons/gr";
 import Ariza from "./Ariza"; // 🔥 MUHIM
+import { useLanguage } from "./LanguageContext";
 
 export default function MobileFab() {
   const [showModal, setShowModal] = useState(false);
+  const { language } = useLanguage();
+
+const translations = {
+  uz: "Buyurtma qoldirish",
+  ru: "Оставить заявку",
+};
 
   return (
     <>
@@ -48,7 +55,7 @@ export default function MobileFab() {
             transition-all duration-300 hover:-translate-y-2 overflow-hidden
           "
         >
-          Buyurtma qoldirish
+           {translations[language] || translations.uz}
 
           <span className="absolute inset-0 rounded-full border-[4px] sm:border-[6px] border-[#00FFCB] shadow-[0_0_60px_rgba(0,255,203,0.64)] opacity-0 transition group-hover:opacity-100"></span>
 
