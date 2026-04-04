@@ -10,20 +10,20 @@ export default function Gilam() {
 
   const videos = [
     {
-      video: "/videos/gilam1.mp4",
-      img: "/zilolclengi.png",
+      video: "/videos/gilam_yuvish1.mp4",
+      img: "/gilam-yuvish1.png",
+    },
+    {
+      video: "/videos/gilam_yuvish2.mp4",
+      img: "/gilam-yuvish2.png",
+    },
+    {
+      video: "/videos/gilam_yuvish3.mp4",
+      img: "/gilam-yuvish3.png",
     },
     {
       video: "/videos/gilam.mp4",
       img: "/zilolclengi.1.png",
-    },
-    {
-      video: "/videos/mebel.mp4",
-      img: "/zilolclengi.2.png",
-    },
-    {
-      video: "/videos/yakandoz.mp4",
-      img: "/zilolclengi.3.png",
     },
   ];
 
@@ -51,8 +51,8 @@ export default function Gilam() {
 
             <ul className="space-y-2 mb-6">
               <li>✔ Bepul olib ketish va yetkazib berish</li>
-              <li>✔ 24 soat ichida tayyor</li>
-              <li>✔ Germaniya texnologiyasi</li>
+              <li>✔ 24 soat ichida tayyorlash xizmat</li>
+              <li>✔ Turkiya texnologiyasi</li>
             </ul>
 
             <button
@@ -133,33 +133,63 @@ export default function Gilam() {
 </div>
       )}
 
-      {/* SERVICES */}
-      <section className="py-20 bg-gray-50 text-black">
-        <div className="max-w-6xl mx-auto px-4">
-          
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Bizning xizmatlar
-          </h2>
+     {/* SERVICES */}
+<section className="py-20 bg-gray-50 text-black">
+  <div className="max-w-6xl mx-auto px-4">
+    
+    <h2 className="text-3xl font-bold text-center mb-12">
+      Bizning xizmatlar
+    </h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              "Oddiy gilam yuvish",
-              "Dog‘ ketkazish",
-              "Antibakterial tozalash",
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="p-6 bg-white rounded-xl shadow hover:shadow-xl transition hover:-translate-y-1"
-              >
-                <h3 className="font-semibold text-lg mb-2">{item}</h3>
-                <p className="text-gray-500">
-                  Sifatli va professional xizmat.
-                </p>
-              </div>
-            ))}
-          </div>
+    <div className="grid md:grid-cols-3 gap-8">
+      {[
+        {
+          title: "VIP gilam yuvish",
+          price: "25 000 so'm / m²",
+          desc: "Eng yuqori sifat, chuqur tozalash va tez quritish.",
+        },
+        {
+          title: "Premium gilam yuvish",
+          price: "15 000 so'm / m²",
+          desc: "Optimal narx va sifat uyg‘unligi.",
+        },
+        {
+          title: "Standart gilam yuvish",
+          price: "10 000 so'm / m²",
+          desc: "Arzon va tezkor xizmat.",
+        },
+      ].map((item, i) => (
+        <div
+          key={i}
+          className="p-6 bg-white rounded-2xl shadow-md hover:shadow-2xl transition duration-300 hover:-translate-y-2 border"
+        >
+          {/* ICON */}
+          <div className="text-4xl mb-4">🧼</div>
+
+          {/* TITLE */}
+          <h3 className="font-semibold text-xl mb-2">
+            {item.title}
+          </h3>
+
+          {/* PRICE */}
+          <p className="text-blue-600 font-bold mb-2">
+            {item.price}
+          </p>
+
+          {/* DESC */}
+          <p className="text-gray-500 mb-4">
+            {item.desc}
+          </p>
+
+          {/* BUTTON */}
+          <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+            Buyurtma berish
+          </button>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
   <div className="relative max-w-3xl mx-auto px-4">
     

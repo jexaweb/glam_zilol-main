@@ -176,13 +176,13 @@ export default function Ariza() {
 
     message += `✏️ ${form.note}`;
 
-    await fetch("https://api.telegram.org/botTOKEN/sendMessage", {
+    await fetch("https://api.telegram.org/bot8789952135:AAEq5VuGMUAa7b094Les1nJm1DCnvM_TaK0/sendMessage", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        chat_id: "CHAT_ID",
+        chat_id: "6904234957",
         text: message,
       }),
     });
