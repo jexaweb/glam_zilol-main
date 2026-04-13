@@ -25,6 +25,7 @@ export default function Matras() {
       tariffs: {
         "primum /2x/dona": 200000,
         "Standart /1x/dona": 100000,
+        
       },
     },
  
@@ -177,17 +178,16 @@ const toggleTariff = (service, tariff) => {
   };
   const tariffs = [
     {
-      name: "1 o‘rinlik matras",
-      price: "40 000 so‘m",
+      name: "1 kishilik matras",
+      price: "100 000 so‘m",
+     
     },
     {
-      name: "2 o‘rinlik matras",
-      price: "70 000 so‘m",
+      name: "2 kshilik matras",
+      price: "200 000 so‘m",
+     
     },
-    {
-      name: "Katta matras",
-      price: "120 000 so‘m",
-    },
+   
   ];
 
   return (
@@ -300,6 +300,7 @@ const toggleTariff = (service, tariff) => {
               >
                 <h3 className="font-semibold text-lg mb-2">{t.name}</h3>
                 <p className="text-amber-500 font-bold text-xl">{t.price}</p>
+             
 
                 <button
                   onClick={() => setShowModal(true)}

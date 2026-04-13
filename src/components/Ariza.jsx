@@ -12,8 +12,8 @@ export default function Ariza() {
       phone: "Telefon raqami",
       services: "Xizmatlar",
       quantity: "Soni",
-      address: "Manzil",
-      note: "Izoh (masalan: ertaga olib ketilsin)",
+      address: "Lokatsiya tugmani bosing ➡️ ",
+      note: "Izoh,manzil (masalan: ertaga olib ketilsin manzil:margilol )",
       send: "Buyurtma yuborish",
       success: "Ariza yuborildi ✅",
       location_error: "Lokatsiya olinmadi ❗",
@@ -40,21 +40,21 @@ export default function Ariza() {
   const serviceData = {
     "Gilam yuvish": {
       tariffs: {
-        "VIP /1m/kv": 25000,
+        "VIP Premium /1m/kv": 20000,
         "Premium /1m/kv": 15000,
-        "Standart /1m/kv": 10000,
+        "Standart /1m/kv": 12000,
       },
     },
     "Adyol yuvish": {
       tariffs: {
-        "Premium /1 dona": 60000,
-        "Standart /1 dona": 40000,
+        "Premium /1 dona": 80000,
+        "Standart /1 dona": 60000,
       },
     },
     "Yakkandoz yuvish": {
       tariffs: {
-        "Premium /1 dona": 40000,
-        "Standart /1 dona": 30000,
+        "Premium /1 dona": 50000,
+        "Standart /1 dona": 40000,
       },
     },
     "Parda yuvish": {
@@ -65,7 +65,7 @@ export default function Ariza() {
     },
     "Mebel yuvish": {
       tariffs: {
-        "Mebel /1 dona": 100000,
+        "Mebel /1 dona": 80000,
         "Stul /1 dona": 30000,
       },
     },
@@ -216,7 +216,7 @@ export default function Ariza() {
         onSubmit={handleSubmit}
         className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-xl space-y-5"
       >
-        <h2 className="text-2xl font-bold text-center">{t.title}</h2>
+        <h2 className="text-2xl font-bold text-center text-black">{t.title}</h2>
 
         <input
           className="input w-full"
@@ -236,7 +236,7 @@ export default function Ariza() {
 
         {/* SERVICES */}
         <div className="space-y-3">
-          <p className="font-semibold">{t.services}</p>
+          <p className="font-semibold text-black">{t.services}</p>
 
           {Object.keys(serviceData).map((service) => {
             const selected = selectedServices[service];
@@ -321,7 +321,7 @@ export default function Ariza() {
         </div>
 
         <textarea
-          className="input w-full"
+          className="input w-100% h-24"
           placeholder={t.note}
           value={form.note}
           onChange={(e) => setForm({ ...form, note: e.target.value })}

@@ -9,6 +9,7 @@ import ThemeToggle from "./Themes";
 import Themes from "./Themes";
 
 
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
@@ -16,7 +17,7 @@ export default function Navbar() {
   const { language, toggleLanguage } = useLanguage();
     const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-
+ 
   const translations = {
     uz: {
       home: "Asosiy",
@@ -66,6 +67,7 @@ export default function Navbar() {
 
   return (
     <>
+
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300"

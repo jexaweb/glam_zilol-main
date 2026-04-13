@@ -137,7 +137,7 @@ const translations = {
       imgMobile:
         "/bg-mbl3.png",
 
-      text1_uz: "  Primum xizmat!",
+      text1_uz: "VIP  Primum xizmat!",
       text2_uz:
         "Zamonaviy uskunalarda yuvish va tezkor quritish.",
       text3_uz: "1 kunda  24/7 yetkazib berish va kafolat!",
@@ -324,7 +324,7 @@ const services = [
   },
 
   { 
-    title: language === "ru" ? "Чистка на месте" : "Joyida yuvish",
+    title: language === "ru" ? "Чистка на месте" : "Joyida Gilam yuvish",
     image: "/joyda.png",
     link: "/kovrolin",
     bgColor: "bg-blue-200"
@@ -770,7 +770,7 @@ const t2 = texts[language] || texts["uz"];
 bg-indigo-500 text-white font-bold text-lg rounded-xl 
 border-b-4 border-amber-400 shadow-lg 
 hover:bg-indigo-700 transition">
-{t2.services}
+{t2.services} 
 </h2>
 
 <h3 className="max-w-3xl mx-auto text-center  text-lg leading-relaxed mt-4 px-4 font-medium">

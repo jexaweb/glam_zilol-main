@@ -6,9 +6,9 @@ export default function Avto() {
   const serviceData = {
     "Avto chihol yuvish": {
       tariffs: {
-        "Old o‘rindiq (1 dona)": 30000,
-        "Orqa o‘rindiq (komplekt)": 80000,
-        "To‘liq salon": 150000,
+        "Old o‘rindiq (1 dona)": 50000,
+        "Orqa o‘rindiq (komplekt)": 100000,
+        "To‘liq salon": 200000,
       },
     },
   };

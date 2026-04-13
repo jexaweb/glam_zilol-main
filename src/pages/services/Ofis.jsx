@@ -21,10 +21,10 @@ export default function Matras() {
   ];
   const serviceData = {
     
-    "Matras yuvish": {
+    "O'yinchoqlar yuvish": {
       tariffs: {
-        "primum /2x/dona": 200000,
-        "Standart /1x/dona": 100000,
+        "primum /1 kg ": 30000,
+        "Standart /1 kg": 20000,
       },
     },
  
@@ -177,17 +177,16 @@ const toggleTariff = (service, tariff) => {
   };
   const tariffs = [
     {
-      name: "1 o‘rinlik matras",
-      price: "40 000 so‘m",
+      name: "primum /1 kg ",
+      price: "30 000 so‘m",
+      per: "kata o'yinchoq",
     },
     {
-      name: "2 o‘rinlik matras",
-      price: "70 000 so‘m",
+      name: "Standart /1 kg",
+      price: "20 000 so‘m",
+      per: "kchik o'yinchoq",
     },
-    {
-      name: "Katta matras",
-      price: "120 000 so‘m",
-    },
+ 
   ];
 
   return (

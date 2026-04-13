@@ -55,35 +55,56 @@ export default function Yakkandoz() {
         </div>
       </section>
 
-      {/* SERVICES */}
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-4">
-          
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Bizning xizmatlar
-          </h2>
+           {/* SERVICES */}
+<section className="py-20 bg-gray-50 text-black">
+  <div className="max-w-6xl mx-auto px-4">
+    
+    <h2 className="text-3xl font-bold text-center mb-12">
+      Bizning xizmatlar
+    </h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            
-            {[
-              "Oddiy yuvish",
-              "Dog‘ ketkazish",
-              "Antibakterial tozalash",
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition"
-              >
-                <h3 className="font-semibold text-lg mb-2">{item}</h3>
-                <p className="text-gray-500">
-                  Sifatli va ehtiyotkorlik bilan tozalaymiz.
-                </p>
-              </div>
-            ))}
+    <div className="grid md:grid-cols-2 gap-8">
+      {[
+     
+        {
+          title: "Premium yakandoz yuvish",
+          price: "50 000 so'm / 1 dona",
+          desc: " 1-3 kunda yetkazib beramiz",
+        },
+        {
+          title: "Standart yakandoz yuvish",
+          price: "40 000 so'm / 1 dona",
+          desc: "3-7 kunda yetkazib bermiz",
+        },
+      ].map((item, i) => (
+        <div
+          key={i}
+          className="p-6 bg-white rounded-2xl shadow-md hover:shadow-2xl transition duration-300 hover:-translate-y-2 border"
+        >
+          {/* ICON */}
+          <div className="text-4xl mb-4">🧼</div>
 
-          </div>
+          {/* TITLE */}
+          <h3 className="font-semibold text-xl mb-2">
+            {item.title}
+          </h3>
+
+          {/* PRICE */}
+          <p className="text-blue-600 font-bold mb-2">
+            {item.price}
+          </p>
+
+          {/* DESC */}
+          <p className="text-gray-500 mb-4">
+            {item.desc}
+          </p>
+
+        
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* PROCESS */}
       <section className="py-20 bg-gray-100">
@@ -124,9 +145,9 @@ export default function Yakkandoz() {
           <div className="grid md:grid-cols-3 gap-8">
             
             {[
-              { name: "1 dona (kichik)", price: "25 000 so'm" },
-              { name: "2 dona (o‘rta)", price: "45 000 so'm" },
-              { name: "3 dona (katta)", price: "70 000 so'm" },
+              { name: "1 dona ", price: "50 000 so'm" },
+              { name: "1 dona (o‘rta)", price: "40 000 so'm" },
+          
             ].map((plan, i) => (
               <div
                 key={i}

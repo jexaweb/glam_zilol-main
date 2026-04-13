@@ -23,8 +23,8 @@ export default function Kovrolin() {
   const serviceData = {
     "Joyda yuvish": {
       tariffs: {
-        "Divan / dona": 200000,
-        "Kreslo / dona": 100000,
+        "Narx / 1 kv": 25000,
+      
       },
     },
   };
@@ -171,7 +171,7 @@ export default function Kovrolin() {
 
   const tariffs = [
     {
-      name: "Divan yuvish",
+      name: "Ddsd",
       price: "200 000 so‘m",
     },
     {
