@@ -1,10 +1,87 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Ariza from "../../components/Ariza";
+import { useLanguage } from "../../components/LanguageContext";
 
 export default function Korpa() {
  const [showModal, setShowModal] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
+    const { language } = useLanguage();
+
+    useEffect(() => {
+            const timer = setTimeout(() => {
+              setShowModal(true);
+            }, 2000);
+          
+            return () => clearTimeout(timer);
+          }, []);
+
+  const t = {
+    uz: {
+      title: "Ko‘rpa yuvish xizmati 🛏️",
+      desc: "Ko‘rpalaringizni chuqur tozalaymiz, chang va bakteriyalarni yo‘q qilamiz. Yangi kabi toza va yoqimli holatda qaytaramiz.",
+      list: [
+        "✔ Oqartirmasdan tozalash",
+        "✔ Tez va sifatli xizmat",
+        "✔ Uyga olib ketish va qaytarish",
+      ],
+      order: "Buyurtma qoldirish",
+      services: "Bizning xizmatlar",
+      premium: "Premium korpa yuvish",
+      premiumDesc: "2 kishilik paxtali ko'rpa",
+      standard: "Standart korpa yuvish",
+      standardDesc: "1 kishilik paxtali ko'rpa",
+      process: "Qanday ishlaymiz?",
+      steps: [
+        "Buyurtma berasiz",
+        "Uyga boramiz",
+        "Tozalaymiz",
+        "Quritib topshiramiz",
+      ],
+      cta: "Hoziroq buyurtma bering 📞",
+      discount: "Birinchi buyurtmaga",
+      call: "Qo‘ng‘iroq qilish",
+      orderBtn: "Buyurtma berish",
+      name: "F.I.O",
+      phone: "Tel",
+      address: "Lokatsiya tugmani bosing ➡️",
+      note: "Izoh,manzil (masalan: ertaga olib ketilsin manzil:margilol )",
+      send: "Buyurtma yuborish",
+      mattress: "Matras yuvish",
+    },
+    ru: {
+      title: "Стирка одеял 🛏️",
+      desc: "Глубоко очищаем ваши одеяла, удаляем пыль и бактерии. Возвращаем чистыми и свежими.",
+      list: [
+        "✔ Без отбеливания",
+        "✔ Быстро и качественно",
+        "✔ Забираем и доставляем",
+      ],
+      order: "Оставить заявку",
+      services: "Наши услуги",
+      premium: "Премиум стирка одеяла",
+      premiumDesc: "Двуспальное хлопковое одеяло",
+      standard: "Стандартная стирка одеяла",
+      standardDesc: "Односпальное хлопковое одеяло",
+      process: "Как мы работаем?",
+      steps: [
+        "Вы оставляете заявку",
+        "Мы приезжаем",
+        "Чистим",
+        "Сушим и доставляем",
+      ],
+      cta: "Закажите прямо сейчас 📞",
+      discount: "Скидка",
+      call: "Позвонить",
+      orderBtn: "Сделать заказ",
+      name: "Ф.И.О",
+      phone: "Тел",
+      address: "Нажмите кнопку «Местоположение» ➡️",
+      note: "Комментарий  (например: забрать завтра)",
+      send: "Отправить",
+      mattress: "Чистка матраса",
+    },
+  }[language];
 
   const navigate = useNavigate();
 
@@ -26,6 +103,177 @@ export default function Korpa() {
       img: "/zilolclengi.3.png",
     },
   ];
+   const serviceData = {
+    
+    "Korpa yuvish": {
+      tariffs: {
+        "primum /2x/dona": 120000,
+        "Standart /1x/dona":80000,
+        
+      },
+      
+    },
+ 
+  };
+
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    address: "",
+    note: "",
+  });
+
+  const [selectedServices, setSelectedServices] = useState({});
+  const [loadingLoc, setLoadingLoc] = useState(false);
+
+  // ✅ xizmatni yoqish/o‘chirish
+  const toggleService = (service) => {
+    const updated = { ...selectedServices };
+
+    if (updated[service]) {
+      delete updated[service];
+    } else {
+      updated[service] = {};
+    }
+
+    setSelectedServices(updated);
+  };
+
+  // ✅ faqat 1 ta tarif
+const toggleTariff = (service, tariff) => {
+  const updated = { ...selectedServices };
+
+  // agar shu tarif allaqachon tanlangan bo‘lsa → o‘chir
+  if (updated[service][tariff]) {
+    delete updated[service][tariff];
+  } else {
+    // aks holda faqat shu tarifni qoldir
+    updated[service] = {
+      [tariff]: { quantity: "" },
+    };
+  }
+
+  setSelectedServices(updated);
+};
+
+  const handleQuantityChange = (service, tariff, value) => {
+    setSelectedServices({
+      ...selectedServices,
+      [service]: {
+        ...selectedServices[service],
+        [tariff]: {
+          quantity: value,
+        },
+      },
+    });
+  };
+
+  // 📍 LOCATION
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      alert("Brauzer lokatsiyani qo‘llab-quvvatlamaydi ❗");
+      return;
+    }
+
+    setLoadingLoc(true);
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        const link = `https://maps.google.com/?q=${lat},${lon}`;
+
+        setForm((prev) => ({
+          ...prev,
+          address: link,
+        }));
+
+        setLoadingLoc(false);
+      },
+      () => {
+        alert("Lokatsiya olinmadi ❗");
+        setLoadingLoc(false);
+      }
+    );
+  };
+
+  // 🚀 TELEGRAM
+  const sendTelegram = async () => {
+    let message = `🧼 Yangi ariza\n\n👤 ${form.name}\n📞 ${form.phone}\n📍 ${form.address}\n\n`;
+
+    let i = 1;
+
+    Object.entries(selectedServices).forEach(([service, tariffs]) => {
+      Object.entries(tariffs).forEach(([tariff, data]) => {
+        const price = serviceData[service].tariffs[tariff];
+
+        message += `${i}️⃣ ${service}\n`;
+        message += `Tarif: ${tariff}\n`;
+        message += `Narx: ${price.toLocaleString()} so'm\n`;
+        message += `Soni: ${data.quantity} dona\n\n`;
+
+        i++;
+      });
+    });
+
+    message += `✏️ Izoh: ${form.note}`;
+
+    await fetch(
+      "https://api.telegram.org/bot8789952135:AAEq5VuGMUAa7b094Les1nJm1DCnvM_TaK0/sendMessage",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: "6904234957",
+          text: message,
+        }),
+      }
+    );
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    for (const service in selectedServices) {
+      for (const tariff in selectedServices[service]) {
+        const qty = selectedServices[service][tariff].quantity;
+
+        if (!qty || qty <= 0) {
+          alert(`${service} (${tariff}) sonini kiriting ❗`);
+          return;
+        }
+      }
+    }
+
+    await sendTelegram();
+
+    alert("Ariza yuborildi ✅");
+
+    setForm({
+      name: "",
+      phone: "",
+      address: "",
+      note: "",
+    });
+
+    setSelectedServices({});
+  };
+  const tariffs = [
+    {
+      name: "1 kishilik matras",
+      price: "80, 000 so‘m",
+     
+    },
+    {
+      name: "2 kshilik matras",
+      price: "120, 000 so‘m",
+     
+    },
+   
+  ];
 
   return (
     <div className=" ">
@@ -43,25 +291,24 @@ export default function Korpa() {
           <div>
         
  <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Ko‘rpa yuvish xizmati 🛏️
+              {t.title}
             </h1>
 
             <p className=" mb-6">
-              Ko‘rpalaringizni chuqur tozalaymiz, chang va bakteriyalarni yo‘q qilamiz.
-              Yangi kabi toza va yoqimli holatda qaytaramiz.
+              {t.desc}
             </p>
 
             <ul className="space-y-2  mb-6">
-              <li>✔ Oqartirmasdan tozalash</li>
-              <li>✔ Tez va sifatli xizmat</li>
-              <li>✔ Uyga olib ketish va qaytarish</li>
+              <li>{t.list[0]}</li>
+              <li>{t.list[1]}</li>
+              <li>{t.list[2]}</li>
             </ul>
 
             <button
               onClick={() => setShowModal(true)}
               className="bg-amber-500 text-white px-5 py-2 rounded-full shadow-lg hover:shadow-amber-400/50 hover:-translate-y-1 transition-all duration-300"
             >
-              Buyurtma qoldirish
+              {t.order}
             </button>
           </div>
 
@@ -139,21 +386,21 @@ export default function Korpa() {
   <div className="max-w-6xl mx-auto px-4">
     
     <h2 className="text-3xl font-bold text-center mb-12">
-      Bizning xizmatlar
+      {t.services}
     </h2>
 
     <div className="grid md:grid-cols-2 gap-8">
       {[
       
         {
-          title: "Premium korpa yuvish",
+          title: t.premium,
           price: "120 000 so'm / 2x dona",
-          desc: "2 kishilik paxtali ko'rpa",
+          desc: t.premiumDesc,
         },
         {
-          title: "Standart korpa yuvish",
+          title: t.standard,
           price: "80 000 so'm / 1x dona",
-          desc: "1 kishilik paxtali ko'rpa",
+          desc: t.standardDesc,
         },
       ].map((item, i) => (
         <div
@@ -190,56 +437,24 @@ export default function Korpa() {
         <div className="max-w-6xl mx-auto px-4">
           
           <h2 className="text-3xl font-bold text-center mb-12 text-black">
-            Qanday ishlaymiz?
+            {t.process}
           </h2>
 
-          <div className="grid md:grid-cols-4 gap-6 text-center text-black">
-            
-            {[
-              "Buyurtma berasiz",
-              "Uyga boramiz",
-              "Tozalaymiz",
-              "Quritib topshiramiz",
-            ].map((step, i) => (
-              <div key={i} className="p-4">
-                <div className="text-3xl font-bold text-amber-400 mb-2">
-                  {i + 1}
-                </div>
-                <p>{step}</p>
-              </div>
-            ))}
+         <div className="grid md:grid-cols-4 gap-6 text-center text-black">
+  
+  {t.steps.map((step, i) => (
+    <div key={i} className="p-4">
+      <div className="text-3xl font-bold text-amber-400 mb-2">
+        {i + 1}
+      </div>
+      <p>{step}</p>
+    </div>
+  ))}
 
-          </div>
+</div>
         </div>
       </section>
 
-      {/* PRICING */}
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          
-          <h2 className="text-3xl font-bold mb-10">Narxlar</h2>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            
-            {[
-              { name: "Premium", price: "50 000 so'm" },
-              { name: "Standart", price: "120 000 so'm" },
-            
-            ].map((plan, i) => (
-              <div
-                key={i}
-                className="p-6 border rounded-xl hover:shadow-lg transition"
-              >
-                <h3 className="text-xl font-semibold mb-2">{plan.name}</h3>
-                <p className="text-2xl font-bold text-amber-400">
-                  {plan.price}
-                </p>
-              </div>
-            ))}
-
-          </div>
-        </div>
-      </section>
 
        <section className="relative py-20 text-center overflow-hidden">
   
@@ -250,11 +465,11 @@ export default function Korpa() {
   <div className="relative max-w-3xl mx-auto px-4">
     
     <h2 className="text-3xl md:text-4xl font-extrabold mb-4">
-      Hoziroq buyurtma bering 📞
+      {t.cta}
     </h2>
 
     <p className="mb-8 text-lg text-gray-300">
-      Birinchi buyurtmaga <span className="font-bold text-amber-400">20% chegirma</span>!
+      {t.discount} 
     </p>
 
     <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -267,7 +482,7 @@ export default function Korpa() {
         hover:scale-105 active:scale-95 
         transition duration-300"
       >
-        📞 Qo‘ng‘iroq qilish
+          {t.call}  
       </a>
 
       {/* 📝 ORDER */}
@@ -278,40 +493,172 @@ export default function Korpa() {
         hover:scale-105 active:scale-95 
         transition duration-300"
       >
-        Buyurtma berish
+        {t.orderBtn} 📝
       </button>
 
     </div>
 
     {/* TRUST TEXT */}
     <p className="mt-6 text-sm text-gray-400">
-      ✔ Tez javob beramiz • ✔ 100% bepul maslahat
+      {t.trust}
     </p>
 
   </div>
 </section>
 
-   {/* 📩 FORM MODAL */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-          
-          <div className="  max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl relative p-4">
-            
-            {/* ❌ yopish tugmasi */}
-            <button
-              onClick={() => setShowModal(false)}
-         className="absolute top-3 right-3 text-black text-xl bg-gray-200 px-2 rounded hover:text-red-600"
-            >
-              ✕
-            </button>
-      
-            {/* 🔥 ARIZA ICHIDA */}
-            <Ariza />
-      
-          </div>
-      
+   {/* ✅ MODAL */}
+{showModal && (
+  <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 px-4 ">
+
+    <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl p-6 md:p-8 relative animate-scaleIn">
+
+      {/* ❌ close */}
+      <button
+        onClick={() => setShowModal(false)}
+        className="absolute top-2 bg-white right-4 text-gray-500 hover:text-red-600 text-2xl transition"
+      >
+        ✕
+      </button>
+
+      <h2 className="text-2xl font-bold mb-6 text-center text-black">
+        {t.order}
+      </h2>
+
+      <form onSubmit={handleSubmit} className="space-y-5">
+
+        {/* INPUTS */}
+        <div className="grid md:grid-cols-2 gap-4">
+          <input
+            className="w-full border text-black border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-500 p-3 rounded-xl outline-none transition"
+            placeholder={t.name}
+            value={form.name}
+            onChange={(e) =>
+              setForm({ ...form, name: e.target.value })
+            }
+          />
+
+          <input
+            className="w-full border text-black border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-500 p-3 rounded-xl outline-none transition"
+            placeholder={t.phone}
+            value={form.phone}
+            onChange={(e) =>
+              setForm({ ...form, phone: e.target.value })
+            }
+          />
         </div>
-      )}
+
+        {/* XIZMAT */}
+        <div className="space-y-3 max-h-300px overflow-y-auto pr-2">
+          {Object.keys(serviceData).map((service) => (
+            <div key={service} className="border rounded-xl overflow-hidden">
+
+              <div
+                onClick={() => toggleService(service)}
+                className="p-3 bg-black text-white cursor-pointer flex justify-between items-center"
+              >
+                <span>{service}</span>
+                <span>
+                  {selectedServices[service] ? "−" : "+"}
+                </span>
+              </div>
+
+              {selectedServices[service] && (
+                <div className="p-4 space-y-3 bg-yellow-500">
+                  {Object.entries(
+                    serviceData[service].tariffs
+                  ).map(([tariff, price]) => {
+                    const selected =
+                      selectedServices[service][tariff];
+
+                    return (
+                      <div key={tariff} className="border-b pb-3">
+
+                        <label className="flex justify-between items-center gap-2 cursor-pointer">
+                          <div className="flex gap-2 items-center">
+                            <input
+                              type="checkbox"
+                              className="accent-black"
+                              checked={!!selected}
+                              onChange={() =>
+                                toggleTariff(service, tariff)
+                              }
+                            />
+                            <span className="font-medium">
+                              {tariff}
+                            </span>
+                          </div>
+
+                          <span className="text-sm text-black">
+                            {price} so'm
+                          </span>
+                        </label>
+
+                        {selected && (
+                          <input
+                            type="number"
+                            placeholder={t.quantity}
+                            className="w-full bg-white border border-gray-300 focus:border-black p-2 mt-2 rounded-lg outline-none"
+                            value={selected.quantity}
+                            onChange={(e) =>
+                              handleQuantityChange(
+                                service,
+                                tariff,
+                                e.target.value
+                              )
+                            }
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+         {/* ADDRESS */}
+        <div className="flex gap-2">
+          <input
+            className="input w-full "
+            placeholder={t.address}
+            value={form.address}
+            onChange={(e) =>
+              setForm({ ...form, address: e.target.value })
+            }
+            required
+          />
+
+          <button
+            type="button"
+            onClick={getLocation}
+            className="bg-amber-500 text-white px-4 rounded-xl"
+          >
+            {loadingLoc ? "..." : "📍"}
+          </button>
+        </div>
+
+        <textarea
+          className="w-full border-2 placeholder:text-black/40 border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-600 p-3 rounded-xl outline-none"
+          placeholder={t.note}
+          value={form.note}
+          onChange={(e) =>
+            setForm({ ...form, note: e.target.value })
+          }
+        />
+
+        {/* BUTTON */}
+        <button
+          type="submit"
+          className="w-full bg-amber-500 hover:bg-yellow-500 text-white py-3 rounded-xl text-lg font-semibold transition active:scale-95"
+        >
+          {t.send}
+        </button>
+
+      </form>
+    </div>
+  </div>
+)}
     </div>
   );
 }

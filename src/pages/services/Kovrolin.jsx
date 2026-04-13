@@ -1,113 +1,175 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Ariza from "../../components/Ariza";
+import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../../components/LanguageContext";
 
 export default function Kovrolin() {
   const [showModal, setShowModal] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
 
-  const videos = [
-    {
-      video: "/videos/matras1.mp4",
-      img: "/matras1.png",
-    },
-    {
-      video: "/videos/matras2.mp4",
-      img: "/matras2.png",
-    },
-    {
-      video: "/videos/matras3.mp4",
-      img: "/matras3.png",
-    },
-  ];
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowModal(true);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
-  const serviceData = {
-    "Joyda yuvish": {
-      tariffs: {
-        "Narx / 1 kv": 25000,
-      
-      },
-    },
-  };
+const [form, setForm] = useState({
+  name: "",
+  phone: "",
+  address: "",
+  note: "",
+});
 
-  const [form, setForm] = useState({
+const [selectedServices, setSelectedServices] = useState({});
+const [loadingLoc, setLoadingLoc] = useState(false);
+
+const serviceData = {
+  "Gilam joyida yuvish": {
+    tariffs: {
+      "1 kv metr": 25000,
+    },
+  },
+};
+
+const toggleService = (service) => {
+  const updated = { ...selectedServices };
+  if (updated[service]) delete updated[service];
+  else updated[service] = {};
+  setSelectedServices(updated);
+};
+
+const toggleTariff = (service, tariff) => {
+  const updated = { ...selectedServices };
+  if (updated[service][tariff]) delete updated[service][tariff];
+  else updated[service] = { [tariff]: { quantity: "" } };
+  setSelectedServices(updated);
+};
+
+const handleQuantityChange = (service, tariff, value) => {
+  setSelectedServices({
+    ...selectedServices,
+    [service]: {
+      ...selectedServices[service],
+      [tariff]: { quantity: value },
+    },
+  });
+};
+
+const getLocation = () => {
+  if (!navigator.geolocation) return;
+
+  setLoadingLoc(true);
+
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      const link = `https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
+      setForm((p) => ({ ...p, address: link }));
+      setLoadingLoc(false);
+    },
+    () => setLoadingLoc(false)
+  );
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  await sendTelegram();
+
+  alert("Yuborildi ✅");
+
+  setForm({
     name: "",
     phone: "",
     address: "",
     note: "",
   });
 
-  const [selectedServices, setSelectedServices] = useState({});
-  const [loadingLoc, setLoadingLoc] = useState(false);
+  setSelectedServices({});
+};
 
-  const toggleService = (service) => {
-    const updated = { ...selectedServices };
+  const { language } = useLanguage();
+  const navigate = useNavigate();
 
-    if (updated[service]) {
-      delete updated[service];
-    } else {
-      updated[service] = {};
-    }
-
-    setSelectedServices(updated);
-  };
-
-  const toggleTariff = (service, tariff) => {
-    const updated = { ...selectedServices };
-
-    if (updated[service][tariff]) {
-      delete updated[service][tariff];
-    } else {
-      updated[service] = {
-        [tariff]: { quantity: "" },
-      };
-    }
-
-    setSelectedServices(updated);
-  };
-
-  const handleQuantityChange = (service, tariff, value) => {
-    setSelectedServices({
-      ...selectedServices,
-      [service]: {
-        ...selectedServices[service],
-        [tariff]: {
-          quantity: value,
+  const translations = {
+    uz: {
+      title: "Joyida Gilam Yuvish Xizmati 🧼",
+      desc: "Gilam va kovrolinlarni uyingizni o‘zida chuqur tozalaymiz. Dog‘, chang va hidlarni joyida yo‘q qilamiz.",
+      list: [
+        "Uyga borib xizmat ko‘rsatamiz",
+        "1-2 soat ichida tayyor",
+        "Zamonaviy uskunalar",
+      ],
+      order: "Buyurtma qoldirish",
+      services: "Bizning xizmatlar",
+      cards: [
+        {
+          title: "Gilam joyida yuvish",
+          price: "25 000 so'm / 1 kv metr",
+          desc: "Uyga borib joyida yuvamiz",
         },
-      },
-    });
+     
+        {
+          title: "Divan joyida yuvish",
+          price: "Kelishiladi",
+          desc: "Mebelni joyida yuvamiz",
+        },
+      ],
+      ctaTitle: "Hoziroq buyurtma bering",
+      ctaDesc: "Birinchi buyurtmaga 10% chegirma!",
+      call: "Qo‘ng‘iroq qilish",
+      orderBtn: "Buyurtma berish",
+      trust: "✔ Tez javob beramiz • ✔ 100% bepul maslahat",
+       name: "F.I.O",
+      phone: "Tel",
+      address: "Lokatsiya tugmani bosing ➡️",
+      note: "Izoh,manzil (masalan: ertaga olib ketilsin manzil:margilol )",
+      send: "Buyurtma yuborish",
+      mattress: "Matras yuvish",
+    },
+
+    ru: {
+      title: "Чистка ковров на дому 🧼",
+      desc: "Чистим ковры и ковролин прямо у вас дома. Удаляем пятна, пыль и запахи.",
+      list: [
+        "Выезжаем на дом",
+        "Готово за 1-2 часа",
+        "Современное оборудование",
+      ],
+      order: "Оставить заявку",
+      services: "Наши услуги",
+      cards: [
+        {
+          title: "Чистка ковров",
+          price: "25 000 сум / м²",
+          desc: "Чистка прямо у вас дома",
+        },
+     
+        {
+          title: "Чистка диванов",
+          price: "Договорная",
+          desc: "Чистка мебели на месте",
+        },
+      ],
+      ctaTitle: "Закажите прямо сейчас",
+      ctaDesc: "Скидка 10% на первый заказ!",
+      call: "Позвонить",
+      orderBtn: "Оставить заявку",
+      trust: "✔ Быстрый ответ • ✔ Бесплатная консультация",
+        discount: "Скидка",
+      call: "Позвонить",
+      orderBtn: "Сделать заказ",
+      name: "Ф.И.О",
+      phone: "Тел",
+      address: "Нажмите кнопку «Местоположение» ➡️",
+      note: "Комментарий (например: забрать завтра, адрес: маргилол )",
+      send: "Отправить",
+      mattress: "Чистка матраса",
+    },
   };
-
-  const getLocation = () => {
-    if (!navigator.geolocation) {
-      alert("Brauzer lokatsiyani qo‘llab-quvvatlamaydi ❗");
-      return;
-    }
-
-    setLoadingLoc(true);
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-
-        const link = `https://maps.google.com/?q=${lat},${lon}`;
-
-        setForm((prev) => ({
-          ...prev,
-          address: link,
-        }));
-
-        setLoadingLoc(false);
-      },
-      () => {
-        alert("Lokatsiya olinmadi ❗");
-        setLoadingLoc(false);
-      }
-    );
-  };
-
+// 🚀 TELEGRAM
   const sendTelegram = async () => {
-    let message = `🚿 Joyda yuvish ariza\n\n👤 ${form.name}\n📞 ${form.phone}\n📍 ${form.address}\n\n`;
+    let message = `🧼 Yangi ariza\n\n👤 ${form.name}\n📞 ${form.phone}\n📍 ${form.address}\n\n`;
 
     let i = 1;
 
@@ -140,119 +202,149 @@ export default function Kovrolin() {
       }
     );
   };
+  const t = translations[language] || translations.uz;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    for (const service in selectedServices) {
-      for (const tariff in selectedServices[service]) {
-        const qty = selectedServices[service][tariff].quantity;
-
-        if (!qty || qty <= 0) {
-          alert(`${service} (${tariff}) sonini kiriting ❗`);
-          return;
-        }
-      }
-    }
-
-    await sendTelegram();
-
-    alert("Ariza yuborildi ✅");
-
-    setForm({
-      name: "",
-      phone: "",
-      address: "",
-      note: "",
-    });
-
-    setSelectedServices({});
-  };
-
-  const tariffs = [
+  const videos = [
     {
-      name: "Ddsd",
-      price: "200 000 so‘m",
+      video: "/videos/gilam1.mp4",
+      img: "/zilolclengi.png",
     },
     {
-      name: "Kreslo yuvish",
-      price: "100 000 so‘m",
+      video: "/videos/gilam.mp4",
+      img: "/zilolclengi.1.png",
     },
     {
-      name: "Gilam joyida yuvish",
-      price: "120 000 so‘m",
+      video: "/videos/mebel.mp4",
+      img: "/zilolclengi.2.png",
+    },
+    {
+      video: "/videos/yakandoz.mp4",
+      img: "/zilolclengi.3.png",
     },
   ];
 
   return (
     <div className="relative overflow-hidden">
-
+ <div className="absolute top-0 left-0 w-72 h-72 bg-amber-400/30 blur-3xl rounded-full"></div>
+      <div className="absolute bottom-0 right-0 w-72 h-72 bg-purple-500/30 blur-3xl rounded-full"></div>
       {/* HERO */}
-      <section className="py-20 relative">
+      <section className="py-20">
         <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
 
           <div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Professional Joyda Yuvish 🚿
+              {t.title}
             </h1>
 
-            <p className="mb-6">
-              Divan, kreslo va gilamlarni uyingizni o‘zida chuqur tozalaymiz.
-              Dog‘, chang va hidlarni joyida yo‘q qilamiz.
-            </p>
+            <p className="mb-6">{t.desc}</p>
 
             <ul className="space-y-2 mb-6">
-              <li>✔ Uyga kelib xizmat ko‘rsatamiz</li>
-              <li>✔ 1-2 soat ichida tayyor</li>
-              <li>✔ Zamonaviy texnologiya</li>
+              {t.list.map((item, i) => (
+                <li key={i}>✔ {item}</li>
+              ))}
             </ul>
 
             <button
               onClick={() => setShowModal(true)}
-              className="bg-amber-400 px-6 py-3 rounded-full"
+              className="bg-amber-500 px-5 py-2 rounded-full text-white"
             >
-              Buyurtma berish
+              {t.order}
             </button>
           </div>
+       <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+  {videos.map((item, i) => (
+    <div
+      key={i}
+      onClick={() => setActiveVideo(item.video)}
+      className="min-w-64  relative cursor-pointer rounded-2xl overflow-hidden group 
+      shadow-md hover:shadow-2xl 
+      transition-all duration-500 
+      hover:-translate-y-2 hover:scale-[1.03]"
+    >
+      {/* IMAGE */}
+      <img
+        src={item.img}
+        className="w-full h-160px object-cover group-hover:scale-105 transition duration-300"
+      />
 
-          <div className="flex gap-4 overflow-x-auto pb-4">
-            {videos.map((item, i) => (
-              <div
-                key={i}
-                onClick={() => setActiveVideo(item.video)}
-                className="w-64 flex-shrink-0 relative cursor-pointer rounded-2xl overflow-hidden"
-              >
-                <img
-                  src={item.img}
-                  className="w-full h-40 object-cover"
-                />
-              </div>
-            ))}
-          </div>
+      {/* PLAY ICON */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="bg-black/50 w-12 h-12 rounded-full flex items-center justify-center text-white text-xl backdrop-blur-sm group-hover:scale-110 transition">
+          ▶
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
 
         </div>
       </section>
+  {/* 🎥 VIDEO MODAL */}
+      {activeVideo && (
+       <div
+  onClick={() => setActiveVideo(null)}
+  className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 px-4"
+>
+  <button
+  onClick={(e) => {
+    e.stopPropagation();   
+    setActiveVideo(null);
+  }}
+  className="absolute top-3 right-3 w-10 h-10 flex items-center justify-center 
+  rounded-full bg-black/60 backdrop-blur-md text-white text-lg
+  hover:bg-amber-400 hover:text-black 
+  transition-all duration-300 shadow-md hover:scale-110 active:scale-95"
+>
+  ✕
+</button>
+  <div
+    onClick={(e) => e.stopPropagation()}
+    className="relative w-full max-w-2xl"
+  >
+    
+    {/* ❌ yopish tugmasi */}
 
-      {/* TARIFS */}
+
+    {/* 🎥 VIDEO */}
+    <div className="rounded-2xl overflow-hidden shadow-2xl">
+      <video
+        src={activeVideo}
+        controls
+        autoPlay
+        className="w-full max-h-[70vh] object-contain bg-black"
+      />
+    </div>
+
+  </div>
+</div>
+      )}
+      {/* SERVICES */}
       <section className="py-20 bg-gray-50 text-black">
-        <div className="max-w-6xl mx-auto px-4 text-center">
+        <div className="max-w-6xl mx-auto px-4">
 
-          <h2 className="text-3xl font-bold mb-12">
-            Joyda Yuvish Tariflari
+          <h2 className="text-3xl font-bold text-center mb-12">
+            {t.services}
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {tariffs.map((t, i) => (
-              <div key={i} className="p-6 bg-white rounded-xl shadow">
-                <h3 className="font-semibold text-lg mb-2">{t.name}</h3>
-                <p className="text-amber-500 font-bold text-xl">{t.price}</p>
+          <div className="grid md:grid-cols-2 gap-8">
+            {t.cards.map((item, i) => (
+              <div
+                key={i}
+                className="p-6 bg-white rounded-2xl shadow-md hover:shadow-2xl transition hover:-translate-y-2 border"
+              >
+                <div className="text-4xl mb-4">🧼</div>
 
-                <button
-                  onClick={() => setShowModal(true)}
-                  className="mt-4 w-full py-2 bg-black text-white rounded-lg"
-                >
-                  Buyurtma berish
-                </button>
+                <h3 className="font-semibold text-xl mb-2">
+                  {item.title}
+                </h3>
+
+                <p className="text-blue-600 font-bold mb-2">
+                  {item.price}
+                </p>
+
+                <p className="text-gray-500">
+                  {item.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -260,99 +352,177 @@ export default function Kovrolin() {
         </div>
       </section>
 
-      {/* MODAL */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-          <div className="bg-white w-full max-w-xl rounded-2xl p-6 relative">
+      {/* CTA */}
+      <section className="py-20 text-center">
+         <div className="absolute top-0 left-0 w-72 h-72 bg-amber-400/30 blur-3xl rounded-full"></div>
+  <div className="absolute bottom-0 right-0 w-72 h-72 bg-orange-500/30 blur-3xl rounded-full"></div>
+        <h2 className="text-3xl font-bold mb-4">
+          {t.ctaTitle} 📞
+        </h2>
 
-            <button
-              onClick={() => setShowModal(false)}
-              className="absolute top-3 right-3 text-xl"
-            >
-              ✕
-            </button>
+        <p className="mb-6">{t.ctaDesc}</p>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+        <a
+          href="tel:+998732001313"
+          className="px-6 py-3 bg-amber-400 rounded-xl font-semibold"
+        >
+          {t.call}
+        </a>
+      </section>
+ {/* ✅ MODAL */}
+{showModal && (
+  <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 px-4 ">
 
-              <input
-                className="w-full border p-3 rounded"
-                placeholder="Ism"
-                value={form.name}
-                onChange={(e) =>
-                  setForm({ ...form, name: e.target.value })
-                }
-              />
+    <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl p-6 md:p-8 relative animate-scaleIn">
 
-              <input
-                className="w-full border p-3 rounded"
-                placeholder="Telefon"
-                value={form.phone}
-                onChange={(e) =>
-                  setForm({ ...form, phone: e.target.value })
-                }
-              />
+      {/* ❌ close */}
+      <button
+        onClick={() => setShowModal(false)}
+        className="absolute top-2 bg-white right-4 text-gray-500 hover:text-red-600 text-2xl transition"
+      >
+        ✕
+      </button>
 
-              {Object.keys(serviceData).map((service) => (
-                <div key={service}>
-                  <div
-                    onClick={() => toggleService(service)}
-                    className="p-3 bg-black text-white cursor-pointer"
-                  >
-                    {service}
-                  </div>
+      <h2 className="text-2xl font-bold mb-6 text-center text-black">
+        {t.order}
+      </h2>
 
-                  {selectedServices[service] &&
-                    Object.entries(serviceData[service].tariffs).map(
-                      ([tariff, price]) => {
-                        const selected =
-                          selectedServices[service][tariff];
+      <form onSubmit={handleSubmit} className="space-y-5">
 
-                        return (
-                          <div key={tariff}>
-                            <label className="flex gap-2">
-                              <input
-                                type="checkbox"
-                                checked={!!selected}
-                                onChange={() =>
-                                  toggleTariff(service, tariff)
-                                }
-                              />
-                              {tariff} - {price} so'm
-                            </label>
+        {/* INPUTS */}
+        <div className="grid md:grid-cols-2 gap-4">
+          <input
+            className="w-full border text-black border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-500 p-3 rounded-xl outline-none transition"
+            placeholder={t.name}
+            value={form.name}
+            onChange={(e) =>
+              setForm({ ...form, name: e.target.value })
+            }
+          />
 
-                            {selected && (
-                              <input
-                                type="number"
-                                placeholder="Soni"
-                                className="w-full border p-2 mt-2"
-                                value={selected.quantity}
-                                onChange={(e) =>
-                                  handleQuantityChange(
-                                    service,
-                                    tariff,
-                                    e.target.value
-                                  )
-                                }
-                              />
-                            )}
-                          </div>
-                        );
-                      }
-                    )}
-                </div>
-              ))}
-
-              <button
-                type="submit"
-                className="w-full bg-black text-white py-3 rounded"
-              >
-                Yuborish
-              </button>
-
-            </form>
-          </div>
+          <input
+            className="w-full border text-black border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-500 p-3 rounded-xl outline-none transition"
+            placeholder={t.phone}
+            value={form.phone}
+            onChange={(e) =>
+              setForm({ ...form, phone: e.target.value })
+            }
+          />
         </div>
-      )}
+
+        {/* XIZMAT */}
+        <div className="space-y-3 max-h-300px overflow-y-auto pr-2">
+          {Object.keys(serviceData).map((service) => (
+            <div key={service} className="border rounded-xl overflow-hidden">
+
+              <div
+                onClick={() => toggleService(service)}
+                className="p-3 bg-black text-white cursor-pointer flex justify-between items-center"
+              >
+                <span>{service}</span>
+                <span>
+                  {selectedServices[service] ? "−" : "+"}
+                </span>
+              </div>
+
+              {selectedServices[service] && (
+                <div className="p-4 space-y-3 bg-yellow-500">
+                  {Object.entries(
+                    serviceData[service].tariffs
+                  ).map(([tariff, price]) => {
+                    const selected =
+                      selectedServices[service][tariff];
+
+                    return (
+                      <div key={tariff} className="border-b pb-3">
+
+                        <label className="flex justify-between items-center gap-2 cursor-pointer">
+                          <div className="flex gap-2 items-center">
+                            <input
+                              type="checkbox"
+                              className="accent-black"
+                              checked={!!selected}
+                              onChange={() =>
+                                toggleTariff(service, tariff)
+                              }
+                            />
+                            <span className="font-medium">
+                              {tariff}
+                            </span>
+                          </div>
+
+                          <span className="text-sm text-black">
+                            {price} so'm
+                          </span>
+                        </label>
+
+                        {selected && (
+                          <input
+                            type="number"
+                            placeholder={t.quantity}
+                            className="w-full bg-white border border-gray-300 focus:border-black p-2 mt-2 rounded-lg outline-none"
+                            value={selected.quantity}
+                            onChange={(e) =>
+                              handleQuantityChange(
+                                service,
+                                tariff,
+                                e.target.value
+                              )
+                            }
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+         {/* ADDRESS */}
+        <div className="flex gap-2">
+          <input
+            className="input w-full "
+            placeholder={t.address}
+            value={form.address}
+            onChange={(e) =>
+              setForm({ ...form, address: e.target.value })
+            }
+            required
+          />
+
+          <button
+            type="button"
+            onClick={getLocation}
+            className="bg-amber-500 text-white px-4 rounded-xl"
+          >
+            {loadingLoc ? "..." : "📍"}
+          </button>
+        </div>
+
+        <textarea
+          className="w-full border-2 placeholder:text-black/40 border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-600 p-3 rounded-xl outline-none"
+          placeholder={t.note}
+          value={form.note}
+          onChange={(e) =>
+            setForm({ ...form, note: e.target.value })
+          }
+        />
+
+        {/* BUTTON */}
+        <button
+          type="submit"
+          className="w-full bg-amber-500 hover:bg-yellow-500 text-white py-3 rounded-xl text-lg font-semibold transition active:scale-95"
+        >
+          {t.send}
+        </button>
+
+      </form>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }

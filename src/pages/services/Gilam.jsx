@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Ariza from "../../components/Ariza";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../../components/LanguageContext";
@@ -6,6 +6,19 @@ import { useLanguage } from "../../components/LanguageContext";
 export default function Gilam() {
   const [showModal, setShowModal] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
+
+  useEffect(() => {
+  const shown = localStorage.getItem("modalShown");
+
+  if (!shown) {
+    const timer = setTimeout(() => {
+      setShowModal(true);
+      localStorage.setItem("modalShown", "true");
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }
+}, []);
 
   const { language } = useLanguage();
   const navigate = useNavigate();
@@ -117,21 +130,75 @@ export default function Gilam() {
             </button>
           </div>
 
-          {/* VIDEO */}
-          <div className="flex gap-4 overflow-x-auto">
-            {videos.map((item, i) => (
-              <div
-                key={i}
-                onClick={() => setActiveVideo(item.video)}
-                className="min-w-64 cursor-pointer"
-              >
-                <img src={item.img} className="rounded-xl" />
-              </div>
-            ))}
-          </div>
+ 
+          {/* RIGHT - VIDEO GRID */}
+     <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+  {videos.map((item, i) => (
+    <div
+      key={i}
+      onClick={() => setActiveVideo(item.video)}
+      className="min-w-64  relative cursor-pointer rounded-2xl overflow-hidden group 
+      shadow-md hover:shadow-2xl 
+      transition-all duration-500 
+      hover:-translate-y-2 hover:scale-[1.03]"
+    >
+      {/* IMAGE */}
+      <img
+        src={item.img}
+        className="w-full h-160px object-cover group-hover:scale-105 transition duration-300"
+      />
+
+      {/* PLAY ICON */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="bg-black/50 w-12 h-12 rounded-full flex items-center justify-center text-white text-xl backdrop-blur-sm group-hover:scale-110 transition">
+          ▶
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
 
         </div>
       </section>
+    {/* 🎥 VIDEO MODAL */}
+      {activeVideo && (
+       <div
+  onClick={() => setActiveVideo(null)}
+  className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 px-4"
+>
+  <button
+  onClick={(e) => {
+    e.stopPropagation();   
+    setActiveVideo(null);
+  }}
+  className="absolute top-3 right-3 w-10 h-10 flex items-center justify-center 
+  rounded-full bg-black/60 backdrop-blur-md text-white text-lg
+  hover:bg-amber-400 hover:text-black 
+  transition-all duration-300 shadow-md hover:scale-110 active:scale-95"
+>
+  ✕
+</button>
+  <div
+    onClick={(e) => e.stopPropagation()}
+    className="relative w-full max-w-2xl"
+  >
+    
+    {/* ❌ yopish tugmasi */}
+
+
+    {/* 🎥 VIDEO */}
+    <div className="rounded-2xl overflow-hidden shadow-2xl">
+      <video
+        src={activeVideo}
+        controls
+        autoPlay
+        className="w-full max-h-[70vh] object-contain bg-black"
+      />
+    </div>
+
+  </div>
+</div>
+      )}
 
  {/* SERVICES */}
 <section className="py-20 bg-gray-50 text-black">
