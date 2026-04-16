@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Ariza from "../../components/Ariza";
 import { useLanguage } from "../../components/LanguageContext";
 
@@ -7,29 +7,27 @@ export default function Matras() {
   const [activeVideo, setActiveVideo] = useState(null);
 
   const videos = [
-    {
-      video: "/videos/matras1.mp4",
-      img: "/matras1.png",
-    },
-    {
-      video: "/videos/matras2.mp4",
-      img: "/matras2.png",
-    },
-    {
-      video: "/videos/matras3.mp4",
-      img: "/matras3.png",
-    },
+    { video: "/videos/gilam_yuvish1.mp4", img: "/gilam-yuvish1.png" },
+    { video: "/videos/gilam_yuvish2.mp4", img: "/gilam-yuvish2.png" },
+    { video: "/videos/gilam_yuvish3.mp4", img: "/gilam-yuvish3.png" },
+    { video: "/videos/gilam.mp4", img: "/zilolclengi.1.png" },
   ];
   const serviceData = {
-    
     "O'yinchoqlar yuvish": {
       tariffs: {
         "primum /1 kg ": 30000,
         "Standart /1 kg": 20000,
       },
     },
- 
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowModal(true);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const [form, setForm] = useState({
     name: "",
@@ -55,21 +53,21 @@ export default function Matras() {
   };
 
   // ✅ faqat 1 ta tarif
-const toggleTariff = (service, tariff) => {
-  const updated = { ...selectedServices };
+  const toggleTariff = (service, tariff) => {
+    const updated = { ...selectedServices };
 
-  // agar shu tarif allaqachon tanlangan bo‘lsa → o‘chir
-  if (updated[service][tariff]) {
-    delete updated[service][tariff];
-  } else {
-    // aks holda faqat shu tarifni qoldir
-    updated[service] = {
-      [tariff]: { quantity: "" },
-    };
-  }
+    // agar shu tarif allaqachon tanlangan bo‘lsa → o‘chir
+    if (updated[service][tariff]) {
+      delete updated[service][tariff];
+    } else {
+      // aks holda faqat shu tarifni qoldir
+      updated[service] = {
+        [tariff]: { quantity: "" },
+      };
+    }
 
-  setSelectedServices(updated);
-};
+    setSelectedServices(updated);
+  };
 
   const handleQuantityChange = (service, tariff, value) => {
     setSelectedServices({
@@ -109,7 +107,7 @@ const toggleTariff = (service, tariff) => {
       () => {
         alert("Lokatsiya olinmadi ❗");
         setLoadingLoc(false);
-      }
+      },
     );
   };
 
@@ -145,102 +143,97 @@ const toggleTariff = (service, tariff) => {
           chat_id: "6904234957",
           text: message,
         }),
-      }
+      },
     );
   };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  await sendTelegram();
+    await sendTelegram();
 
-  alert("Yuborildi ✅");
+    alert("Yuborildi ✅");
 
-  setForm({
-    name: "",
-    phone: "",
-    address: "",
-    note: "",
-  });
+    setForm({
+      name: "",
+      phone: "",
+      address: "",
+      note: "",
+    });
 
-  setSelectedServices({});
-};
+    setSelectedServices({});
+  };
   const tariffs = [
     {
       name: "primum /1 kg ",
       price: "30 000 so‘m",
-      per: "kata o'yinchoq",
     },
     {
       name: "Standart /1 kg",
       price: "20 000 so‘m",
-      per: "kchik o'yinchoq",
     },
- 
   ];
-
 
   const { language } = useLanguage();
 
-const translations = {
-  uz: {
-    title: "Professional O'yinchoqlar Yuvish",
-    desc: "O'yinchoqlarni chuqur tozalaymiz, bakteriya va hidlarni yo‘q qilamiz. Sog‘lom uy muhiti uchun eng yaxshi xizmat.",
-    
-    benefits: [
-      "Bepul olib ketish va yetkazib berish",
-      "24-48 soat ichida tayyor",
-      "Zamonaviy texnologiya"
-    ],
+  const translations = {
+    uz: {
+      title: "Professional O'yinchoqlar Yuvish",
+      desc: "O'yinchoqlarni chuqur tozalaymiz, bakteriya va hidlarni yo‘q qilamiz. Sog‘lom uy muhiti uchun eng yaxshi xizmat.",
 
-    order: "Buyurtma berish",
-    tariffs: "O'yinchoqlar Yuvish Tariflari",
+      benefits: [
+        "Bepul olib ketish va yetkazib berish",
+        "24-48 soat ichida tayyor",
+        "Zamonaviy texnologiya",
+      ],
 
-    cta: "Hoziroq buyurtma bering 📞",
-    discount: "Birinchi buyurtmaga 10% chegirma!",
-    call: "Qo‘ng‘iroq qilish",
+      order: "Buyurtma berish",
+      tariffs: "O'yinchoqlar Yuvish Tariflari",
 
-    // FORM
-    name: "Ism",
-    phone: "Telefon",
-    address: "Manzil",
-    note: "Izoh",
-    quantity: "Soni",
-    send: "Yuborish"
-  },
+      cta: "Hoziroq buyurtma bering 📞",
+      discount: "Birinchi buyurtmaga 10% chegirma!",
+      call: "Qo‘ng‘iroq qilish",
 
-  ru: {
-    title: "Профессиональная чистка игрушек",
-    desc: "Глубокая чистка игрушек, удаление бактерий и запахов. Лучшее решение для чистоты дома.",
-    
-    benefits: [
-      "Бесплатный вывоз и доставка",
-      "Готово за 24-48 часов",
-      "Современные технологии"
-    ],
+      // FORM
+      name: "F.I.O",
+      phone: "Tel",
+      address: "Lokatsiya tugmani bosing ➡️",
+      note: "Izoh,manzil (masalan: ertaga olib ketilsin manzil:margilol )",
+      quantity: "Soni",
+      send: "Yuborish",
+    },
 
-    order: "Сделать заказ",
-    tariffs: "Тарифы на чистку игрушек",
+    ru: {
+      title: "Профессиональная чистка игрушек",
+      desc: "Глубокая чистка игрушек, удаление бактерий и запахов. Лучшее решение для чистоты дома.",
 
-    cta: "Закажите прямо сейчас 📞",
-    discount: "Скидка 10% на первый заказ!",
-    call: "Позвонить",
+      benefits: [
+        "Бесплатный вывоз и доставка",
+        "Готово за 24-48 часов",
+        "Современные технологии",
+      ],
 
-    // FORM
-    name: "Ф.И.О",
-    phone: "Телефон",
-    address: "Адрес",
-    note: "Комментарий",
-    quantity: "Количество",
-    send: "Отправить"
-  }
-};
+      order: "Сделать заказ",
+      tariffs: "Тарифы на чистку игрушек",
 
-const t = translations[language] || translations.uz;
+      cta: "Закажите прямо сейчас 📞",
+      discount: "Скидка 10% на первый заказ!",
+      call: "Позвонить",
+
+      // FORM
+      name: "Ф.И.О",
+      phone: "Телефон",
+      address: "Нажмите кнопку «Местоположение» ➡️",
+      note: "Комментарий (например: забрать завтра, адрес: маргилол )",
+      quantity: "Количество",
+      send: "Отправить",
+    },
+  };
+
+  const t = translations[language] || translations.uz;
 
   return (
     <div className="relative overflow-hidden">
-
       {/* 🔥 BACKGROUND */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-amber-400/30 blur-3xl rounded-full"></div>
       <div className="absolute bottom-0 right-0 w-72 h-72 bg-purple-500/30 blur-3xl rounded-full"></div>
@@ -248,16 +241,11 @@ const t = translations[language] || translations.uz;
       {/* HERO */}
       <section className="py-20 relative">
         <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
-
           {/* LEFT */}
           <div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              {t.title}
-            </h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">{t.title}</h1>
 
-            <p className="mb-6">
-              {t.desc}
-            </p>
+            <p className="mb-6">{t.desc}</p>
 
             <ul className="space-y-2 mb-6">
               <li> {t.benefits[0]}</li>
@@ -265,38 +253,41 @@ const t = translations[language] || translations.uz;
               <li>{t.benefits[2]}</li>
             </ul>
 
-           <button
-        onClick={() => setShowModal(true)}
-        className="bg-amber-400 px-6 py-3 rounded-full"
-      >
-        {t.order}
-      </button>
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-amber-400 px-6 py-3 rounded-full"
+            >
+              {t.order}
+            </button>
           </div>
 
-          {/* RIGHT - VIDEO */}
-          <div className="flex gap-4 overflow-x-auto pb-4">
+          {/* RIGHT - VIDEO GRID */}
+          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
             {videos.map((item, i) => (
               <div
                 key={i}
                 onClick={() => setActiveVideo(item.video)}
-                className="w-64 relative cursor-pointer rounded-2xl overflow-hidden group 
-                shadow-md hover:shadow-2xl transition-all duration-500 
-                hover:-translate-y-2 hover:scale-105"
+                className="min-w-64  relative cursor-pointer rounded-2xl overflow-hidden group 
+      shadow-md hover:shadow-2xl 
+      transition-all duration-500 
+      hover:-translate-y-2 hover:scale-[1.03]"
               >
+                {/* IMAGE */}
                 <img
                   src={item.img}
-                  className="w-full h-40 object-cover group-hover:scale-105 transition duration-300"
+                  alt="zilol gilam yuvish vedos img"
+                  className="w-full h-160px object-cover group-hover:scale-105 transition duration-300"
                 />
 
+                {/* PLAY ICON */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="bg-black/50 w-12 h-12 rounded-full flex items-center justify-center text-white text-xl backdrop-blur-sm">
+                  <div className="bg-black/50 w-12 h-12 rounded-full flex items-center justify-center text-white text-xl backdrop-blur-sm group-hover:scale-110 transition">
                     ▶
                   </div>
                 </div>
               </div>
             ))}
           </div>
-
         </div>
       </section>
 
@@ -334,10 +325,7 @@ const t = translations[language] || translations.uz;
       {/* TARIFS */}
       <section className="py-20 bg-gray-50 text-black">
         <div className="max-w-6xl mx-auto px-4 text-center">
-
-          <h2 className="text-3xl font-bold mb-12">
-            {t.tariffs}
-          </h2>
+          <h2 className="text-3xl font-bold mb-12">{t.tariffs}</h2>
 
           <div className="grid md:grid-cols-2 gap-8">
             {tariffs.map((t, i) => (
@@ -347,191 +335,167 @@ const t = translations[language] || translations.uz;
               >
                 <h3 className="font-semibold text-lg mb-2">{t.name}</h3>
                 <p className="text-amber-500 font-bold text-xl">{t.price}</p>
-
-                <button
-                  onClick={() => setShowModal(true)}
-                  className="mt-4 w-full py-2 bg-black text-white rounded-lg hover:bg-amber-400 hover:text-black transition"
-                >
-                  {t.send}
-                </button>
               </div>
             ))}
           </div>
-
         </div>
       </section>
 
       {/* CTA */}
       <section className="py-20 text-center">
-        <h2 className="text-3xl font-bold mb-4">
-          {t.cta}
-        </h2>
+        <h2 className="text-3xl font-bold mb-4">{t.cta}</h2>
 
-        <p className="mb-6">
-          {t.discount}
-        </p>
+        <p className="mb-6">{t.discount}</p>
 
-   <a href="tel:+998732001313" className="bg-amber-400 px-6 py-3 rounded-full">
+        <a
+          href="tel:+998732001313"
+          className="bg-amber-400 px-6 py-3 rounded-full"
+        >
           {t.call}
-          </a>
+        </a>
       </section>
 
-  
+      {/* ✅ MODAL */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 px-4 ">
+          <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl p-6 md:p-8 relative animate-scaleIn">
+            {/* ❌ close */}
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-2 bg-white right-4 text-gray-500 hover:text-red-600 text-2xl transition"
+            >
+              ✕
+            </button>
 
-    {/* ✅ MODAL */}
-{showModal && (
-  <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 px-4 ">
+            <h2 className="text-2xl font-bold mb-6 text-center text-black">
+              {t.order}
+            </h2>
 
-    <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl p-6 md:p-8 relative animate-scaleIn">
+            <form onSubmit={handleSubmit} className="space-y-5">
+              {/* INPUTS */}
+              <div className="grid md:grid-cols-2 gap-4">
+                <input
+                  className="w-full border text-black border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-500 p-3 rounded-xl outline-none transition"
+                  placeholder={t.name}
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                />
 
-      {/* ❌ close */}
-      <button
-        onClick={() => setShowModal(false)}
-        className="absolute top-2 bg-white right-4 text-gray-500 hover:text-red-600 text-2xl transition"
-      >
-        ✕
-      </button>
-
-      <h2 className="text-2xl font-bold mb-6 text-center text-black">
-        {t.order}
-      </h2>
-
-      <form onSubmit={handleSubmit} className="space-y-5">
-
-        {/* INPUTS */}
-        <div className="grid md:grid-cols-2 gap-4">
-          <input
-            className="w-full border text-black border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-500 p-3 rounded-xl outline-none transition"
-            placeholder={t.name}
-            value={form.name}
-            onChange={(e) =>
-              setForm({ ...form, name: e.target.value })
-            }
-          />
-
-          <input
-            className="w-full border text-black border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-500 p-3 rounded-xl outline-none transition"
-            placeholder={t.phone}
-            value={form.phone}
-            onChange={(e) =>
-              setForm({ ...form, phone: e.target.value })
-            }
-          />
-        </div>
-
-        {/* XIZMAT */}
-        <div className="space-y-3 max-h-300px overflow-y-auto pr-2">
-          {Object.keys(serviceData).map((service) => (
-            <div key={service} className="border rounded-xl overflow-hidden">
-
-              <div
-                onClick={() => toggleService(service)}
-                className="p-3 bg-black text-white cursor-pointer flex justify-between items-center"
-              >
-                <span>{service}</span>
-                <span>
-                  {selectedServices[service] ? "−" : "+"}
-                </span>
+                <input
+                  className="w-full border text-black border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-500 p-3 rounded-xl outline-none transition"
+                  placeholder={t.phone}
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                />
               </div>
 
-              {selectedServices[service] && (
-                <div className="p-4 space-y-3 bg-yellow-500">
-                  {Object.entries(
-                    serviceData[service].tariffs
-                  ).map(([tariff, price]) => {
-                    const selected =
-                      selectedServices[service][tariff];
+              {/* XIZMAT */}
+              <div className="space-y-3 max-h-300px overflow-y-auto pr-2">
+                {Object.keys(serviceData).map((service) => (
+                  <div
+                    key={service}
+                    className="border rounded-xl overflow-hidden"
+                  >
+                    <div
+                      onClick={() => toggleService(service)}
+                      className="p-3 bg-black text-white cursor-pointer flex justify-between items-center"
+                    >
+                      <span>{service}</span>
+                      <span>{selectedServices[service] ? "−" : "+"}</span>
+                    </div>
 
-                    return (
-                      <div key={tariff} className="border-b pb-3">
+                    {selectedServices[service] && (
+                      <div className="p-4 space-y-3 bg-amber-500">
+                        {Object.entries(serviceData[service].tariffs).map(
+                          ([tariff, price]) => {
+                            const selected = selectedServices[service][tariff];
 
-                        <label className="flex justify-between items-center gap-2 cursor-pointer">
-                          <div className="flex gap-2 items-center">
-                            <input
-                              type="checkbox"
-                              className="accent-black"
-                              checked={!!selected}
-                              onChange={() =>
-                                toggleTariff(service, tariff)
-                              }
-                            />
-                            <span className="font-medium">
-                              {tariff}
-                            </span>
-                          </div>
+                            return (
+                              <div key={tariff} className="border-b pb-3">
+                                <label className="flex justify-between items-center gap-2 cursor-pointer">
+                                  <div className="flex gap-2 items-center">
+                                    <input
+                                      type="checkbox"
+                                      className="accent-black"
+                                      checked={!!selected}
+                                      onChange={() =>
+                                        toggleTariff(service, tariff)
+                                      }
+                                    />
+                                    <span className="font-medium">
+                                      {tariff}
+                                    </span>
+                                  </div>
 
-                          <span className="text-sm text-black">
-                            {price} so'm
-                          </span>
-                        </label>
+                                  <span className="text-sm text-black">
+                                    {price} so'm
+                                  </span>
+                                </label>
 
-                        {selected && (
-                          <input
-                            type="number"
-                            placeholder={t.quantity}
-                            className="w-full bg-white border border-gray-300 focus:border-black p-2 mt-2 rounded-lg outline-none"
-                            value={selected.quantity}
-                            onChange={(e) =>
-                              handleQuantityChange(
-                                service,
-                                tariff,
-                                e.target.value
-                              )
-                            }
-                          />
+                                {selected && (
+                                  <input
+                                    type="number"
+                                    placeholder={t.quantity}
+                                    className="w-full bg-white border border-gray-300 focus:border-black p-2 mt-2 rounded-lg outline-none"
+                                    value={selected.quantity}
+                                    onChange={(e) =>
+                                      handleQuantityChange(
+                                        service,
+                                        tariff,
+                                        e.target.value,
+                                      )
+                                    }
+                                  />
+                                )}
+                              </div>
+                            );
+                          },
                         )}
                       </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          ))}
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* ADDRESS */}
+              <div className="flex gap-2">
+                <input
+                  className="input w-full "
+                  placeholder={t.address}
+                  value={form.address}
+                  onChange={(e) =>
+                    setForm({ ...form, address: e.target.value })
+                  }
+                  required
+                />
+
+                <button
+                  type="button"
+                  onClick={getLocation}
+                  className="bg-amber-500 text-white px-4 rounded-xl"
+                >
+                  {loadingLoc ? "..." : "📍"}
+                </button>
+              </div>
+
+              <textarea
+                className="w-full border-2 placeholder:text-black/40 border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-600 p-3 rounded-xl outline-none"
+                placeholder={t.note}
+                value={form.note}
+                onChange={(e) => setForm({ ...form, note: e.target.value })}
+              />
+
+              {/* BUTTON */}
+              <button
+                type="submit"
+                className="w-full bg-amber-500 hover:bg-yellow-500 text-white py-3 rounded-xl text-lg font-semibold transition active:scale-95"
+              >
+                {t.send}
+              </button>
+            </form>
+          </div>
         </div>
-
-         {/* ADDRESS */}
-        <div className="flex gap-2">
-          <input
-            className="input w-full "
-            placeholder={t.address}
-            value={form.address}
-            onChange={(e) =>
-              setForm({ ...form, address: e.target.value })
-            }
-            required
-          />
-
-          <button
-            type="button"
-            onClick={getLocation}
-            className="bg-amber-500 text-white px-4 rounded-xl"
-          >
-            {loadingLoc ? "..." : "📍"}
-          </button>
-        </div>
-
-        <textarea
-          className="w-full border-2 placeholder:text-black/40 border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-600 p-3 rounded-xl outline-none"
-          placeholder={t.note}
-          value={form.note}
-          onChange={(e) =>
-            setForm({ ...form, note: e.target.value })
-          }
-        />
-
-        {/* BUTTON */}
-        <button
-          type="submit"
-          className="w-full bg-amber-500 hover:bg-yellow-500 text-white py-3 rounded-xl text-lg font-semibold transition active:scale-95"
-        >
-          {t.send}
-        </button>
-
-      </form>
-    </div>
-  </div>
-)}
-
+      )}
     </div>
   );
 }

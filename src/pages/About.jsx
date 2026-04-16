@@ -21,7 +21,7 @@ function About() {
   const { language } = useLanguage();
   const [showModal, setShowModal] = useState(false);
 
-useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(() => setShowModal(true), 1000);
     return () => clearTimeout(timer);
   }, []);
@@ -37,11 +37,7 @@ useEffect(() => {
         "Yil davomida uzluksiz xizmat ko‘rsatamiz.",
         "Ekologik toza va xavfsiz vositalardan foydalanamiz.",
       ],
-      list: [
-        "Professional uskunalar",
-        "Tezkor xizmat",
-        "Individual yondashuv",
-      ],
+      list: ["Professional uskunalar", "Tezkor xizmat", "Individual yondashuv"],
       stats: [
         { num: "150 000+", label: "Mamnun mijozlar" },
         { num: "10K+", label: "Tozalangan mahsulotlar" },
@@ -96,7 +92,6 @@ useEffect(() => {
 
   return (
     <div className="mt-28 overflow-x-hidden">
-
       {/* MODAL */}
       {showModal && (
         <div
@@ -127,9 +122,7 @@ useEffect(() => {
           transition={{ duration: 0.8 }}
           className="max-w-4xl mx-auto px-4"
         >
-          <h1 className="text-3xl md:text-6xl font-bold mb-6">
-            {data.title}
-          </h1>
+          <h1 className="text-3xl md:text-6xl font-bold mb-6">{data.title}</h1>
           <p className="text-lg md:text-xl">{data.desc}</p>
         </motion.div>
       </section>
@@ -138,7 +131,7 @@ useEffect(() => {
       <section className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center py-20">
         <motion.img
           src="/about.png"
-          alt="about"
+          alt="zilol gilam yuvish menter img"
           className="rounded-3xl shadow-xl"
           initial={{ opacity: 0, x: -80 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -150,9 +143,7 @@ useEffect(() => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl font-bold mb-5">
-            {data.aboutTitle}
-          </h2>
+          <h2 className="text-3xl font-bold mb-5">{data.aboutTitle}</h2>
 
           {/* FIXED ARRAY */}
           <div className="mb-6 space-y-3">
@@ -207,12 +198,8 @@ useEffect(() => {
 
       {/* CTA */}
       <section className="py-20 text-center">
-        <h2 className="text-3xl font-bold mb-4">
-          {data.ctaTitle}
-        </h2>
+        <h2 className="text-3xl font-bold mb-4">{data.ctaTitle}</h2>
         <p className="mb-8">{data.ctaText}</p>
-
-      
       </section>
     </div>
   );

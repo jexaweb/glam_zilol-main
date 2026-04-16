@@ -29,6 +29,7 @@ export default function CleaningEffect() {
       {/* CLEAN (pastda) */}
       <img
         src="https://images.unsplash.com/photo-1581578731548-c64695cc6952"
+        alt="zilol gilam yuvish rasmi"
         className="absolute w-full h-full object-cover"
       />
 
@@ -39,6 +40,7 @@ export default function CleaningEffect() {
       >
         <img
           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
+          alt="zilol gilam yuvish bg-img "
           className="w-full h-full object-cover"
         />
       </div>
@@ -46,6 +48,7 @@ export default function CleaningEffect() {
       {/* WAND */}
       <img
         src="https://octanecdn.com/zrengine/zrengine_943529811.png"
+        alt="zilol gilam yuvish bg-img "
         className="absolute left-1/2 pointer-events-none transition-all duration-200"
         style={{
           top: `${pos}%`,

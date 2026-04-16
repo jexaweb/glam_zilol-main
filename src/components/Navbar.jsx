@@ -8,16 +8,14 @@ import Ariza from "../components/Ariza";
 import ThemeToggle from "./Themes";
 import Themes from "./Themes";
 
-
-
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const mobileMenuRef = useRef(null);
   const { language, toggleLanguage } = useLanguage();
-    const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
- 
+
   const translations = {
     uz: {
       home: "Asosiy",
@@ -26,8 +24,7 @@ export default function Navbar() {
       news: "Ishlarimiz",
       contact: "Aloqa",
       switch: "RU",
-       text_btn_uz: "Buyurtma qoldirish",
-  
+      text_btn_uz: "Buyurtma qoldirish",
     },
     ru: {
       home: "Главная",
@@ -36,7 +33,7 @@ export default function Navbar() {
       news: "Новости",
       contact: "Контакты",
       switch: "UZ",
-        text_btn_uz: "Оставить заявку",
+      text_btn_uz: "Оставить заявку",
     },
   };
 
@@ -61,13 +58,11 @@ export default function Navbar() {
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
   return (
     <>
-
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300"
@@ -83,12 +78,11 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
-
           {/* Logo Desktop */}
           <Link to="/" className="hidden md:block">
             <img
               src="/logo.jpg"
-              alt="ZILOL logo"
+              alt="zilol gilam yuvish logo"
               className="w-36 transition-transform duration-300 hover:scale-105"
             />
           </Link>
@@ -104,7 +98,7 @@ export default function Navbar() {
                 >
                   {label}
                 </Link>
-              )
+              ),
             )}
 
             <button
@@ -113,19 +107,19 @@ export default function Navbar() {
             >
               <img
                 src={language === "uz" ? "/ru.jpg" : "/uzb.jpg"}
-                alt="lang"
+                alt="zilol gilam yuvish lang"
                 className="w-5 h-5 rounded-full"
               />
               {t.switch}
             </button>
 
-             <button
-        onClick={() => setShowModal(true)}
-        className="bg-amber-500 text-white  px-5 py-2 rounded-full shadow-lg hover:shadow-amber-400/50 hover:-translate-y-1 transition-all duration-300"
-      >
-        {t.text_btn_uz}
-      </button>
-           <Themes/>
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-amber-500 text-white  px-5 py-2 rounded-full shadow-lg hover:shadow-amber-400/50 hover:-translate-y-1 transition-all duration-300"
+            >
+              {t.text_btn_uz}
+            </button>
+            <Themes />
           </nav>
 
           {/* Mobile Buttons */}
@@ -152,13 +146,13 @@ export default function Navbar() {
           <Link to="/" className="md:hidden mx-auto">
             <img
               src="/logo.jpg"
-              alt="ZILOL logo"
+              alt="zilol gilam yuvish logo mobile"
               className="w-28 transition-transform duration-300 hover:scale-105"
             />
           </Link>
           <div className="md:hidden flex justify-center">
-  <Themes />
-</div>
+            <Themes />
+          </div>
         </div>
       </header>
 
@@ -169,7 +163,6 @@ export default function Navbar() {
           isOpen ? "translate-x-0" : "-translate-x-full"
         }  backdrop-blur-xl shadow-2xl`}
       >
-          
         <ul className="mt-24 px-8 space-y-6 uppercase font-semibold text-white ">
           {[t.home, t.about, t.services, t.news, t.contact].map((label, i) => (
             <Link
@@ -183,26 +176,22 @@ export default function Navbar() {
           ))}
         </ul>
       </div>
-{showModal && (
-  <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-    
-    <div className="  max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl relative p-4">
-      
-      {/* ❌ yopish tugmasi */}
-      <button
-        onClick={() => setShowModal(false)}
-   className="absolute top-3 right-3 text-black text-xl bg-gray-200 px-2 rounded hover:text-red-600"
-      >
-        ✕
-      </button>
+      {showModal && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+          <div className="  max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl relative p-4">
+            {/* ❌ yopish tugmasi */}
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-3 right-3 text-black text-xl bg-gray-200 px-2 rounded hover:text-red-600"
+            >
+              ✕
+            </button>
 
-      {/* 🔥 ARIZA ICHIDA */}
-      <Ariza />
-
-    </div>
-
-  </div>
-)}
+            {/* 🔥 ARIZA ICHIDA */}
+            <Ariza />
+          </div>
+        </div>
+      )}
       <MobileFab />
     </>
   );

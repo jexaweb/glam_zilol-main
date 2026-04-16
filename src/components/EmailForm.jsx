@@ -16,7 +16,8 @@ function EmailForm() {
       message: "Xabaringizni kiriting...",
       send: "Yuborish",
       sending: "Yuborilmoqda...",
-      success: "✅ Ma’lumot muvaffaqiyatli yuborildi!",
+      success:
+        "✅ Ma’lumot muvaffaqiyatli yuborildi tez orada siz bilan bog‘lanamiz!",
       error: "❌ Xatolik yuz berdi, qayta urinib ko‘ring!",
     },
     ru: {
@@ -26,7 +27,7 @@ function EmailForm() {
       message: "Сообщение...",
       send: "Отправить",
       sending: "Отправка...",
-      success: "✅ Данные успешно отправлены!",
+      success: "✅ Данные успешно отправлены Мы скоро свяжемся с вами!!",
       error: "❌ Произошла ошибка, попробуйте снова!",
     },
   };
@@ -78,16 +79,19 @@ function EmailForm() {
     `;
 
     try {
-      await fetch(`https://api.telegram.org/botYOUR_BOT_TOKEN/sendMessage`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      await fetch(
+        "https://api.telegram.org/bot8789952135:AAEq5VuGMUAa7b094Les1nJm1DCnvM_TaK0/sendMessage",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            chat_id: "6904234957",
+            text: text,
+          }),
         },
-        body: JSON.stringify({
-          chat_id: "YOUR_CHAT_ID",
-          text: text,
-        }),
-      });
+      );
 
       setStatus(t.success);
       setPhone("");

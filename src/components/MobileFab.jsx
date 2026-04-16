@@ -8,16 +8,15 @@ export default function MobileFab() {
   const [showModal, setShowModal] = useState(false);
   const { language } = useLanguage();
 
-const translations = {
-  uz: "Buyurtma qoldirish",
-  ru: "Оставить заявку",
-};
+  const translations = {
+    uz: "Buyurtma qoldirish",
+    ru: "Оставить заявку",
+  };
 
   return (
     <>
       {/* RIGHT ICONS */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
-
         <a
           href="https://t.me/zilolgilam"
           className="flex items-center justify-center rounded-full bg-blue-500 shadow-lg hover:scale-110 transition"
@@ -55,7 +54,7 @@ const translations = {
             transition-all duration-300 hover:-translate-y-2 overflow-hidden
           "
         >
-           {translations[language] || translations.uz}
+          {translations[language] || translations.uz}
 
           <span className="absolute inset-0 rounded-full border-[4px] sm:border-[6px] border-[#00FFCB] shadow-[0_0_60px_rgba(0,255,203,0.64)] opacity-0 transition group-hover:opacity-100"></span>
 
@@ -75,9 +74,7 @@ const translations = {
       {/* 🔥 MODAL */}
       {showModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-          
           <div className=" max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl relative p-4">
-
             {/* ❌ CLOSE */}
             <button
               onClick={() => setShowModal(false)}
@@ -88,7 +85,6 @@ const translations = {
 
             {/* 🔥 FORM */}
             <Ariza />
-
           </div>
         </div>
       )}

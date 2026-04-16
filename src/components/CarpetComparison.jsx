@@ -22,7 +22,6 @@ export default function BeforeAfterSection() {
       stul: "Stul",
       yakkandoz: "Yakkandoz",
       matras: "Matras",
-  
     },
 
     ru: {
@@ -36,7 +35,6 @@ export default function BeforeAfterSection() {
       stul: "Стулья",
       yakkandoz: "Дорожки",
       matras: "Матрасы",
-    
     },
   };
 
@@ -112,7 +110,7 @@ export default function BeforeAfterSection() {
       id="news"
       className="py-16 md:py-20 px-4 md:px-6 bg-cover bg-center"
       style={{
-        backgroundImage: "url('/bul.gif')",
+        backgroundImage: "url('')",
       }}
     >
       {/* TITLE */}
@@ -122,18 +120,17 @@ export default function BeforeAfterSection() {
       </h1>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-
         {/* SLIDER */}
         <div
           ref={containerRef}
           onMouseDown={() => setIsDragging(true)}
           onTouchStart={() => setIsDragging(true)}
-         className="lg:col-span-8 relative overflow-hidden w-full max-w-[650px] h-[300px] md:h-[420px] lg:h-[500px] shadow-2xl ring-2 ring-white/20 cursor-ew-resize select-none rounded-xl"
->
-        
+          className="lg:col-span-8 relative overflow-hidden w-full max-w-[650px] h-[300px] md:h-[420px] lg:h-[500px] shadow-2xl ring-2 ring-white/20 cursor-ew-resize select-none rounded-xl"
+        >
           {/* AFTER */}
           <img
             src={current.after}
+            alt="zilol gilam yuvish kegin"
             className="w-full h-full object-cover"
             draggable="false"
           />
@@ -152,6 +149,7 @@ export default function BeforeAfterSection() {
           >
             <img
               src={current.before}
+              alt="zilol gilam yuvish oldin"
               className="w-full h-full object-cover"
               draggable="false"
             />
@@ -187,7 +185,6 @@ export default function BeforeAfterSection() {
 
         {/* ICON LIST */}
         <div className="lg:col-span-4 w-full">
-
           {/* MOBILE */}
           <div className="flex lg:hidden gap-3 overflow-x-auto pb-2">
             {data.map((item, i) => (
@@ -201,7 +198,12 @@ export default function BeforeAfterSection() {
                   active === i ? "bg-white shadow-lg scale-105" : "bg-white/50"
                 }`}
               >
-                <img src={item.icon} className="w-8 h-8" />
+                <img
+                  src={item.icon}
+                  alt="zilol gilam yuvish icons"
+                  className="w-8 h-8"
+                />
+
                 <span className="text-sm font-medium text-black">
                   {item.name}
                 </span>
@@ -219,15 +221,20 @@ export default function BeforeAfterSection() {
                   setPos(50);
                 }}
                 className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer ${
-                  active === i ? "bg-white shadow-lg scale-105" : "hover:bg-white/50"
+                  active === i
+                    ? "bg-white shadow-lg scale-105"
+                    : "hover:bg-white/50"
                 }`}
               >
-                <img src={item.icon} className="w-10 h-10" />
+                <img
+                  src={item.icon}
+                  alt="zilol gilam yuvish icons"
+                  className="w-10 h-10"
+                />
                 <span className="font-semibold">{item.name}</span>
               </div>
             ))}
           </div>
-
         </div>
       </div>
     </section>

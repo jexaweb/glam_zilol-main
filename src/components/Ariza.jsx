@@ -151,7 +151,7 @@ export default function Ariza() {
       () => {
         alert(t.location_error);
         setLoadingLoc(false);
-      }
+      },
     );
   };
 
@@ -176,16 +176,19 @@ export default function Ariza() {
 
     message += `✏️ ${form.note}`;
 
-    await fetch("https://api.telegram.org/bot8789952135:AAEq5VuGMUAa7b094Les1nJm1DCnvM_TaK0/sendMessage", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    await fetch(
+      "https://api.telegram.org/bot8789952135:AAEq5VuGMUAa7b094Les1nJm1DCnvM_TaK0/sendMessage",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: "6904234957",
+          text: message,
+        }),
       },
-      body: JSON.stringify({
-        chat_id: "6904234957",
-        text: message,
-      }),
-    });
+    );
   };
 
   /* ================= SUBMIT ================= */
@@ -211,12 +214,14 @@ export default function Ariza() {
 
   /* ================= UI ================= */
   return (
-    <section className="min-h-screen flex justify-center items-center p-4 mt-20">
+    <section className="min-h-screen flex justify-center items-center p-4 mt-20 ">
       <form
         onSubmit={handleSubmit}
         className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-xl space-y-5"
       >
-        <h2 className="text-2xl font-bold text-center text-black">{t.title}</h2>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-amber-500 to-yellow-400 bg-clip-text text-transparent">
+          {t.title}
+        </h1>
 
         <input
           className="input w-full"
@@ -247,9 +252,7 @@ export default function Ariza() {
                   onClick={() => toggleService(service)}
                   className="p-4 cursor-pointer flex justify-between bg-black text-white"
                 >
-                  <span>
-                    {serviceNames[language][service] || service}
-                  </span>
+                  <span>{serviceNames[language][service] || service}</span>
                   <span>{selected ? "−" : "+"}</span>
                 </div>
 
@@ -265,9 +268,7 @@ export default function Ariza() {
                               <input
                                 type="checkbox"
                                 checked={!!selectedTariff}
-                                onChange={() =>
-                                  toggleTariff(service, tariff)
-                                }
+                                onChange={() => toggleTariff(service, tariff)}
                               />
                               {tariff} - {price.toLocaleString()} so'm
                             </label>
@@ -283,14 +284,14 @@ export default function Ariza() {
                                   handleQuantityChange(
                                     service,
                                     tariff,
-                                    e.target.value
+                                    e.target.value,
                                   )
                                 }
                               />
                             )}
                           </div>
                         );
-                      }
+                      },
                     )}
                   </div>
                 )}
@@ -305,9 +306,7 @@ export default function Ariza() {
             className="input w-full"
             placeholder={t.address}
             value={form.address}
-            onChange={(e) =>
-              setForm({ ...form, address: e.target.value })
-            }
+            onChange={(e) => setForm({ ...form, address: e.target.value })}
             required
           />
 
