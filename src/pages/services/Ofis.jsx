@@ -400,7 +400,11 @@ export default function Matras() {
                       onClick={() => toggleService(service)}
                       className="p-3 bg-black text-white cursor-pointer flex justify-between items-center"
                     >
-                      <span>{service}</span>
+                      <span>
+                        {language === "ru"
+                          ? "Чистка игрушек"
+                          : "O'yinchoqlar yuvish"}
+                      </span>
                       <span>{selectedServices[service] ? "−" : "+"}</span>
                     </div>
 

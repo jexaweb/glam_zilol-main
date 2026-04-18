@@ -114,6 +114,20 @@ export default function Korpa() {
     },
   };
 
+  const serviceNames = {
+    uz: {
+      "Korpa yuvish": "Ko‘rpa yuvish",
+      "primum /2x/dona": "Premium / 2x / dona",
+      "Standart /1x/dona": "Standart / 1x / dona",
+    },
+
+    ru: {
+      "Korpa yuvish": "Стирка одеял",
+      "primum /2x/dona": "Премиум / 2x / шт",
+      "Standart /1x/dona": "Стандарт / 1x / шт",
+    },
+  };
+
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -306,9 +320,9 @@ export default function Korpa() {
                 key={i}
                 onClick={() => setActiveVideo(item.video)}
                 className="min-w-64  relative cursor-pointer rounded-2xl overflow-hidden group 
-      shadow-md hover:shadow-2xl 
-      transition-all duration-500 
-      hover:-translate-y-2 hover:scale-[1.03]"
+        shadow-md hover:shadow-2xl 
+        transition-all duration-500 
+        hover:-translate-y-2 hover:scale-[1.03]"
               >
                 {/* IMAGE */}
                 <img
@@ -341,9 +355,9 @@ export default function Korpa() {
               setActiveVideo(null);
             }}
             className="absolute top-3 right-3 w-10 h-10 flex items-center justify-center 
-  rounded-full bg-black/60 backdrop-blur-md text-white text-lg
-  hover:bg-amber-400 hover:text-black 
-  transition-all duration-300 shadow-md hover:scale-110 active:scale-95"
+    rounded-full bg-black/60 backdrop-blur-md text-white text-lg
+    hover:bg-amber-400 hover:text-black 
+    transition-all duration-300 shadow-md hover:scale-110 active:scale-95"
           >
             ✕
           </button>
@@ -439,9 +453,9 @@ export default function Korpa() {
             <a
               href="tel:+998732001313"
               className="px-8 py-4 rounded-xl bg-amber-400 text-black font-semibold 
-        shadow-lg hover:shadow-amber-400/50 
-        hover:scale-105 active:scale-95 
-        transition duration-300"
+          shadow-lg hover:shadow-amber-400/50 
+          hover:scale-105 active:scale-95 
+          transition duration-300"
             >
               {t.call}
             </a>
@@ -450,9 +464,9 @@ export default function Korpa() {
             <button
               onClick={() => setShowModal(true)}
               className="px-8 py-4 rounded-xl bg-white text-black font-semibold 
-        shadow-md hover:shadow-xl 
-        hover:scale-105 active:scale-95 
-        transition duration-300"
+          shadow-md hover:shadow-xl 
+          hover:scale-105 active:scale-95 
+          transition duration-300"
             >
               {t.orderBtn} 📝
             </button>
@@ -508,10 +522,10 @@ export default function Korpa() {
                       onClick={() => toggleService(service)}
                       className="p-3 bg-black text-white cursor-pointer flex justify-between items-center"
                     >
-                      <span>{service}</span>
+                      <span>{serviceNames[language][service] || service}</span>
+
                       <span>{selectedServices[service] ? "−" : "+"}</span>
                     </div>
-
                     {selectedServices[service] && (
                       <div className="p-4 space-y-3 bg-yellow-500">
                         {Object.entries(serviceData[service].tariffs).map(

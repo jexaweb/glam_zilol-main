@@ -16,7 +16,7 @@ import { IoIosAlarm } from "react-icons/io";
 import CountUp from "../components/CountUp";
 import { BiUserCircle } from "react-icons/bi";
 import Ariza from "../components/Ariza";
-import CleaningEffect from "../components/CleaningEffect";
+
 
 /* ================= ERROR ALERT ================= */
 function ErrorAlert({ message, onClose }) {
@@ -97,8 +97,8 @@ function Home() {
   /* ================= SLIDES ================= */
   const slides = [
     {
-      imgDesktop:
-        "https://d34mfkth6cubud.cloudfront.net/wp-content/uploads/2022/11/16073435/home-cleaning-services-in-Abu-Dhabi-_-Cover-16-11-22.jpg",
+      imgDesktop:"/bg-zilol.jpg",
+      alt: "Zilol gilam yuvish xizmati",
       imgMobile: "/bg-mbl1.png",
 
       text1_uz: "Gilam yuvish!",
@@ -112,9 +112,10 @@ function Home() {
       text3_ru: "Сушка и доставка всего за 1 день!",
     },
     {
-      imgDesktop:
-        "https://avatars.mds.yandex.net/get-altay/15265650/2a00000194cfc14c6f5dd8df9fe271072a6a/XXL_height",
+      imgDesktop:"/bg-zilol4.jpg",
+      alt: "Zilol mebel yuvish xizmati",
       imgMobile: "/bg-mbl2.jpg",
+
 
       text1_uz: "Mebel yuvish!",
       text2_uz:
@@ -127,6 +128,7 @@ function Home() {
     },
     {
       imgDesktop: "/bg-run.png",
+      alt: "Zilol parda yuvish xizmati",
       imgMobile: "/bg-mbl3.png",
 
       text1_uz: "VIP  Primum xizmat!",
@@ -144,51 +146,61 @@ function Home() {
       name: " Nurmatjon.",
       text: "Ассалому алайкум хайирли тонг барчага ювдирган гилам ,адёл ва юмшок уйинчогларимиз жуддаям тоза ва сифатли ювилибти  каттакон рахмат оллох рози булсин мехнатиларни рохатини курилар омадиларни берсин 🤲🤲🤲🤲",
       img: "/image/nurmatjon.jpg",
+      alt: "zilol gilam yuvish mijoz",
     },
     {
       name: "SHoxsanam.",
       text: "zor allohga shukur judayam yoqdi omadlarizni bersin robbim ilohim musofirda turib duo qildik raxmat yana bir bor",
       img: "/image/shoxsanam.jpg",
+      alt: "zilol gilam yuvish mijoz",
     },
     {
       name: "Barno.",
       text: "Ассалому алайкум. Рахмат Зилол гилам ювиш корхонасига. Гилам ва якандозларимни конглимдагидек килиб ювиб беришди. Хурсандман. Ишларинга ривож.",
       img: "/image/barno.jpg",
+      alt: "zilol gilam yuvish mijoz",
     },
     {
       name: "Гламур.",
       text: "Хайрли кеч!Сизларда гилам ва адёлларимни доим ювдираман.Сифатига гап йук.Аъло даражада👍.Куч-кувват берсин.Ишларингга омад! Ювдирмокчи булганларга тавсия киламан.",
       img: "/image/glamur.jpg",
+      alt: "zilol gilam yuvish mijoz",
     },
     {
       name: "Gulchexra B.",
       text: "Zilol hodimlari xalqни xizmatida  charchamelar  parda gilamlarim judayam chiroyli tozza yuvilipti raxamat ishlarizga rivoj",
       img: "/image/gulchexra.jpg",
+      alt: "zilol gilam yuvish mijoz",
     },
     {
       name: "Margʻuba  A.",
       text: "Zilol xodimlari xodimlari xamelarga  kotta raxmat yakandozlar juda xam chiroyli yuvilibti xizmatilarga rozi boʻlinglar",
       img: "/image/marguba.jpg",
+      alt: "zilol gilam yuvish mijoz",
     },
     {
       name: "Mahliyo G.",
       text: "Katta rahmat soĝ bolinglar. Shirin hidli , toza qilib yuvibsizlar. Mehnatlarizga rozi bolinglar. Korxonalarin bundanam katta bolib Allohim rivojini bersin. 🤲🤲Quvasoydan alangali salom. Gruppadagilar Zilol da hamma narsalariz zilol suvdek top-toza boladi😊TAVSIYA QILAMAN😊",
       img: "/image/mahliyo.jpg",
+      alt: "zilol gilam yuvish mijoz",
     },
     {
-      name: "Shahzod E.",
-      text: "Operatorlar juda muloyim, xizmat ham tez.",
-      img: "https://i.pravatar.cc/100?img=8",
+      name: "za.",
+      text: "Assalom aleykum qizla yigitlar qilgan mehnatlarizga rozi boʻlilar rahmat kottakon koʻnglimdagidek tozza bitta dogʻ bitta soch tolasiyam qolmapti ishlaringga rivoj sogʻ boʻlila 👍👍👍",
+      img: "/image/sah.jpg",
+      alt: "zilol gilam yuvish mijoz",
     },
     {
-      name: "Nigora B.",
-      text: "Oldingi rangiga qaytibdi, juda hayron qoldim!",
-      img: "https://i.pravatar.cc/100?img=9",
+      name: "MUHAMMAD A.",
+      text: "Yaxshimisizlar charchame ishlayabsilarmi issiqlarda rahmat gilamimizmi olib oldik judayam chiroyli qb yuvib beribsila😊",
+      img: "/image/nigora.jpg",
+      alt: "zilol gilam yuvish mijoz",
     },
     {
-      name: "Umidjon P.",
-      text: "Professional darajada ishlashadi, gap yo‘q 👍",
-      img: "https://i.pravatar.cc/100?img=10",
+      name: "Шодия И.",
+      text: "Assalomu aleykum, yaxshimisiz? 🙏 Gilamimiz juda chiroyli, oppoq toza  bolib qopti! 😍 Rahmat mehnatlaringizga, rozi bo'lasizlar! 🌟 Ishlaringa rivoj",
+      img: "/image/umidjon.jpg",
+      alt: "zilol gilam yuvish mijoz",
     },
   ];
 
@@ -276,6 +288,7 @@ function Home() {
     {
       title: language === "ru" ? "Стирка ковров" : "Gilam yuvish",
       image: "/gilam.png",
+      alt: language === "ru" ? "Стирка ковров" : "Gilam yuvish",
       link: "/gilam",
       bgColor: "bg-blue-200",
     },
@@ -283,6 +296,7 @@ function Home() {
     {
       title: language === "ru" ? "Чистка мебели" : "Mebel yuvish",
       image: "/mebel.png",
+      alt: language === "ru" ? "Чистка мебели" : "Mebel yuvish",
       link: "/mebel",
       bgColor: "bg-blue-400",
     },
@@ -290,6 +304,7 @@ function Home() {
     {
       title: language === "ru" ? "Стирка штор" : "Parda yuvish",
       image: "/parda.png",
+      alt: language === "ru" ? "Стирка штор" : "Parda yuvish",
       link: "/parda",
       bgColor: "bg-indigo-600",
     },
@@ -297,6 +312,7 @@ function Home() {
     {
       title: language === "ru" ? "Стирка дорожек" : "Yakkandoz yuvish",
       image: "/yakandoz.png",
+      alt: language === "ru" ? "Стирка дорожек" : "Yakkandoz yuvish",
       link: "/yakkandoz",
       bgColor: "bg-blue-200",
     },
@@ -304,6 +320,7 @@ function Home() {
     {
       title: language === "ru" ? "Стирка одеял" : "Ko‘rpa yuvish",
       image: "/korpa1.png",
+      alt: language === "ru" ? "Стирка одеял" : "Ko‘rpa yuvish",
       link: "/korpa",
       bgColor: "bg-blue-400",
     },
@@ -311,6 +328,7 @@ function Home() {
     {
       title: language === "ru" ? "Чистка матрасов" : "Matras yuvish",
       image: "/matras.png",
+      alt: language === "ru" ? "Чистка матрасов" : "Matras yuvish",
       link: "/matras",
       bgColor: "bg-indigo-600",
     },
@@ -318,6 +336,7 @@ function Home() {
     {
       title: language === "ru" ? "Чистка на месте" : "Joyida Gilam yuvish",
       image: "/joyda.png",
+      alt: language === "ru" ? "Чистка на месте" : "Joyida Gilam yuvish",
       link: "/kovrolin",
       bgColor: "bg-blue-200",
     },
@@ -325,6 +344,7 @@ function Home() {
     {
       title: language === "ru" ? "Чистка игрушек" : "O‘yinchoqlar yuvish",
       image: "/oyinchoqlar1.png",
+      alt: language === "ru" ? "Чистка игрушек" : "O‘yinchoqlar yuvish",
       link: "/ofis",
       bgColor: "bg-blue-400",
     },
@@ -332,6 +352,7 @@ function Home() {
     {
       title: language === "ru" ? "Стирка подушек" : "Yostiqlar yuvish",
       image: "/yostiq.png",
+      alt: language === "ru" ? "Стирка подушек" : "Yostiqlar yuvish",
       link: "/antiseptik",
       bgColor: "bg-indigo-600",
     },
@@ -339,6 +360,7 @@ function Home() {
     {
       title: language === "ru" ? "Стирка авто чехлов" : "Avto chixol yuvish",
       image: "/avto.png",
+      alt: language === "ru" ? "Стирка авто чехлов" : "Avto chixol yuvish",
       link: "/avto",
       bgColor: "bg-blue-200",
     },
@@ -530,7 +552,7 @@ function Home() {
             <div className="absolute bottom-10 md:bottom-20 left-1/2 -translate-x-1/2 text-center text-white px-4 z-30 w-full max-w-3xl">
               <div className="absolute bottom-10 md:bottom-20 left-1/2 -translate-x-1/2 w-full px-4 z-30 flex justify-center">
                 <div className="relative max-w-3xl w-full text-center text-white">
-                  <div className="relative border-white/20 rounded-3xl p-6 md:p-10">
+                  <div className="relative border-white/20 rounded-3xl p-6 md:p-10 text-center">
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3">
                       {item[`text1_${language}`]}
                     </h2>

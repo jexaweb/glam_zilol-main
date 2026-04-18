@@ -19,7 +19,7 @@ export default function Avto() {
       address: "Lokatsiya tugmani bosing ➡️",
       note: "Izoh,manzil (masalan: ertaga olib ketilsin manzil:margilol )",
       quantity: "Soni",
-      send: "Yuborish",
+     
       service: "Avto chihol yuvish",
       tariffs: {
         seat1: "Old o‘rindiq (1 dona)",
@@ -193,7 +193,7 @@ export default function Avto() {
             </button>
 
             <h2 className="text-2xl font-bold text-center mb-6 text-black ">
-              {t.order} 📝
+              {t.order} 
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -223,7 +223,7 @@ export default function Avto() {
                   >
                     <div
                       onClick={() => toggleService(service)}
-                      className="p-3  from-black   cursor-pointer flex justify-between items-center"
+                      className="p-3  from-black   cursor-pointer flex justify-between items-center text-white"
                     >
                       <span>{service}</span>
                       <span className="text-lg">

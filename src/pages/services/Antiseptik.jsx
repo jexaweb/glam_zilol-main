@@ -19,7 +19,7 @@ export default function Antiseptik() {
       tariffs: "Yostiq Yuvish Tariflari",
       name: "F.I.O",
       phone: "Tel",
-      send: "Yuborish",
+      call: "Qo‘ng‘iroq qilish",
 
       address: "Lokatsiya tugmani bosing ➡️",
       note: "Izoh,manzil (masalan: ertaga olib ketilsin manzil:margilol )",
@@ -27,7 +27,7 @@ export default function Antiseptik() {
       send: "Yuborish",
       ctaTitle: "Hoziroq buyurtma bering",
       ctaDesc: "Birinchi buyurtmaga 10% chegirma!",
-      call: "Qo‘ng‘iroq qilish",
+
       orderBtn: "Buyurtma berish",
       trust: "✔ Tez javob beramiz • ✔ 100% bepul maslahat",
     },
@@ -42,17 +42,17 @@ export default function Antiseptik() {
       order: "Сделать заказ",
       tariffs: "Тарифы на чистку подушек",
       name: "Ф.И.О",
-      phone: "Телефон",
+      phone: "Тел",
+      call: "Позвонить",
       send: "Отправить",
-      name: "Ф.И.О",
-      phone: "Телефон",
+
       address: "Нажмите кнопку «Местоположение» ➡️",
       note: "Комментарий (например: забрать завтра, адрес: маргилол )",
       quantity: "Количество",
-      send: "Отправить",
+
       ctaTitle: "Закажите прямо сейчас",
       ctaDesc: "Скидка 10% на первый заказ!",
-      call: "Позвонить",
+
       orderBtn: "Оставить заявку",
       trust: "✔ Быстрый ответ • ✔ Бесплатная консультация",
     },
@@ -155,9 +155,23 @@ export default function Antiseptik() {
   };
 
   const tariffs = [
-    { name: "Oddiy yostiq", price: "20 000 so‘m" },
-    { name: "Katta yostiq", price: "30 000 so‘m" },
-  ];
+  {
+    name: language === "ru"
+      ? "Обычная подушка"
+      : "Oddiy yostiq",
+    price: language === "ru"
+      ? "20 000 сум"
+      : "20 000 so‘m",
+  },
+  {
+    name: language === "ru"
+      ? "Большая подушка"
+      : "Katta yostiq",
+    price: language === "ru"
+      ? "30 000 сум"
+      : "30 000 so‘m",
+  },
+];
 
   return (
     <div className="relative overflow-hidden">
@@ -337,7 +351,9 @@ export default function Antiseptik() {
                       onClick={() => toggleService(service)}
                       className="p-3 bg-black text-white cursor-pointer flex justify-between items-center"
                     >
-                      <span>{service}</span>
+                      <span>
+                        {language === "ru" ? "Чистка подушек" : "Yostiq yuvish"}
+                      </span>
                       <span>{selectedServices[service] ? "−" : "+"}</span>
                     </div>
 

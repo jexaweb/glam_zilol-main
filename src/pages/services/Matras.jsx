@@ -21,14 +21,14 @@ export default function Matras() {
     { video: "/videos/mebel3.mp4", img: "/mebel3.png" },
   ];
 
-  const serviceData = {
-    "Matras yuvish": {
-      tariffs: {
-        "primum /2x/dona": 200000,
-        "Standart /1x/dona": 100000,
-      },
+ const serviceData = {
+  [language === "ru" ? "Чистка матраса" : "Matras yuvish"]: {
+    tariffs: {
+      "Premium / 2x / dona": 200000,
+      "Standart / 1x / dona": 100000,
     },
-  };
+  },
+};
 
   const [form, setForm] = useState({
     name: "",
@@ -175,16 +175,29 @@ export default function Matras() {
 
     setSelectedServices({});
   };
-  const tariffs = [
+ const tariffs = {
+  uz: [
     {
       name: "1 kishilik matras",
       price: "100 000 so‘m",
     },
     {
-      name: "2 kshilik matras",
+      name: "2 kishilik matras",
       price: "200 000 so‘m",
     },
-  ];
+  ],
+
+  ru: [
+    {
+      name: "1-спальный матрас",
+      price: "100 000 сум",
+    },
+    {
+      name: "2-спальный матрас",
+      price: "200 000 сум",
+    },
+  ],
+};
 
   const t = {
     uz: {
@@ -203,7 +216,7 @@ export default function Matras() {
       ctaTitle: "Hoziroq buyurtma bering 📞",
       ctaDesc: "Birinchi buyurtmaga 10% chegirma!",
 
-      call: "Qo‘ng‘iroq qilish",
+    
       order: "Buyurtma berish",
 
       name: "F.I.O",
@@ -221,14 +234,14 @@ export default function Matras() {
       browserError: "Brauzer lokatsiyani qo‘llab-quvvatlamaydi ❗",
 
       call: "Qo‘ng‘iroq qilish",
-      order: "Buyurtma berish",
+     
       orderBtn: "Buyurtma berish",
-      name: "F.I.O",
-      phone: "Tel",
-      address: "Lokatsiya tugmani bosing ➡️",
-      note: "Izoh,manzil (masalan: ertaga olib ketilsin manzil:margilol )",
-      send: "Buyurtma yuborish",
-      quantity: "Soni",
+    
+    
+     
+    
+   
+    
     },
     ru: {
       title: "Профессиональная чистка матрасов 🛏️",
@@ -246,15 +259,10 @@ export default function Matras() {
       ctaTitle: "Закажите прямо сейчас 📞",
       ctaDesc: "Скидка 10% на первый заказ!",
 
-      call: "Позвонить",
-      order: "Сделать заказ",
+  
 
-      name: "Ф.И.О",
-      phone: "Телефон",
-      address: "Нажмите кнопку геолокации ➡️",
-      note: "Комментарий  (например: забрать завтра)",
-      send: "Отправить",
-      quantity: "Количество ",
+
+
 
       service: "Чистка матраса",
 
@@ -379,13 +387,13 @@ export default function Matras() {
           <h2 className="text-3xl font-bold mb-12">{text.tariffsTitle}</h2>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {tariffs.map((t, i) => (
+     {tariffs[language].map((item, i) => (
               <div
                 key={i}
                 className="p-6 bg-white rounded-xl shadow hover:shadow-xl transition hover:-translate-y-1"
               >
-                <h3 className="font-semibold text-lg mb-2">{t.name}</h3>
-                <p className="text-amber-500 font-bold text-xl">{t.price}</p>
+                <h3 className="font-semibold text-lg mb-2">{item.name}</h3>
+                <p className="text-amber-500 font-bold text-xl">{item.price}</p>
 
                 <button
                   onClick={() => setShowModal(true)}

@@ -28,7 +28,7 @@ export default function Kovrolin() {
     "Gilam joyida yuvish": {
       tariffs: {
         "Gilam 1 kv metr": 25000,
-        "Divan": "Kelishiladi",
+        Divan: "Kelishiladi",
       },
     },
   };
@@ -159,13 +159,12 @@ export default function Kovrolin() {
       orderBtn: "Оставить заявку",
       trust: "✔ Быстрый ответ • ✔ Бесплатная консультация",
       discount: "Скидка",
-      call: "Позвонить",
-      orderBtn: "Сделать заказ",
+
       name: "Ф.И.О",
       phone: "Тел",
       address: "Нажмите кнопку «Местоположение» ➡️",
       note: "Комментарий (например: забрать завтра, адрес: маргилол )",
-      send: "Отправить",
+
       mattress: "Чистка матраса",
       quantity: "Количество",
     },
@@ -399,7 +398,11 @@ export default function Kovrolin() {
                       onClick={() => toggleService(service)}
                       className="p-3 bg-black text-white cursor-pointer flex justify-between items-center"
                     >
-                      <span>{service}</span>
+                      <span>
+                        {language === "ru"
+                          ? "Чистка ковра на месте"
+                          : "Gilam joyida yuvish"}
+                      </span>
                       <span>{selectedServices[service] ? "−" : "+"}</span>
                     </div>
 

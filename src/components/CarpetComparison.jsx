@@ -113,11 +113,24 @@ export default function BeforeAfterSection() {
         backgroundImage: "url('')",
       }}
     >
-      {/* TITLE */}
-      <h1 className="text-3xl md:text-5xl font-extrabold text-center mb-6 leading-tight drop-shadow-lg">
-        {t.title1}
-        <span className="text-amber-500"> {t.title2}</span>
-      </h1>
+    <h1 className="
+  text-2xl 
+  sm:text-3xl 
+  md:text-4xl 
+  lg:text-5xl 
+  xl:text-6xl 
+  font-extrabold 
+  text-center 
+  mb-4 sm:mb-6 
+  leading-tight 
+  drop-shadow-lg
+  px-3 sm:px-0
+">
+  {t.title1}
+  <span className="text-amber-500 block sm:inline">
+    {" "}{t.title2}
+  </span>
+</h1>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
         {/* SLIDER */}
