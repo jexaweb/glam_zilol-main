@@ -99,7 +99,7 @@ function Home() {
     {
       imgDesktop:"/bg-zilol.jpg",
       alt: "Zilol gilam yuvish xizmati",
-      imgMobile: "/bg-mbl1.png",
+      imgMobile: "/bg-mbl1.webp",
 
       text1_uz: "Gilam yuvish!",
       text2_uz:
@@ -114,7 +114,7 @@ function Home() {
     {
       imgDesktop:"/bg-zilol4.jpg",
       alt: "Zilol mebel yuvish xizmati",
-      imgMobile: "/bg-mbl2.jpg",
+      imgMobile: "/bg-mbl2.webp",
 
 
       text1_uz: "Mebel yuvish!",
@@ -129,7 +129,7 @@ function Home() {
     {
       imgDesktop: "/bg-run.png",
       alt: "Zilol parda yuvish xizmati",
-      imgMobile: "/bg-mbl3.png",
+      imgMobile: "/bg-mbl3.webp",
 
       text1_uz: "VIP  Primum xizmat!",
       text2_uz: "Zamonaviy uskunalarda yuvish va tezkor quritish.",
@@ -145,25 +145,25 @@ function Home() {
     {
       name: " Nurmatjon.",
       text: "Ассалому алайкум хайирли тонг барчага ювдирган гилам ,адёл ва юмшок уйинчогларимиз жуддаям тоза ва сифатли ювилибти  каттакон рахмат оллох рози булсин мехнатиларни рохатини курилар омадиларни берсин 🤲🤲🤲🤲",
-      img: "/image/nurmatjon.jpg",
+      img: "/image/nurmatjon.webp",
       alt: "zilol gilam yuvish mijoz",
     },
     {
       name: "SHoxsanam.",
       text: "zor allohga shukur judayam yoqdi omadlarizni bersin robbim ilohim musofirda turib duo qildik raxmat yana bir bor",
-      img: "/image/shoxsanam.jpg",
+      img: "/image/shoxsanam.webp",
       alt: "zilol gilam yuvish mijoz",
     },
     {
       name: "Barno.",
       text: "Ассалому алайкум. Рахмат Зилол гилам ювиш корхонасига. Гилам ва якандозларимни конглимдагидек килиб ювиб беришди. Хурсандман. Ишларинга ривож.",
-      img: "/image/barno.jpg",
+      img: "/image/barno.webp",
       alt: "zilol gilam yuvish mijoz",
     },
     {
       name: "Гламур.",
       text: "Хайрли кеч!Сизларда гилам ва адёлларимни доим ювдираман.Сифатига гап йук.Аъло даражада👍.Куч-кувват берсин.Ишларингга омад! Ювдирмокчи булганларга тавсия киламан.",
-      img: "/image/glamur.jpg",
+      img: "/image/glamur.webp",
       alt: "zilol gilam yuvish mijoz",
     },
     {
@@ -181,13 +181,13 @@ function Home() {
     {
       name: "Mahliyo G.",
       text: "Katta rahmat soĝ bolinglar. Shirin hidli , toza qilib yuvibsizlar. Mehnatlarizga rozi bolinglar. Korxonalarin bundanam katta bolib Allohim rivojini bersin. 🤲🤲Quvasoydan alangali salom. Gruppadagilar Zilol da hamma narsalariz zilol suvdek top-toza boladi😊TAVSIYA QILAMAN😊",
-      img: "/image/mahliyo.jpg",
+      img: "/image/mahliyo.webp",
       alt: "zilol gilam yuvish mijoz",
     },
     {
       name: "za.",
       text: "Assalom aleykum qizla yigitlar qilgan mehnatlarizga rozi boʻlilar rahmat kottakon koʻnglimdagidek tozza bitta dogʻ bitta soch tolasiyam qolmapti ishlaringga rivoj sogʻ boʻlila 👍👍👍",
-      img: "/image/sah.jpg",
+      img: "/image/sah.webp",
       alt: "zilol gilam yuvish mijoz",
     },
     {
@@ -287,7 +287,7 @@ function Home() {
   const services = [
     {
       title: language === "ru" ? "Стирка ковров" : "Gilam yuvish",
-      image: "/gilam.png",
+      image: "/gilam.webp",
       alt: language === "ru" ? "Стирка ковров" : "Gilam yuvish",
       link: "/gilam",
       bgColor: "bg-blue-200",
@@ -295,7 +295,7 @@ function Home() {
 
     {
       title: language === "ru" ? "Чистка мебели" : "Mebel yuvish",
-      image: "/mebel.png",
+      image: "/mebel.webp",
       alt: language === "ru" ? "Чистка мебели" : "Mebel yuvish",
       link: "/mebel",
       bgColor: "bg-blue-400",
@@ -303,7 +303,7 @@ function Home() {
 
     {
       title: language === "ru" ? "Стирка штор" : "Parda yuvish",
-      image: "/parda.png",
+      image: "/parda.webp",
       alt: language === "ru" ? "Стирка штор" : "Parda yuvish",
       link: "/parda",
       bgColor: "bg-indigo-600",
@@ -311,7 +311,7 @@ function Home() {
 
     {
       title: language === "ru" ? "Стирка дорожек" : "Yakkandoz yuvish",
-      image: "/yakandoz.png",
+      image: "/yakandoz.webp",
       alt: language === "ru" ? "Стирка дорожек" : "Yakkandoz yuvish",
       link: "/yakkandoz",
       bgColor: "bg-blue-200",
@@ -351,7 +351,7 @@ function Home() {
 
     {
       title: language === "ru" ? "Стирка подушек" : "Yostiqlar yuvish",
-      image: "/yostiq.png",
+      image: "/yostiq.webp",
       alt: language === "ru" ? "Стирка подушек" : "Yostiqlar yuvish",
       link: "/antiseptik",
       bgColor: "bg-indigo-600",
@@ -371,19 +371,23 @@ function Home() {
   const videos = [
     {
       video: "/videos/gilam1.mp4",
-      img: "/zilolclengi.png",
+      img: "/zilolclengi.webp",
+      alt: "Zilol gilam yuvish xizmati",
     },
     {
       video: "/videos/gilam.mp4",
-      img: "/zilolclengi.1.png",
+      img: "/zilolclengi.1.webp",
+      alt: "Zilol gilam yuvish xizmati",
     },
     {
       video: "/videos/mebel.mp4",
-      img: "/zilolclengi.2.png",
+      img: "/zilolclengi.2.webp",
+      alt: "Zilol mebel yuvish xizmati",
     },
     {
       video: "/videos/yakandoz.mp4",
-      img: "/zilolclengi.3.png",
+      img: "/zilolclengi.3.webp",
+      alt: "Zilol yakandoz yuvish xizmati",
     },
   ];
 
@@ -638,9 +642,9 @@ function Home() {
             {/* Center Image */}
             <div className="">
               <img
-                src="/bg-imgse.jpg"
+                src="/bg-imgse.webp"
                 alt=" zilol gilam yuvish service man img"
-                className="rounded-xl w-110 h-110  "
+                className="rounded-xl w-110 h-auto  "
               />
             </div>
 
@@ -668,7 +672,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="px-5 py-24 bg-[url('/bg-imgs.jpg')] bg-cover bg-center bg-black/60 bg-blend-darken">
+      <section className="px-5 py-24 bg-[url('/bg-imgs.webp')] bg-cover bg-center bg-black/60 bg-blend-darken">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-10">
             {/* Card 1 */}
@@ -994,7 +998,7 @@ hover:bg-indigo-700 transition"
                 <div className="absolute inset-0  to-transparent rounded-3xl blur-2xl"></div>
 
                 <img
-                  src="/bg-img2.png"
+                  src="/bg-img2.webp"
                   alt="zilol gilam yuvish cta image"
                   className="relative w-full max-w-md rounded-3xl  hover:scale-105 transition duration-500"
                 />

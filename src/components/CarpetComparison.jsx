@@ -44,31 +44,31 @@ export default function BeforeAfterSection() {
   const data = [
     {
       name: t.gilam,
-      icon: "/icons/gilam.png",
-      before: "/gilam-before.jpg",
-      after: "/gilam-after.jpg",
+      icon: "/icons/gilam.webp",
+      before: "/gilam-before.webp",
+      after: "/gilam-after.webp",
     },
     {
       name: t.mebel,
-      icon: "/icons/mebel.png",
+      icon: "/icons/mebel.webp",
       before: "/mebel-before.jpg",
       after: "/mebel-after.jpg",
     },
     {
       name: t.stul,
-      icon: "/icons/stul.png",
+      icon: "/icons/stul.webp",
       before: "/stul-before.jpg",
       after: "/stul-after.jpg",
     },
     {
       name: t.yakkandoz,
-      icon: "/icons/yakkandoz.png",
+      icon: "/icons/yakkandoz.webp",
       before: "/yakkandoz-before.jpg",
       after: "/yakkandoz-after.jpg",
     },
     {
       name: t.matras,
-      icon: "/icons/matras.png",
+      icon: "/icons/matras.webp",
       before: "/matras-before.jpg",
       after: "/matras-after.jpg",
     },

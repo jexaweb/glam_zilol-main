@@ -81,7 +81,7 @@ export default function Navbar() {
           {/* Logo Desktop */}
           <Link to="/" className="hidden md:block">
             <img
-              src="/logo.jpg"
+              src="/logo.webp"
               alt="zilol gilam yuvish logo"
               className="w-36 transition-transform duration-300 hover:scale-105"
             />
@@ -89,19 +89,23 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <nav className="hidden md:flex items-center gap-1 uppercase font-semibold text-gray-800 ">
-            {[t.home, t.about, t.services, t.news, t.contact].map(
-              (label, i) => (
-                <Link
-                  key={i}
-                  to={["/", "/about", "/#services", "/#news", "/#contact"][i]}
-                  className="relative px-4 py-2 rounded-full bg-white/70 hover:bg-amber-400/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-                >
-                  {label}
-                </Link>
-              ),
-            )}
+         <ul className="list-none flex flex-wrap gap-3">
+  {[t.home, t.about, t.services, t.news, t.contact].map(
+    (label, i) => (
+      <li key={i}>
+        <Link
+          to={["/", "/about", "/#services", "/#news", "/#contact"][i]}
+          className="relative px-4 py-2 rounded-full bg-white/70 hover:bg-amber-400/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+        >
+          {label}
+        </Link>
+      </li>
+    )
+  )}
+</ul>
 
             <button
+             aria-label="Switch Language"
               onClick={toggleLanguage}
               className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 hover:bg-amber-400/20 transition"
             >
@@ -114,6 +118,7 @@ export default function Navbar() {
             </button>
 
             <button
+              aria-label="Request Quote"
               onClick={() => setShowModal(true)}
               className="bg-amber-500 text-white  px-5 py-2 rounded-full shadow-lg hover:shadow-amber-400/50 hover:-translate-y-1 transition-all duration-300"
             >
@@ -125,6 +130,7 @@ export default function Navbar() {
           {/* Mobile Buttons */}
           <div className="flex items-center gap-2 md:hidden ">
             <button
+              aria-label="Toggle Menu"
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 rounded-full bg-white/70 hover:bg-amber-400/30 transition text-black"
             >
@@ -132,6 +138,7 @@ export default function Navbar() {
             </button>
 
             <button
+              aria-label="Switch Language"
               onClick={() => {
                 toggleLanguage();
                 setIsOpen(false);
@@ -145,7 +152,7 @@ export default function Navbar() {
           {/* Logo Mobile */}
           <Link to="/" className="md:hidden mx-auto">
             <img
-              src="/logo.jpg"
+              src="/logo.webp"
               alt="zilol gilam yuvish logo mobile"
               className="w-28 transition-transform duration-300 hover:scale-105"
             />
@@ -159,20 +166,20 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <div
         ref={mobileMenuRef}
-        className={`fixed top-0 left-0 h-full w-72 z-99 transform transition-transform duration-500 ${
+        className={`fixed top-0 left-0 h-full w-72 z-99 transform transition-transform duration-500 bg-white/50 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }  backdrop-blur-xl shadow-2xl`}
       >
-        <ul className="mt-24 px-8 space-y-6 uppercase font-semibold text-white ">
+        <ul className="mt-24 px-8 space-y-6 uppercase font-semibold text-black ">
           {[t.home, t.about, t.services, t.news, t.contact].map((label, i) => (
-            <Link
-              key={i}
-              to={["/", "/about", "/#services", "/#news", "/#contact"][i]}
-              onClick={() => setIsOpen(false)}
-              className="block text-lg hover:text-amber-500 transition-all duration-300 hover:translate-x-2"
-            >
-              {label}
-            </Link>
+           <li key={i}>
+        <Link
+          to={["/", "/about", "/#services", "/#news", "/#contact"][i]}
+          className="relative px-4 py-2 rounded-full "
+        >
+          {label}
+        </Link>
+      </li>
           ))}
         </ul>
       </div>
@@ -181,6 +188,8 @@ export default function Navbar() {
           <div className="  max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl relative p-4">
             {/* ❌ yopish tugmasi */}
             <button
+              aria-label="Close Modal"
+
               onClick={() => setShowModal(false)}
               className="absolute top-3 right-3 text-black text-xl bg-gray-200 px-2 rounded hover:text-red-600"
             >

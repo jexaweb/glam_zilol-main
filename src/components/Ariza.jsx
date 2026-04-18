@@ -326,7 +326,7 @@ export default function Ariza() {
           onChange={(e) => setForm({ ...form, note: e.target.value })}
         />
 
-        <button className="w-full bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-xl font-semibold">
+        <button  aria-label="Send Request"  className="w-full bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-xl font-semibold">
           {t.send}
         </button>
       </form>

@@ -18,6 +18,7 @@ export default function MobileFab() {
       {/* RIGHT ICONS */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
         <a
+         aria-label="email uchun"
           href="https://t.me/zilolgilam"
           className="flex items-center justify-center rounded-full bg-blue-500 shadow-lg hover:scale-110 transition"
         >
@@ -26,12 +27,14 @@ export default function MobileFab() {
 
         <a
           href="tel:+998732001313"
+            aria-label="call uchun"
           className="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-lg hover:scale-110 transition"
         >
           <FaPhone className="w-7 h-7 text-black" />
         </a>
 
         <a
+            aria-label="instagram uchun"
           href="https://www.instagram.com/zilolgilam_yuvish"
           className="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-lg hover:scale-110 transition"
         >
@@ -42,6 +45,7 @@ export default function MobileFab() {
       {/* BUTTON */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 lg:hidden z-50">
         <button
+            aria-label="Order Now"
           onClick={() => setShowModal(true)}
           className="
             group relative inline-flex items-center justify-center

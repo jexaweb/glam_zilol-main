@@ -33,7 +33,7 @@ function MainLayouts() {
             <div className="loader"></div>
 
             <img
-              src="/logo1.png"
+              src="/logo1.webp"
               alt="zilol gilam yuvish loader logo "
               className="w-[140px] sm:w-[180px] md:w-[220px] object-contain z-10"
             />
