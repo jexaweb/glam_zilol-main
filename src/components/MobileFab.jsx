@@ -44,35 +44,56 @@ export default function MobileFab() {
 
       {/* BUTTON */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 lg:hidden z-50">
-        <button
-            aria-label="Order Now"
-          onClick={() => setShowModal(true)}
-          className="
-            group relative inline-flex items-center justify-center
-            min-w-[130px] sm:min-w-[160px] md:min-w-[180px]
-            min-h-[45px] sm:min-h-[55px]
-            px-4 sm:px-6 py-2 sm:py-3
-            text-sm sm:text-base font-bold uppercase tracking-wider
-            text-[#313133] rounded-full bg-yellow-300
-            shadow-[12px_12px_24px_rgba(79,209,197,0.64)]
-            transition-all duration-300 hover:-translate-y-2 overflow-hidden
-          "
-        >
-          {translations[language] || translations.uz}
+       <button
+  aria-label="Order Now"
+  onClick={() => setShowModal(true)}
+  className="
+    group relative inline-flex items-center justify-center
+    min-w-[130px] sm:min-w-[160px] md:min-w-[180px]
+    min-h-[45px] sm:min-h-[55px]
+    px-4 sm:px-6 py-2 sm:py-3
+    text-sm sm:text-base font-bold uppercase tracking-wider
+    text-[#313133] rounded-full bg-yellow-300
+    shadow-[12px_12px_24px_rgba(79,209,197,0.64)]
+    transition-all duration-300 hover:-translate-y-2
+    overflow-hidden
+  "
+>
+  {translations[language]?.order || translations.uz}
 
-          <span className="absolute inset-0 rounded-full border-[4px] sm:border-[6px] border-[#00FFCB] shadow-[0_0_60px_rgba(0,255,203,0.64)] opacity-0 transition group-hover:opacity-100"></span>
+  <span className="absolute inset-0 rounded-full border-[4px] sm:border-[6px] border-[#00FFCB] shadow-[0_0_60px_rgba(0,255,203,0.64)] opacity-0 transition group-hover:opacity-100"></span>
 
-          <span className="absolute w-[30px] h-[30px] rounded-full border-[4px] sm:border-[6px] border-[#00FFCB] animate-[ring_1.5s_infinite]"></span>
+  <span
+    className="
+      absolute
+      pointer-events-none
+      w-[30px]
+      h-[30px]
+      rounded-full
+      border-[4px]
+      sm:border-[6px]
+      border-[#00FFCB]
+      animate-[ring_1.5s_infinite]
+    "
+  ></span>
 
-          <style>
-            {`
-              @keyframes ring {
-                0% { width: 30px; height: 30px; opacity: 1; }
-                100% { width: 260px; height: 260px; opacity: 0; }
-              }
-            `}
-          </style>
-        </button>
+  <style>
+    {`
+      @keyframes ring {
+        0% {
+          width: 30px;
+          height: 30px;
+          opacity: 1;
+        }
+        100% {
+          width: 260px;
+          height: 260px;
+          opacity: 0;
+        }
+      }
+    `}
+  </style>
+</button>
       </div>
 
       {/* 🔥 MODAL */}

@@ -115,7 +115,7 @@ function About() {
       )}
 
       {/* HERO */}
-      <section className="py-24 text-center text-black bg-[url('/bg-text1.png')] bg-cover bg-center">
+      <section className="py-24 text-center text-black bg-[url('/bg-text1.webp')] bg-cover bg-center">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -130,7 +130,7 @@ function About() {
       {/* ABOUT */}
       <section className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center py-20">
         <motion.img
-          src="/about.png"
+          src="/about.webp"
           alt="zilol gilam yuvish menter img"
           className="rounded-3xl shadow-xl"
           initial={{ opacity: 0, x: -80 }}

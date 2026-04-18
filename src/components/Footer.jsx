@@ -25,7 +25,7 @@ function Footer() {
           © 2025 ZILOL GILAM YUVISH KORXONASI
         </p>
 
-        <a href="#" className=" text-sm text-white transition">
+        <a href="https://may-partufolyo1.vercel.app/" className=" text-sm text-white transition">
           Made by KY
         </a>
       </div></section> 

@@ -36,6 +36,7 @@ function Services() {
           </div>
 
           <a
+              aria-label="call uchun"
             href="tel:+998732001313"
             className="py-4 px-5 bg-white text-blue-700 rounded-full group-hover:bg-amber-400 text-center w-56"
           >
@@ -50,6 +51,7 @@ function Services() {
           </div>
 
           <a
+              aria-label="email uchun"
             href="mailto:zilol@gmail.com"
             className="py-4 px-5 bg-white text-blue-700 rounded-full group-hover:bg-amber-400 text-center w-56"
           >
@@ -61,6 +63,7 @@ function Services() {
       {/* Social Icons */}
       <div className="flex gap-6 mt-10">
         <a
+          aria-label="telegram uchun"
           href="https://t.me/Gilam_yuvish_Zilol"
           target="_blank"
           rel="noopener noreferrer"
@@ -70,6 +73,7 @@ function Services() {
         </a>
 
         <a
+            aria-label="instagram uchun"
           href="https://www.instagram.com/zilolgilam_yuvish/"
           target="_blank"
           rel="noopener noreferrer"
@@ -78,6 +82,7 @@ function Services() {
           <AiFillInstagram />
         </a>
         <a
+            aria-label="email uchun"
           href="https://youtube.com/@zilolgilamyuvish-e4c?si=1M-D21xwplat6ya7"
           target="_blank"
           rel="noopener noreferrer"

@@ -83,7 +83,7 @@ export default function Navbar() {
             <img
               src="/logo.webp"
               alt="zilol gilam yuvish logo"
-              className="w-36 transition-transform duration-300 hover:scale-105"
+              className="w-36 h-auto transition-transform duration-300 hover:scale-105"
             />
           </Link>
 
@@ -154,7 +154,7 @@ export default function Navbar() {
             <img
               src="/logo.webp"
               alt="zilol gilam yuvish logo mobile"
-              className="w-28 transition-transform duration-300 hover:scale-105"
+              className="w-28 h-auto transition-transform duration-300 hover:scale-105"
             />
           </Link>
           <div className="md:hidden flex justify-center">

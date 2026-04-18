@@ -150,6 +150,7 @@ function EmailForm() {
 
         {/* Button */}
         <button
+         aria-label=" jonatish uchun "
           type="submit"
           disabled={loading}
           className="mt-2 bg-amber-400 text-black font-semibold py-3 rounded-full hover:bg-white transition shadow-md hover:shadow-lg active:scale-[0.98]"
