@@ -311,7 +311,7 @@ function Home() {
 
     {
       title: language === "ru" ? "Стирка дорожек" : "Yakkandoz yuvish",
-      image: "/yakandoz.webp",
+      image: "/yakandoz.png",
       alt: language === "ru" ? "Стирка дорожек" : "Yakkandoz yuvish",
       link: "/yakkandoz",
       bgColor: "bg-blue-200",
@@ -371,22 +371,22 @@ function Home() {
   const videos = [
     {
       video: "/videos/gilam1.mp4",
-      img: "/zilolclengi.webp",
+      img: "/zilolclengi.png",
       alt: "Zilol gilam yuvish xizmati",
     },
     {
       video: "/videos/gilam.mp4",
-      img: "/zilolclengi.1.webp",
+      img: "/zilolclengi.1.png",
       alt: "Zilol gilam yuvish xizmati",
     },
     {
       video: "/videos/mebel.mp4",
-      img: "/zilolclengi.2.webp",
+      img: "/zilolclengi.2.png",
       alt: "Zilol mebel yuvish xizmati",
     },
     {
       video: "/videos/yakandoz.mp4",
-      img: "/zilolclengi.3.webp",
+      img: "/zilolclengi.3.png",
       alt: "Zilol yakandoz yuvish xizmati",
     },
   ];
@@ -589,6 +589,7 @@ function Home() {
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-3">
               {slides.map((_, dotIndex) => (
                 <button
+                  aria-label={`slajd ${dotIndex + 1}`}
                   key={dotIndex}
                   onClick={() => setIndex(dotIndex)}
                   className={`w-3 h-3 rounded-full ${
@@ -602,171 +603,302 @@ function Home() {
           </div>
         ))}
       </section>
-      <section className="pb-20 pt-20  ">
-        <div className="max-w-7xl mx-auto px-1">
-          {/* Title */}
-          <div className="text-center mb-12">
-            <h2 className=" text-3xl md:text-4xl font-bold mb-4 ">
-              {t2.why_title}
-            </h2>
-            <div className="w-24 h-1 bg-yellow-400 mx-auto mb-4"></div>
-            <p className=" max-w-2xl mx-auto">{t2.why_desc}</p>
-          </div>
+    <section className="pb-20 pt-20">
+  <div className="max-w-7xl mx-auto px-1">
+    {/* Title */}
+    <div className="text-center mb-12">
+      <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        {t2.why_title}
+      </h2>
 
-          {/* Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-center">
-            {/* Left Side */}
-            <div className="space-y-8">
-              <div className="flex  col-auto gap-4">
-                <AiFillStar className=" text-1xl w-30 h-30 text-white   border-2 bg-yellow-400 hover:bg-black " />
+      <div className="w-24 h-1 bg-yellow-400 mx-auto mb-4"></div>
 
-                <div>
-                  <h4 className="text-lg font-semibold mb-2 ">
-                    {t2.best_solution}
-                  </h4>
-                  <p>{t2.best_solution1}</p>
-                </div>
-              </div>
+      <p className="max-w-2xl mx-auto">
+        {t2.why_desc}
+      </p>
+    </div>
 
-              <div className="flex items-start gap-4">
-                <FaUsersLine className="text-white text-1xl w-30 h-30   border-2 bg-yellow-400  hover:bg-black" />
-                <div>
-                  <h4 className="text-lg font-semibold mb-2 ">
-                    {t2.specialists}
-                  </h4>
-                  <p>{t2.specialists2}</p>
-                </div>
-              </div>
-            </div>
+    {/* Content */}
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-center">
+      {/* Left Side */}
+      <div className="space-y-8">
+        <div className="flex items-start gap-4">
+          <AiFillStar
+            className="
+              text-white
+              w-30
+              h-20
+              p-3
+              border-2
+              rounded-xl
+              bg-yellow-400
+              hover:bg-black
+              transition
+            "
+          />
 
-            {/* Center Image */}
-            <div className="">
-              <img
-                src="/bg-imgse.webp"
-                alt=" zilol gilam yuvish service man img"
-                className="rounded-xl w-110 h-auto  "
-              />
-            </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-2">
+              {t2.best_solution}
+            </h3>
 
-            {/* Right Side */}
-            <div className="space-y-8">
-              <div className="flex items-start gap-4">
-                <FaTools className="text-white text-1xl w-21 h-28 p-2  border-2 bg-yellow-400  hover:bg-black" />
-                <div>
-                  <h4 className="text-lg font-semibold mb-2 ">
-                    {t2.equipment}
-                  </h4>
-                  <p className="">{t2.equipment3}</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <IoIosAlarm className="text-white w-15 h-29 p-2 border-2 bg-yellow-400 hover:bg-black " />
-                <div>
-                  <h4 className="text-lg font-semibold mb-2 ">{t2.support}</h4>
-                  <p>{t2.support4}</p>
-                </div>
-              </div>
-            </div>
+            <p>
+              {t2.best_solution1}
+            </p>
           </div>
         </div>
-      </section>
 
-      <section className="px-5 py-24 bg-[url('/bg-imgs.webp')] bg-cover bg-center bg-black/60 bg-blend-darken">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-            {/* Card 1 */}
-            <div
-              className="group border-2 border-dashed border-amber-400 rounded-2xl 
-      p-8 text-center hover:scale-105 transition duration-300 backdrop-blur-md"
-            >
-              <div className="flex justify-center mb-5">
-                <div
-                  className="w-16 h-16 flex items-center justify-center rounded-full
-           bg-yellow-400/20 group-hover:bg-yellow-400 transition "
-                >
-                  <FaUsers className="text-yellow-400 group-hover:text-black w-8 h-8 transition" />
-                </div>
-              </div>
+        <div className="flex items-start gap-4">
+          <FaUsersLine
+            className="
+              text-white
+              w-30
+              h-20
+              p-3
+              border-2
+              rounded-xl
+              bg-yellow-400
+              hover:bg-black
+              transition
+            "
+          />
 
-              <h3 className="text-white text-3xl font-bold mb-2">10000+</h3>
+          <div>
+            <h3 className="text-lg font-semibold mb-2">
+              {t2.specialists}
+            </h3>
 
-              <p className="text-gray-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-                {t2.clients}
-              </p>
-            </div>
-
-            {/* Card 2 */}
-            <div
-              className="group border-2 border-dashed border-amber-400 rounded-2xl p-8
-       text-center hover:scale-105 transition duration-300"
-            >
-              <div className="flex justify-center mb-5">
-                <div
-                  className="w-16 h-16 flex items-center justify-center rounded-full
-            bg-yellow-400/20 group-hover:bg-yellow-400 transition "
-                >
-                  <FaRegCalendarDays className="text-yellow-400 group-hover:text-black w-8 h-8 transition " />
-                </div>
-              </div>
-
-              <h3 className="text-white text-4xl font-bold mb-2">
-                <CountUp to={8} duration={2} separator="," />
-                -yilk
-              </h3>
-
-              <p className="text-gray-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-                {t2.experience}
-              </p>
-            </div>
-
-            {/* Card 3 */}
-            <div
-              className="group border-2 border-dashed border-amber-400 rounded-2xl 
-      p-8 text-center hover:scale-105 transition duration-300 backdrop-blur-md"
-            >
-              <div className="flex justify-center mb-5">
-                <div
-                  className="w-16 h-16 flex items-center justify-center rounded-full
-            bg-yellow-400/20 group-hover:bg-yellow-400 transition "
-                >
-                  <AiFillSetting className="text-yellow-400 group-hover:text-black w-8 h-8 transition " />
-                </div>
-              </div>
-              <h3 className="text-white text-4xl font-bold mb-2">
-                <CountUp to={12} duration={2} separator="," />
-                -xil
-              </h3>
-
-              <p className="text-gray-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-                {t2.services_count}
-              </p>
-            </div>
-
-            {/* Card 4 */}
-            <div
-              className="group border-2 border-dashed border-amber-400 rounded-2xl 
-      p-8 text-center hover:scale-105 transition duration-300"
-            >
-              <div className="flex justify-center mb-5">
-                <div
-                  className="w-16 h-16 flex items-center justify-center rounded-full
-            bg-yellow-400/20 group-hover:bg-yellow-400 transition "
-                >
-                  <BiUserCircle className="text-yellow-400 group-hover:text-black w-8 h-8 transition " />
-                </div>
-              </div>
-              <h3 className="text-white text-4xl font-bold mb-2">
-                <CountUp to={300} duration={2} separator="," />+
-              </h3>
-
-              <p className="text-gray-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-                {t2.staff}
-              </p>
-            </div>
+            <p>
+              {t2.specialists2}
+            </p>
           </div>
         </div>
-      </section>
+      </div>
+
+      {/* Center Image */}
+      <div className="flex justify-center">
+        <img
+          src="/bg-imgse.webp"
+          alt="zilol gilam yuvish service man img"
+          className="rounded-xl w-[440px] h-auto object-cover"
+        />
+      </div>
+
+      {/* Right Side */}
+      <div className="space-y-8">
+        <div className="flex items-start gap-4">
+          <FaTools
+            className="
+              text-white
+              w-30
+              h-20
+              p-3
+              border-2
+              rounded-xl
+              bg-yellow-400
+              hover:bg-black
+              transition
+            "
+          />
+
+          <div>
+            <h3 className="text-lg font-semibold mb-2">
+              {t2.equipment}
+            </h3>
+
+            <p>
+              {t2.equipment3}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-4">
+          <IoIosAlarm
+            className="
+              text-white
+              w-20
+              h-20
+              p-3
+              border-2
+              rounded-xl
+              bg-yellow-400
+              hover:bg-black
+              transition
+            "
+          />
+
+          <div>
+            <h3 className="text-lg font-semibold mb-2">
+              {t2.support}
+            </h3>
+
+            <p>
+              {t2.support4}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <section className="px-4 sm:px-6 lg:px-8 py-16 md:py-24 bg-[url('/bg-imgs.webp')] bg-cover bg-center bg-black/60 bg-blend-darken">
+  <div className="max-w-7xl mx-auto">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+      
+      {/* Card 1 */}
+      <div
+        className="
+          group
+          border-2 border-dashed border-amber-400
+          rounded-2xl
+          p-6 md:p-8
+          text-center
+          hover:scale-105
+          transition duration-300
+          backdrop-blur-md
+        "
+      >
+        <div className="flex justify-center mb-5">
+          <div
+            className="
+              w-14 h-14 md:w-16 md:h-16
+              flex items-center justify-center
+              rounded-full
+              bg-yellow-400/20
+              group-hover:bg-yellow-400
+              transition
+            "
+          >
+            <FaUsers className="text-yellow-400 group-hover:text-black w-7 h-7 md:w-8 md:h-8 transition" />
+          </div>
+        </div>
+
+        <h3 className="text-white text-2xl sm:text-3xl md:text-4xl font-bold mb-2">
+          150 000+
+        </h3>
+
+        <p className="text-gray-200 text-base sm:text-lg md:text-xl lg:text-2xl">
+          {t2.clients}
+        </p>
+      </div>
+
+      {/* Card 2 */}
+      <div
+        className="
+          group
+          border-2 border-dashed border-amber-400
+          rounded-2xl
+          p-6 md:p-8
+          text-center
+          hover:scale-105
+          transition duration-300
+          backdrop-blur-md
+        "
+      >
+        <div className="flex justify-center mb-5">
+          <div
+            className="
+              w-14 h-14 md:w-16 md:h-16
+              flex items-center justify-center
+              rounded-full
+              bg-yellow-400/20
+              group-hover:bg-yellow-400
+              transition
+            "
+          >
+            <FaRegCalendarDays className="text-yellow-400 group-hover:text-black w-7 h-7 md:w-8 md:h-8 transition" />
+          </div>
+        </div>
+
+        <h3 className="text-white text-2xl sm:text-3xl md:text-4xl font-bold mb-2">
+          <CountUp to={8} duration={2} separator="," />
+          + yil
+        </h3>
+
+        <p className="text-gray-200 text-base sm:text-lg md:text-xl lg:text-2xl">
+          {t2.experience}
+        </p>
+      </div>
+
+      {/* Card 3 */}
+      <div
+        className="
+          group
+          border-2 border-dashed border-amber-400
+          rounded-2xl
+          p-6 md:p-8
+          text-center
+          hover:scale-105
+          transition duration-300
+          backdrop-blur-md
+        "
+      >
+        <div className="flex justify-center mb-5">
+          <div
+            className="
+              w-14 h-14 md:w-16 md:h-16
+              flex items-center justify-center
+              rounded-full
+              bg-yellow-400/20
+              group-hover:bg-yellow-400
+              transition
+            "
+          >
+            <AiFillSetting className="text-yellow-400 group-hover:text-black w-7 h-7 md:w-8 md:h-8 transition" />
+          </div>
+        </div>
+
+        <h3 className="text-white text-2xl sm:text-3xl md:text-4xl font-bold mb-2">
+          <CountUp to={15} duration={2} separator="," />
+          + xil
+        </h3>
+
+        <p className="text-gray-200 text-base sm:text-lg md:text-xl lg:text-2xl">
+          {t2.services_count}
+        </p>
+      </div>
+
+      {/* Card 4 */}
+      <div
+        className="
+          group
+          border-2 border-dashed border-amber-400
+          rounded-2xl
+          p-6 md:p-8
+          text-center
+          hover:scale-105
+          transition duration-300
+          backdrop-blur-md
+        "
+      >
+        <div className="flex justify-center mb-5">
+          <div
+            className="
+              w-14 h-14 md:w-16 md:h-16
+              flex items-center justify-center
+              rounded-full
+              bg-yellow-400/20
+              group-hover:bg-yellow-400
+              transition
+            "
+          >
+            <BiUserCircle className="text-yellow-400 group-hover:text-black w-7 h-7 md:w-8 md:h-8 transition" />
+          </div>
+        </div>
+
+        <h3 className="text-white text-2xl sm:text-3xl md:text-4xl font-bold mb-2">
+          <CountUp to={300} duration={2} separator="," />+
+        </h3>
+
+        <p className="text-gray-200 text-base sm:text-lg md:text-xl lg:text-2xl">
+          {t2.staff}
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
 
       {/* ================= SERVICES ================= */}
       <section id="services" className="  pt-10 pb-20">

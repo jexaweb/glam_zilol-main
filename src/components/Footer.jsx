@@ -19,13 +19,13 @@ function Footer() {
       </div>
 
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0 text-center sm:text-left mt-10 pr-10 pl-10">
-        <h1 className=" text-9xl font-extrabold text-amber-400 mb-10">ZILOL</h1>
+        <h1 className=" text-5xl font-extrabold text-amber-400 mb-2">ZILOL</h1>
 
         <p className="text-gray-400 text-sm">
           © 2025 ZILOL GILAM YUVISH KORXONASI
         </p>
 
-        <a href="https://may-partufolyo1.vercel.app/" className=" text-sm text-white transition">
+        <a href="https://may-partufolyo1.vercel.app/" className=" text-xl text-white transition mb-3">
           Made by KY
         </a>
       </div></section> 

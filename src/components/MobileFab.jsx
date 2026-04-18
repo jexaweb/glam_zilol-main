@@ -9,9 +9,13 @@ export default function MobileFab() {
   const { language } = useLanguage();
 
   const translations = {
-    uz: "Buyurtma qoldirish",
-    ru: "Оставить заявку",
-  };
+  uz: {
+    order: "Buyurtma qoldirish",
+  },
+  ru: {
+    order: "Оставить заявку",
+  },
+};
 
   return (
     <>
@@ -44,7 +48,7 @@ export default function MobileFab() {
 
       {/* BUTTON */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 lg:hidden z-50">
-       <button
+     <button
   aria-label="Order Now"
   onClick={() => setShowModal(true)}
   className="
@@ -59,7 +63,7 @@ export default function MobileFab() {
     overflow-hidden
   "
 >
-  {translations[language]?.order || translations.uz}
+  {translations[language]?.order || translations.uz.order}
 
   <span className="absolute inset-0 rounded-full border-[4px] sm:border-[6px] border-[#00FFCB] shadow-[0_0_60px_rgba(0,255,203,0.64)] opacity-0 transition group-hover:opacity-100"></span>
 
@@ -73,8 +77,10 @@ export default function MobileFab() {
       border-[4px]
       sm:border-[6px]
       border-[#00FFCB]
-      animate-[ring_1.5s_infinite]
     "
+    style={{
+      animation: "ring 1.5s infinite",
+    }}
   ></span>
 
   <style>
@@ -85,6 +91,7 @@ export default function MobileFab() {
           height: 30px;
           opacity: 1;
         }
+
         100% {
           width: 260px;
           height: 260px;

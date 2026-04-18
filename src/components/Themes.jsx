@@ -24,6 +24,7 @@ export default function Themes() {
     <div className="flex items-center justify-center">
       <label className="swap swap-rotate cursor-pointer">
         <input
+         aria-label="Toggle dark mode"
           type="checkbox"
           checked={isDark}
           onChange={() => setIsDark(!isDark)}

@@ -316,3 +316,23 @@ box-shadow:0 0 0 2px #fde68a;
     transform: scale(0.8);
   }
 }
+
+
+
+@keyframes ring {
+  0% {
+    width: 30px;
+    height: 30px;
+    opacity: 1;
+  }
+
+  100% {
+    width: 260px;
+    height: 260px;
+    opacity: 0;
+  }
+}
+
+.animate-ring {
+  animation: ring 1.5s infinite;
+}
