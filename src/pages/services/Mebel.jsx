@@ -48,7 +48,7 @@ export default function Mebel() {
       ],
 
       ctaTitle: "Hoziroq buyurtma bering 📞",
-      ctaDesc: "Birinchi buyurtmaga 20% chegirma!",
+      
       call: "Qo‘ng‘iroq qilish",
       orderBtn: "Buyurtma berish",
       trust: "✔ Tez javob beramiz • ✔ 100% bepul maslahat",
@@ -79,7 +79,7 @@ export default function Mebel() {
       ],
 
       ctaTitle: "Закажите прямо сейчас 📞",
-      ctaDesc: "Скидка 20% на первый заказ!",
+      
       call: "Позвонить",
       orderBtn: "Оставить заявку",
       trust: "✔ Быстрый ответ • ✔ Бесплатная консультация",

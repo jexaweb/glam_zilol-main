@@ -191,7 +191,7 @@ export default function Matras() {
       tariffs: "O'yinchoqlar Yuvish Tariflari",
 
       cta: "Hoziroq buyurtma bering 📞",
-      discount: "Birinchi buyurtmaga 10% chegirma!",
+
       call: "Qo‘ng‘iroq qilish",
 
       // FORM
@@ -217,7 +217,7 @@ export default function Matras() {
       tariffs: "Тарифы на чистку игрушек",
 
       cta: "Закажите прямо сейчас 📞",
-      discount: "Скидка 10% на первый заказ!",
+
       call: "Позвонить",
 
       // FORM

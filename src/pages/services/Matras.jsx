@@ -214,7 +214,7 @@ export default function Matras() {
       tariff2: "2 kishilik matras",
 
       ctaTitle: "Hoziroq buyurtma bering 📞",
-      ctaDesc: "Birinchi buyurtmaga 10% chegirma!",
+   
 
     
       order: "Buyurtma berish",
@@ -257,7 +257,7 @@ export default function Matras() {
       tariff2: "Двуспальный матрас",
 
       ctaTitle: "Закажите прямо сейчас 📞",
-      ctaDesc: "Скидка 10% на первый заказ!",
+      
 
   
 

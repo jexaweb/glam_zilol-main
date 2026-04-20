@@ -72,7 +72,7 @@ export default function Korpa() {
         "Сушим и доставляем",
       ],
       cta: "Закажите прямо сейчас 📞",
-      discount: "Скидка",
+     
       call: "Позвонить",
       orderBtn: "Сделать заказ",
       name: "Ф.И.О",

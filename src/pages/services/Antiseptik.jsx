@@ -26,7 +26,7 @@ export default function Antiseptik() {
       quantity: "Soni",
       send: "Yuborish",
       ctaTitle: "Hoziroq buyurtma bering",
-      ctaDesc: "Birinchi buyurtmaga 10% chegirma!",
+    
 
       orderBtn: "Buyurtma berish",
       trust: "✔ Tez javob beramiz • ✔ 100% bepul maslahat",
@@ -51,7 +51,7 @@ export default function Antiseptik() {
       quantity: "Количество",
 
       ctaTitle: "Закажите прямо сейчас",
-      ctaDesc: "Скидка 10% на первый заказ!",
+     
 
       orderBtn: "Оставить заявку",
       trust: "✔ Быстрый ответ • ✔ Бесплатная консультация",

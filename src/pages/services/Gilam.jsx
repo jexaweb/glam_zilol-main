@@ -59,7 +59,7 @@ export default function Gilam() {
         },
       ],
       ctaTitle: "Hoziroq buyurtma bering",
-      ctaDesc: "Birinchi buyurtmaga 10% chegirma!",
+    
       call: "Qo‘ng‘iroq qilish",
       orderBtn: "Buyurtma berish",
       trust: "✔ Tez javob beramiz • ✔ 100% bepul maslahat",
@@ -93,7 +93,7 @@ export default function Gilam() {
         },
       ],
       ctaTitle: "Закажите прямо сейчас",
-      ctaDesc: "Скидка 10% на первый заказ!",
+     
       call: "Позвонить",
       orderBtn: "Оставить заявку",
       trust: "✔ Быстрый ответ • ✔ Бесплатная консультация",

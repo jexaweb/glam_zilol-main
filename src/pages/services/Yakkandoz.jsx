@@ -40,7 +40,7 @@ export default function Yakkandoz() {
       ],
 
       ctaTitle: "Hoziroq buyurtma bering 📞",
-      ctaDesc: "Birinchi buyurtmaga 10% chegirma!",
+    
       call: "Qo‘ng‘iroq qilish",
       orderBtn: "Buyurtma berish",
       trust: "✔ Tez javob beramiz • ✔ 100% bepul maslahat",
@@ -71,7 +71,7 @@ export default function Yakkandoz() {
       ],
 
       ctaTitle: "Закажите прямо сейчас 📞",
-      ctaDesc: "Скидка 10% на первый заказ!",
+     
       call: "Позвонить",
       orderBtn: "Заказать",
       trust: "✔ Быстрый ответ • ✔ Бесплатная консультация",
