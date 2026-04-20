@@ -778,7 +778,7 @@ function Home() {
           150 000+
         </h3>
 
-        <p className="text-gray-200 text-base sm:text-lg md:text-xl lg:text-2xl">
+        <p className="text-gray-200 text-base sm:text-xl  md:text-1xl lg:text-2xl">
           {t2.clients}
         </p>
       </div>
@@ -996,7 +996,7 @@ hover:bg-indigo-700 transition"
             ))}
           </div>
         </div>
-        <div className="w-full  py-12 px-4 sm:px-6 lg:px-8 text-black dark:bg-white   ">
+        <div className="w-full  py-12 px-4 sm:px-6 lg:px-8 dark:bg-white   ">
           {/* TITLE */}
           <div className="text-center  mb-8">
             <h2 className="text-2xl sm:text-3xl font-bold ">
