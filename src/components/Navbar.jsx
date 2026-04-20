@@ -163,26 +163,33 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile Menu */}
-      <div
-        ref={mobileMenuRef}
-        className={`fixed top-0 left-0 h-full w-72 z-99 transform transition-transform duration-500 bg-white/50 ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }  backdrop-blur-xl shadow-2xl`}
-      >
-        <ul className="mt-24 px-8 space-y-6 uppercase font-semibold text-black ">
-          {[t.home, t.about, t.services, t.news, t.contact].map((label, i) => (
-           <li key={i}>
+     {/* Mobile Menu */}
+<div
+  ref={mobileMenuRef}
+  className={`fixed top-0 left-0 h-full w-72 z-50 transform transition-transform duration-500 bg-white/50 ${
+    isOpen ? "translate-x-0" : "-translate-x-full"
+  } backdrop-blur-xl shadow-2xl`}
+>
+  <ul className="mt-24 px-8 space-y-6 uppercase font-semibold text-black">
+    {[
+      { label: t.home, path: "/" },
+      { label: t.about, path: "/about" },
+      { label: t.services, path: "/#services" },
+      { label: t.news, path: "/#news" },
+      { label: t.contact, path: "/#contact" },
+    ].map((item, i) => (
+      <li key={i}>
         <Link
-          to={["/", "/about", "/#services", "/#news", "/#contact"][i]}
-          className="relative px-4 py-2 rounded-full "
+          to={item.path}
+          onClick={() => setIsOpen(false)} 
+          className="block px-4 py-2 rounded-full hover:bg-amber-200/40 transition-all duration-300"
         >
-          {label}
+          {item.label}
         </Link>
       </li>
-          ))}
-        </ul>
-      </div>
+    ))}
+  </ul>
+</div>
       {showModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
           <div className="  max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl relative p-4">
