@@ -19,6 +19,7 @@ export default function Avto() {
       address: "Lokatsiya tugmani bosing ➡️",
       note: "Izoh,manzil (masalan: ertaga olib ketilsin manzil:margilol )",
       quantity: "Soni",
+        send: "Yuborish",
      
       service: "Avto chihol yuvish",
       tariffs: {
@@ -87,7 +88,41 @@ export default function Avto() {
 
     setSelectedServices(updated);
   };
+// 🚀 TELEGRAM
+  const sendTelegram = async () => {
+    let message = `🧼 Yangi ariza\n\n👤 ${form.name}\n📞 ${form.phone}\n📍 ${form.address}\n\n`;
 
+    let i = 1;
+
+    Object.entries(selectedServices).forEach(([service, tariffs]) => {
+      Object.entries(tariffs).forEach(([tariff, data]) => {
+        const price = serviceData[service].tariffs[tariff];
+
+        message += `${i}️⃣ ${service}\n`;
+        message += `Tarif: ${tariff}\n`;
+        message += `Narx: ${price.toLocaleString()} so'm\n`;
+        message += `Soni: ${data.quantity} dona\n\n`;
+
+        i++;
+      });
+    });
+
+    message += `✏️ Izoh: ${form.note}`;
+
+    await fetch(
+      "https://api.telegram.org/bot8789952135:AAEq5VuGMUAa7b094Les1nJm1DCnvM_TaK0/sendMessage",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: "-1003968108301",
+          text: message,
+        }),
+      },
+    );
+  };
   const toggleTariff = (service, tariff) => {
     const updated = { ...selectedServices };
 
@@ -114,10 +149,27 @@ export default function Avto() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Buyurtma yuborildi 🚗✨");
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  await sendTelegram();
+
+  alert("Buyurtma yuborildi 🚗✨");
+
+  // formni tozalash
+  setForm({
+    name: "",
+    phone: "",
+    address: "",
+    note: "",
+  });
+
+  // tanlangan xizmatlarni tozalash
+  setSelectedServices({});
+
+  // modalni yopish
+  setShowModal(false);
+};
 
   return (
     <div className="py-20">

@@ -18,6 +18,7 @@ export default function Ariza() {
       success: "Ariza yuborildi  ✅",
       location_error: "Lokatsiya olinmadi ❗",
       browser_error: "Brauzer lokatsiyani qo‘llab-quvvatlamaydi ❗",
+      titlee: "Yangi ariza",
     },
     ru: {
       title: "Оставить заявку",
@@ -31,6 +32,7 @@ export default function Ariza() {
       success: "Заявка отправлена ✅",
       location_error: "Не удалось получить геолокацию ❗",
       browser_error: "Браузер не поддерживает геолокацию ❗",
+      titlee: "Новая заявка",
     },
   };
 
@@ -157,7 +159,7 @@ export default function Ariza() {
 
   /* ================= TELEGRAM ================= */
   const sendTelegram = async () => {
-    let message = `🧼 ${t.title}\n\n👤 ${form.name}\n📞 ${form.phone}\n📍 ${form.address}\n\n`;
+    let message = `🧼 ${t.titlee}\n\n👤 ${form.name}\n📞 ${form.phone}\n📍 ${form.address}\n\n`;
 
     let i = 1;
 
@@ -184,7 +186,7 @@ export default function Ariza() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          chat_id: "6904234957",
+          chat_id: "-1003968108301",
           text: message,
         }),
       },

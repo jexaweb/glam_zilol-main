@@ -141,7 +141,7 @@ export default function Matras() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          chat_id: "6904234957",
+          chat_id: "-1003968108301",
           text: message,
         }),
       },

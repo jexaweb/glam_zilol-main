@@ -269,7 +269,7 @@ function Home() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            chat_id: "6904234957",
+            chat_id: "-1003968108301",
             text: text,
           }),
         },
@@ -999,10 +999,10 @@ hover:bg-indigo-700 transition"
         <div className="w-full  py-12 px-4 sm:px-6 lg:px-8 dark:bg-white   ">
           {/* TITLE */}
           <div className="text-center  mb-8">
-            <h2 className="text-2xl sm:text-3xl font-bold ">
+            <h2 className="text-2xl sm:text-3xl font-bold  text-black">
               {t2.video_title}
             </h2>
-            <p className=" mt-2">{t2.video_desc}</p>
+            <p className=" mt-2 text-black  ">{t2.video_desc}</p>
           </div>
 
           {/* GRID */}
