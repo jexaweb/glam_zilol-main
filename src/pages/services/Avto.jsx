@@ -149,25 +149,54 @@ export default function Avto() {
     });
   };
 
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
   e.preventDefault();
+
+  let isValid = false;
+
+  for (const service of Object.keys(selectedServices)) {
+    const tariffs = selectedServices[service];
+
+    if (tariffs && typeof tariffs === "object") {
+      for (const tariff of Object.keys(tariffs)) {
+        const qty = tariffs[tariff]?.quantity;
+
+        if (qty && Number(qty) > 0) {
+          isValid = true;
+          break;
+        }
+      }
+    }
+
+    if (isValid) break;
+  }
+
+  if (!isValid) {
+    alert(
+      language === "ru"
+        ? "Введите количество услуги!"
+        : "Iltimos, xizmat ~ sonini kiriting!"
+    );
+    return;
+  }
 
   await sendTelegram();
 
-  alert("Buyurtma yuborildi 🚗✨");
+  alert(
+    language === "ru"
+      ? "Заказ успешно отправлен ✨"
+      : "Buyurtma yuborildi ✨"
+  );
 
-  // formni tozalash
   setForm({
     name: "",
     phone: "",
     address: "",
+    addres: "",
     note: "",
   });
 
-  // tanlangan xizmatlarni tozalash
   setSelectedServices({});
-
-  // modalni yopish
   setShowModal(false);
 };
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Ariza from "../../components/Ariza";
 import { useLanguage } from "../../components/LanguageContext";
+import { address } from "framer-motion/client";
 
 export default function Korpa() {
   const [showModal, setShowModal] = useState(false);
@@ -45,7 +46,8 @@ export default function Korpa() {
       name: "F.I.O",
       phone: "Tel",
       address: "Lokatsiya tugmani bosing ➡️",
-      note: "Izoh,manzil (masalan: ertaga olib ketilsin manzil:margilol )",
+      addres: "Manzil (margilon ko‘chasi 12 uy)",
+      note: "Izoh,manzil (masalan: ertaga olib ketilsin  )",
       send: "Buyurtma yuborish",
       mattress: "Matras yuvish",
       quantity: "Soni",
@@ -78,7 +80,8 @@ export default function Korpa() {
       name: "Ф.И.О",
       phone: "Тел",
       address: "Нажмите кнопку «Местоположение» ➡️",
-      note: "Комментарий (например: забрать завтра, адрес: маргилол )",
+      addres: "Адрес (например: улица маргилон 12 дом)",
+      note: "Комментарий (например: забрать завтра )",
       send: "Отправить",
       mattress: "Чистка матраса",
       quantity: "Количество",
@@ -212,7 +215,7 @@ export default function Korpa() {
 
   // 🚀 TELEGRAM
   const sendTelegram = async () => {
-    let message = `🧼 Yangi ariza\n\n👤 ${form.name}\n📞 ${form.phone}\n📍 ${form.address}\n\n`;
+    let message = `🧼 Yangi ariza\n\n👤 ${form.name}\n📞 ${form.phone}\n🏠 ${form.addres}\n📍 ${form.address}\n\n`;
 
     let i = 1;
 
@@ -247,32 +250,55 @@ export default function Korpa() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    for (const service in selectedServices) {
-      for (const tariff in selectedServices[service]) {
-        const qty = selectedServices[service][tariff].quantity;
+  let isValid = false;
 
-        if (!qty || qty <= 0) {
-          alert(`${service} (${tariff}) sonini kiriting ❗`);
-          return;
+  for (const service of Object.keys(selectedServices)) {
+    const tariffs = selectedServices[service];
+
+    if (tariffs && typeof tariffs === "object") {
+      for (const tariff of Object.keys(tariffs)) {
+        const qty = tariffs[tariff]?.quantity;
+
+        if (qty && Number(qty) > 0) {
+          isValid = true;
+          break;
         }
       }
     }
 
-    await sendTelegram();
+    if (isValid) break;
+  }
 
-    alert("Ariza yuborildi ✅");
+  if (!isValid) {
+    alert(
+      language === "ru"
+        ? "Введите количество услуги!"
+        : "Iltimos, xizmat ~ sonini kiriting!"
+    );
+    return;
+  }
 
-    setForm({
-      name: "",
-      phone: "",
-      address: "",
-      note: "",
-    });
+  await sendTelegram();
 
-    setSelectedServices({});
-  };
+  alert(
+    language === "ru"
+      ? "Заказ успешно отправлен ✨"
+      : "Buyurtma yuborildi ✨"
+  );
+
+  setForm({
+    name: "",
+    phone: "",
+    address: "",
+    addres: "",
+    note: "",
+  });
+
+  setSelectedServices({});
+  setShowModal(false);
+};
   const tariffs = [
     {
       name: "1 kishilik matras",
@@ -544,7 +570,7 @@ export default function Korpa() {
                                         toggleTariff(service, tariff)
                                       }
                                     />
-                                    <span className="font-medium">
+                                    <span className="font-medium ">
                                       {tariff}
                                     </span>
                                   </div>
@@ -558,7 +584,7 @@ export default function Korpa() {
                                   <input
                                     type="number"
                                     placeholder={t.quantity}
-                                    className="w-full bg-white border border-gray-300 focus:border-black p-2 mt-2 rounded-lg outline-none"
+                                    className="w-full bg-white border text-black border-gray-300 focus:border-black p-2 mt-2 rounded-lg outline-none"
                                     value={selected.quantity}
                                     onChange={(e) =>
                                       handleQuantityChange(
@@ -589,6 +615,7 @@ export default function Korpa() {
                     setForm({ ...form, address: e.target.value })
                   }
                   required
+                  readOnly
                 />
 
                 <button
@@ -599,9 +626,18 @@ export default function Korpa() {
                   {loadingLoc ? "..." : "📍"}
                 </button>
               </div>
-
+  <input
+                  className="input w-full "
+                  placeholder={t.addres}
+                  value={form.addres}
+                  onChange={(e) =>
+                    setForm({ ...form, addres: e.target.value })
+                  }
+                  required
+              
+                />
               <textarea
-                className="w-full border-2 placeholder:text-black/40 border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-600 p-3 rounded-xl outline-none"
+                className="w-full border-2 placeholder:text-black/40 text-black border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-600 p-3 rounded-xl outline-none"
                 placeholder={t.note}
                 value={form.note}
                 onChange={(e) => setForm({ ...form, note: e.target.value })}

@@ -114,7 +114,7 @@ export default function Matras() {
 
   // 🚀 TELEGRAM
   const sendTelegram = async () => {
-    let message = `🧼 Yangi ariza\n\n👤 ${form.name}\n📞 ${form.phone}\n📍 ${form.address}\n\n`;
+    let message = `🧼 Yangi ariza\n\n👤 ${form.name}\n📞 ${form.phone}\n   🏠 ${form.addres}\n📍 ${form.address}\n\n`;
 
     let i = 1;
 
@@ -148,33 +148,56 @@ export default function Matras() {
     );
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+   const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    for (const service in selectedServices) {
-      for (const tariff in selectedServices[service]) {
-        const qty = selectedServices[service][tariff].quantity;
+  let isValid = false;
 
-        if (!qty || qty <= 0) {
-          alert(`${service} (${tariff}) sonini kiriting ❗`);
-          return;
+  for (const service of Object.keys(selectedServices)) {
+    const tariffs = selectedServices[service];
+
+    if (tariffs && typeof tariffs === "object") {
+      for (const tariff of Object.keys(tariffs)) {
+        const qty = tariffs[tariff]?.quantity;
+
+        if (qty && Number(qty) > 0) {
+          isValid = true;
+          break;
         }
       }
     }
 
-    await sendTelegram();
+    if (isValid) break;
+  }
 
-    alert("Ariza yuborildi ✅");
+  if (!isValid) {
+    alert(
+      language === "ru"
+        ? "Введите количество услуги!"
+        : "Iltimos, xizmat ~ sonini kiriting!"
+    );
+    return;
+  }
 
-    setForm({
-      name: "",
-      phone: "",
-      address: "",
-      note: "",
-    });
+  await sendTelegram();
 
-    setSelectedServices({});
-  };
+  alert(
+    language === "ru"
+      ? "Заказ успешно отправлен ✨"
+      : "Buyurtma yuborildi ✨"
+  );
+
+  setForm({
+    name: "",
+    phone: "",
+    address: "",
+    addres: "",
+    note: "",
+  });
+
+  setSelectedServices({});
+  setShowModal(false);
+};
  const tariffs = {
   uz: [
     {
@@ -222,6 +245,7 @@ export default function Matras() {
       name: "F.I.O",
       phone: "Tel",
       address: "Lokatsiya tugmani bosing ➡️",
+        addres: "Manzil (margilon ko‘chasi 12 uy)",
       note: "Izoh (masalan: ertaga olib ketilsin)",
       send: "Buyurtma yuborish",
       quantity: "Soni",
@@ -277,6 +301,7 @@ export default function Matras() {
       name: "Ф.И.О",
       phone: "Тел",
       address: "Нажмите кнопку «Местоположение» ➡️",
+       addres: "Адрес (например: улица маргилон 12 дом)",
       note: "Комментарий (например: забрать завтра, адрес: маргилол )",
       send: "Отправить",
       quantity: "Количество",
@@ -537,6 +562,7 @@ export default function Matras() {
                     setForm({ ...form, address: e.target.value })
                   }
                   required
+                  readOnly
                 />
 
                 <button
@@ -547,9 +573,17 @@ export default function Matras() {
                   {loadingLoc ? "..." : "📍"}
                 </button>
               </div>
-
+    <input
+                  className="input w-full "
+                  placeholder={t[language].addres}
+                  value={form.addres}
+                  onChange={(e) =>
+                    setForm({ ...form, addres: e.target.value })
+                  }
+                  required
+                />
               <textarea
-                className="w-full border-2 placeholder:text-black/40 border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-600 p-3 rounded-xl outline-none"
+                className="w-full border-2 placeholder:text-black/40  text-black border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-600 p-3 rounded-xl outline-none"
                 placeholder={t[language].note}
                 value={form.note}
                 onChange={(e) => setForm({ ...form, note: e.target.value })}

@@ -22,11 +22,11 @@ export default function Antiseptik() {
       call: "Qo‘ng‘iroq qilish",
 
       address: "Lokatsiya tugmani bosing ➡️",
-      note: "Izoh,manzil (masalan: ertaga olib ketilsin manzil:margilol )",
+      addres: "Manzil (margilon ko‘chasi 12 uy)",
+      note: "Izoh,manzil (masalan: ertaga olib ketilsin  )",
       quantity: "Soni",
       send: "Yuborish",
       ctaTitle: "Hoziroq buyurtma bering",
-    
 
       orderBtn: "Buyurtma berish",
       trust: "✔ Tez javob beramiz • ✔ 100% bepul maslahat",
@@ -47,34 +47,51 @@ export default function Antiseptik() {
       send: "Отправить",
 
       address: "Нажмите кнопку «Местоположение» ➡️",
-      note: "Комментарий (например: забрать завтра, адрес: маргилол )",
+      addres: "Адрес (например: улица маргилон 12 дом)",
+      note: "Комментарий (например: забрать завтра, )",
       quantity: "Количество",
 
       ctaTitle: "Закажите прямо сейчас",
-     
 
       orderBtn: "Оставить заявку",
       trust: "✔ Быстрый ответ • ✔ Бесплатная консультация",
     },
   }[language];
 
-  const videos = [
-    { video: "/videos/gilam_yuvish1.mp4", img: "/gilam-yuvish1.png" },
-    { video: "/videos/gilam_yuvish2.mp4", img: "/gilam-yuvish2.png" },
-    { video: "/videos/gilam_yuvish3.mp4", img: "/gilam-yuvish3.png" },
-    { video: "/videos/gilam.mp4", img: "/zilolclengi.1.png" },
+ const videos = [
+    {
+      video: "/videos/gilam1.mp4",
+      img: "/zilolclengi.png",
+      alt: "Zilol gilam yuvish xizmati",
+    },
+    {
+      video: "/videos/gilam.mp4",
+      img: "/zilolclengi.1.png",
+      alt: "Zilol gilam yuvish xizmati",
+    },
+    {
+      video: "/videos/mebel.mp4",
+      img: "/zilolclengi.2.png",
+      alt: "Zilol mebel yuvish xizmati",
+    },
+    {
+      video: "/videos/yakandoz.mp4",
+      img: "/zilolclengi.3.png",
+      alt: "Zilol yakandoz yuvish xizmati",
+    },
   ];
+
 
   const [selectedServices, setSelectedServices] = useState({});
   const [loadingLoc, setLoadingLoc] = useState(false);
 
   // xizmatni ochish/yopish
-  const toggleService = (service) => {
-    setSelectedServices((prev) => ({
-      ...prev,
-      [service]: prev[service] ? null : {},
-    }));
-  };
+const toggleService = (service) => {
+  setSelectedServices((prev) => ({
+    ...prev,
+    [service]: prev[service] ? null : {},
+  }));
+};
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -92,7 +109,7 @@ export default function Antiseptik() {
       if (serviceData[tariff]) {
         delete serviceData[tariff];
       } else {
-        serviceData[tariff] = { quantity: 1 };
+        serviceData[tariff] = { quantity: "" };
       }
 
       return {
@@ -101,9 +118,9 @@ export default function Antiseptik() {
       };
     });
   };
-// 🚀 TELEGRAM
+  // 🚀 TELEGRAM
   const sendTelegram = async () => {
-    let message = `🧼 Yangi ariza\n\n👤 ${form.name}\n📞 ${form.phone}\n📍 ${form.address}\n\n`;
+    let message = `🧼 Yangi ariza\n\n👤 ${form.name}\n📞 ${form.phone}\n🏠 ${form.addres}\n 📍 ${form.address}\n\n`;
 
     let i = 1;
 
@@ -170,6 +187,8 @@ export default function Antiseptik() {
     );
   };
 
+  
+
   const serviceData = {
     "Yostiq yuvish": {
       tariffs: {
@@ -184,46 +203,67 @@ export default function Antiseptik() {
     phone: "",
   });
 
- const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
+
+  let isValid = false;
+
+  for (const service of Object.keys(selectedServices)) {
+    const tariffs = selectedServices[service];
+
+    if (tariffs && typeof tariffs === "object") {
+      for (const tariff of Object.keys(tariffs)) {
+        const qty = tariffs[tariff]?.quantity;
+
+        if (qty && Number(qty) > 0) {
+          isValid = true;
+          break;
+        }
+      }
+    }
+
+    if (isValid) break;
+  }
+
+  if (!isValid) {
+    alert(
+      language === "ru"
+        ? "Введите количество услуги!"
+        : "Iltimos, xizmat ~ sonini kiriting!"
+    );
+    return;
+  }
 
   await sendTelegram();
 
-  alert("Buyurtma yuborildi 🚗✨");
+  alert(
+    language === "ru"
+      ? "Заказ успешно отправлен ✨"
+      : "Buyurtma yuborildi ✨"
+  );
 
-  // formni tozalash
   setForm({
     name: "",
     phone: "",
     address: "",
+    addres: "",
     note: "",
   });
 
-  // tanlangan xizmatlarni tozalash
   setSelectedServices({});
-
-  // modalni yopish
   setShowModal(false);
 };
 
   const tariffs = [
-  {
-    name: language === "ru"
-      ? "Обычная подушка"
-      : "Oddiy yostiq",
-    price: language === "ru"
-      ? "20 000 сум"
-      : "20 000 so‘m",
-  },
-  {
-    name: language === "ru"
-      ? "Большая подушка"
-      : "Katta yostiq",
-    price: language === "ru"
-      ? "30 000 сум"
-      : "30 000 so‘m",
-  },
-];
+    {
+      name: language === "ru" ? "Обычная подушка" : "Oddiy yostiq",
+      price: language === "ru" ? "20 000 сум" : "20 000 so‘m",
+    },
+    {
+      name: language === "ru" ? "Большая подушка" : "Katta yostiq",
+      price: language === "ru" ? "30 000 сум" : "30 000 so‘m",
+    },
+  ];
 
   return (
     <div className="relative overflow-hidden">
@@ -472,6 +512,7 @@ export default function Antiseptik() {
                     setForm({ ...form, address: e.target.value })
                   }
                   required
+                  readOnly
                 />
 
                 <button
@@ -482,9 +523,15 @@ export default function Antiseptik() {
                   {loadingLoc ? "..." : "📍"}
                 </button>
               </div>
-
+              <input
+                className="input w-full "
+                placeholder={t.addres}
+                value={form.addres}
+                onChange={(e) => setForm({ ...form, addres: e.target.value })}
+                required
+              />
               <textarea
-                className="w-full border-2 placeholder:text-black/40 border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-600 p-3 rounded-xl outline-none"
+                className="w-full border-2 text-black placeholder:text-black/40 border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-600 p-3 rounded-xl outline-none"
                 placeholder={t.note}
                 value={form.note}
                 onChange={(e) => setForm({ ...form, note: e.target.value })}

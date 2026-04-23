@@ -7,10 +7,26 @@ export default function Matras() {
   const [activeVideo, setActiveVideo] = useState(null);
 
   const videos = [
-    { video: "/videos/gilam_yuvish1.mp4", img: "/gilam-yuvish1.png" },
-    { video: "/videos/gilam_yuvish2.mp4", img: "/gilam-yuvish2.png" },
-    { video: "/videos/gilam_yuvish3.mp4", img: "/gilam-yuvish3.png" },
-    { video: "/videos/gilam.mp4", img: "/zilolclengi.1.png" },
+    {
+      video: "/videos/gilam1.mp4",
+      img: "/zilolclengi.png",
+      alt: "Zilol gilam yuvish xizmati",
+    },
+    {
+      video: "/videos/gilam.mp4",
+      img: "/zilolclengi.1.png",
+      alt: "Zilol gilam yuvish xizmati",
+    },
+    {
+      video: "/videos/mebel.mp4",
+      img: "/zilolclengi.2.png",
+      alt: "Zilol mebel yuvish xizmati",
+    },
+    {
+      video: "/videos/yakandoz.mp4",
+      img: "/zilolclengi.3.png",
+      alt: "Zilol yakandoz yuvish xizmati",
+    },
   ];
   const serviceData = {
     "O'yinchoqlar yuvish": {
@@ -33,6 +49,7 @@ export default function Matras() {
     name: "",
     phone: "",
     address: "",
+      addres: "",
     note: "",
   });
 
@@ -113,7 +130,7 @@ export default function Matras() {
 
   // 🚀 TELEGRAM
   const sendTelegram = async () => {
-    let message = `🧼 Yangi ariza\n\n👤 ${form.name}\n📞 ${form.phone}\n📍 ${form.address}\n\n`;
+    let message = `🧼 Yangi ariza\n\n👤 ${form.name}\n📞 ${form.phone}\n🏠 ${form.addres}\n📍 ${form.address}\n\n`;
 
     let i = 1;
 
@@ -147,22 +164,56 @@ export default function Matras() {
     );
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    await sendTelegram();
+  let isValid = false;
 
-    alert("Yuborildi ✅");
+  for (const service of Object.keys(selectedServices)) {
+    const tariffs = selectedServices[service];
 
-    setForm({
-      name: "",
-      phone: "",
-      address: "",
-      note: "",
-    });
+    if (tariffs && typeof tariffs === "object") {
+      for (const tariff of Object.keys(tariffs)) {
+        const qty = tariffs[tariff]?.quantity;
 
-    setSelectedServices({});
-  };
+        if (qty && Number(qty) > 0) {
+          isValid = true;
+          break;
+        }
+      }
+    }
+
+    if (isValid) break;
+  }
+
+  if (!isValid) {
+    alert(
+      language === "ru"
+        ? "Введите количество услуги!"
+        : "Iltimos, xizmat ~ sonini kiriting!"
+    );
+    return;
+  }
+
+  await sendTelegram();
+
+  alert(
+    language === "ru"
+      ? "Заказ успешно отправлен ✨"
+      : "Buyurtma yuborildi ✨"
+  );
+
+  setForm({
+    name: "",
+    phone: "",
+    address: "",
+    addres: "",
+    note: "",
+  });
+
+  setSelectedServices({});
+  setShowModal(false);
+};
   const tariffs = [
     {
       name: "primum /1 kg ",
@@ -198,8 +249,9 @@ export default function Matras() {
       name: "F.I.O",
       phone: "Tel",
       address: "Lokatsiya tugmani bosing ➡️",
-      note: "Izoh,manzil (masalan: ertaga olib ketilsin manzil:margilol )",
-      quantity: "Soni",
+      addres: "Manzil (margilon ko‘chasi 12 uy)",
+      note: "Izoh,manzil (masalan: ertaga olib ketilsin  )",
+      quantity: "kg",
       send: "Yuborish",
     },
 
@@ -224,8 +276,9 @@ export default function Matras() {
       name: "Ф.И.О",
       phone: "Телефон",
       address: "Нажмите кнопку «Местоположение» ➡️",
-      note: "Комментарий (например: забрать завтра, адрес: маргилол )",
-      quantity: "Количество",
+      addres: "Адрес (например: улица маргилон 12 дом)",
+      note: "Комментарий (например: забрать завтра, )",
+      quantity: "kg",
       send: "Отправить",
     },
   };
@@ -440,7 +493,7 @@ export default function Matras() {
                                   <input
                                     type="number"
                                     placeholder={t.quantity}
-                                    className="w-full bg-white border border-gray-300 focus:border-black p-2 mt-2 rounded-lg outline-none"
+                                    className="w-full bg-white text-black border border-gray-300 focus:border-black p-2 mt-2 rounded-lg outline-none"
                                     value={selected.quantity}
                                     onChange={(e) =>
                                       handleQuantityChange(
@@ -471,6 +524,7 @@ export default function Matras() {
                     setForm({ ...form, address: e.target.value })
                   }
                   required
+                  readOnly
                 />
 
                 <button
@@ -481,9 +535,15 @@ export default function Matras() {
                   {loadingLoc ? "..." : "📍"}
                 </button>
               </div>
-
+              <input
+                className="input w-full "
+                placeholder={t.addres}
+                value={form.addres}
+                onChange={(e) => setForm({ ...form, addres: e.target.value })}
+                required
+              />
               <textarea
-                className="w-full border-2 placeholder:text-black/40 border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-600 p-3 rounded-xl outline-none"
+                className="w-full border-2 text-black placeholder:text-black/40 border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-600 p-3 rounded-xl outline-none"
                 placeholder={t.note}
                 value={form.note}
                 onChange={(e) => setForm({ ...form, note: e.target.value })}

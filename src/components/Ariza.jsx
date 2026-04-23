@@ -13,7 +13,8 @@ export default function Ariza() {
       services: "Xizmatlar",
       quantity: "Soni",
       address: "Lokatsiya tugmani bosing ➡️ ",
-      note: "Izoh,manzil (masalan: ertaga olib ketilsin manzil:margilol )",
+      addres: "Manzil (margilon ko‘chasi 12 uy)",
+      note: "Izoh, manzil (masalan: ertaga olib ketilsin  )",
       send: "Buyurtma yuborish",
       success: "Ariza yuborildi  ✅",
       location_error: "Lokatsiya olinmadi ❗",
@@ -27,6 +28,7 @@ export default function Ariza() {
       services: "Услуги",
       quantity: "Количество",
       address: "Нажмите кнопку «Местоположение» ➡️",
+      addres: "Адрес (например: улица маргилон 12 дом)",
       note: "Комментарий (например: забрать завтра)",
       send: "Отправить заявку",
       success: "Заявка отправлена ✅",
@@ -159,7 +161,7 @@ export default function Ariza() {
 
   /* ================= TELEGRAM ================= */
   const sendTelegram = async () => {
-    let message = `🧼 ${t.titlee}\n\n👤 ${form.name}\n📞 ${form.phone}\n📍 ${form.address}\n\n`;
+    let message = `🧼 ${t.titlee}\n\n👤 ${form.name}\n📞 ${form.phone}\n🏠 ${form.addres}\n📍 ${form.address}\n\n`;
 
     let i = 1;
 
@@ -194,25 +196,56 @@ export default function Ariza() {
   };
 
   /* ================= SUBMIT ================= */
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    for (const service in selectedServices) {
-      for (const tariff in selectedServices[service]) {
-        if (!selectedServices[service][tariff].quantity) {
-          alert("❗ " + t.quantity);
-          return;
+  let isValid = false;
+
+  for (const service of Object.keys(selectedServices)) {
+    const tariffs = selectedServices[service];
+
+    if (tariffs && typeof tariffs === "object") {
+      for (const tariff of Object.keys(tariffs)) {
+        const qty = tariffs[tariff]?.quantity;
+
+        if (qty && Number(qty) > 0) {
+          isValid = true;
+          break;
         }
       }
     }
 
-    await sendTelegram();
+    if (isValid) break;
+  }
 
-    alert(t.success);
+  if (!isValid) {
+    alert(
+      language === "ru"
+        ? "Введите количество услуги!"
+        : "Iltimos, xizmat ~ sonini kiriting!"
+    );
+    return;
+  }
 
-    setForm({ name: "", phone: "", address: "", note: "" });
-    setSelectedServices({});
-  };
+  await sendTelegram();
+
+  alert(
+    language === "ru"
+      ? "Заказ успешно отправлен ✨"
+      : "Buyurtma yuborildi ✨"
+  );
+
+  setForm({
+    name: "",
+    phone: "",
+    address: "",
+    addres: "",
+    note: "",
+  });
+
+  setSelectedServices({});
+  setShowModal(false);
+};
 
   /* ================= UI ================= */
   return (
@@ -252,7 +285,7 @@ export default function Ariza() {
               <div key={service} className="border rounded-xl overflow-hidden">
                 <div
                   onClick={() => toggleService(service)}
-                  className="p-4 cursor-pointer flex justify-between bg-black text-white"
+                  className="p-5 cursor-pointer flex justify-between bg-black text-white"
                 >
                   <span>{serviceNames[language][service] || service}</span>
                   <span>{selected ? "−" : "+"}</span>
@@ -302,7 +335,7 @@ export default function Ariza() {
           })}
         </div>
 
-        {/* ADDRESS */}
+        {/*ADDRESS*/}
         <div className="flex gap-2">
           <input
             className="input w-full"
@@ -310,6 +343,7 @@ export default function Ariza() {
             value={form.address}
             onChange={(e) => setForm({ ...form, address: e.target.value })}
             required
+            readOnly
           />
 
           <button
@@ -320,7 +354,13 @@ export default function Ariza() {
             {loadingLoc ? "..." : "📍"}
           </button>
         </div>
-
+        <input
+          className="input w-full"
+          placeholder={t.addres}
+          value={form.addres}
+          onChange={(e) => setForm({ ...form, addres: e.target.value })}
+          required
+        />
         <textarea
           className="input w-100% h-24"
           placeholder={t.note}
@@ -328,7 +368,10 @@ export default function Ariza() {
           onChange={(e) => setForm({ ...form, note: e.target.value })}
         />
 
-        <button  aria-label="Send Request"  className="w-full bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-xl font-semibold">
+        <button
+          aria-label="Send Request"
+          className="w-full bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-xl font-semibold"
+        >
           {t.send}
         </button>
       </form>
