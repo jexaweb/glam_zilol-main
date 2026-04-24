@@ -73,55 +73,55 @@ export default function Kovrolin() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  let isValid = false;
+    let isValid = false;
 
-  for (const service of Object.keys(selectedServices)) {
-    const tariffs = selectedServices[service];
+    for (const service of Object.keys(selectedServices)) {
+      const tariffs = selectedServices[service];
 
-    if (tariffs && typeof tariffs === "object") {
-      for (const tariff of Object.keys(tariffs)) {
-        const qty = tariffs[tariff]?.quantity;
+      if (tariffs && typeof tariffs === "object") {
+        for (const tariff of Object.keys(tariffs)) {
+          const qty = tariffs[tariff]?.quantity;
 
-        if (qty && Number(qty) > 0) {
-          isValid = true;
-          break;
+          if (qty && Number(qty) > 0) {
+            isValid = true;
+            break;
+          }
         }
       }
+
+      if (isValid) break;
     }
 
-    if (isValid) break;
-  }
+    if (!isValid) {
+      alert(
+        language === "ru"
+          ? "Введите количество услуги!"
+          : "Iltimos, xizmat ~ sonini kiriting!",
+      );
+      return;
+    }
 
-  if (!isValid) {
+    await sendTelegram();
+
     alert(
       language === "ru"
-        ? "Введите количество услуги!"
-        : "Iltimos, xizmat ~ sonini kiriting!"
+        ? "Заказ успешно отправлен ✨"
+        : "Buyurtma yuborildi ✨",
     );
-    return;
-  }
 
-  await sendTelegram();
+    setForm({
+      name: "",
+      phone: "",
+      address: "",
+      addres: "",
+      note: "",
+    });
 
-  alert(
-    language === "ru"
-      ? "Заказ успешно отправлен ✨"
-      : "Buyurtma yuborildi ✨"
-  );
-
-  setForm({
-    name: "",
-    phone: "",
-    address: "",
-    addres: "",
-    note: "",
-  });
-
-  setSelectedServices({});
-  setShowModal(false);
-};
+    setSelectedServices({});
+    setShowModal(false);
+  };
 
   const { language } = useLanguage();
   const navigate = useNavigate();
@@ -496,7 +496,7 @@ export default function Kovrolin() {
               </div>
 
               {/* ADDRESS */}
-              <div className="flex gap-2">
+              <div className="flex gap-2 pointer-events-none">
                 <input
                   className="input w-full "
                   placeholder={t.address}
@@ -505,7 +505,6 @@ export default function Kovrolin() {
                     setForm({ ...form, address: e.target.value })
                   }
                   required
-                  readOnly
                 />
 
                 <button
@@ -528,6 +527,7 @@ export default function Kovrolin() {
                 placeholder={t.note}
                 value={form.note}
                 onChange={(e) => setForm({ ...form, note: e.target.value })}
+                required
               />
 
               {/* BUTTON */}

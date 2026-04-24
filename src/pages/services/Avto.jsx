@@ -19,8 +19,8 @@ export default function Avto() {
       address: "Lokatsiya tugmani bosing ➡️",
       note: "Izoh,manzil (masalan: ertaga olib ketilsin manzil:margilol )",
       quantity: "Soni",
-        send: "Yuborish",
-     
+      send: "Yuborish",
+
       service: "Avto chihol yuvish",
       tariffs: {
         seat1: "Old o‘rindiq (1 dona)",
@@ -88,7 +88,7 @@ export default function Avto() {
 
     setSelectedServices(updated);
   };
-// 🚀 TELEGRAM
+  // 🚀 TELEGRAM
   const sendTelegram = async () => {
     let message = `🧼 Yangi ariza\n\n👤 ${form.name}\n📞 ${form.phone}\n📍 ${form.address}\n\n`;
 
@@ -150,55 +150,55 @@ export default function Avto() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  let isValid = false;
+    let isValid = false;
 
-  for (const service of Object.keys(selectedServices)) {
-    const tariffs = selectedServices[service];
+    for (const service of Object.keys(selectedServices)) {
+      const tariffs = selectedServices[service];
 
-    if (tariffs && typeof tariffs === "object") {
-      for (const tariff of Object.keys(tariffs)) {
-        const qty = tariffs[tariff]?.quantity;
+      if (tariffs && typeof tariffs === "object") {
+        for (const tariff of Object.keys(tariffs)) {
+          const qty = tariffs[tariff]?.quantity;
 
-        if (qty && Number(qty) > 0) {
-          isValid = true;
-          break;
+          if (qty && Number(qty) > 0) {
+            isValid = true;
+            break;
+          }
         }
       }
+
+      if (isValid) break;
     }
 
-    if (isValid) break;
-  }
+    if (!isValid) {
+      alert(
+        language === "ru"
+          ? "Введите количество услуги!"
+          : "Iltimos, xizmat ~ sonini kiriting!",
+      );
+      return;
+    }
 
-  if (!isValid) {
+    await sendTelegram();
+
     alert(
       language === "ru"
-        ? "Введите количество услуги!"
-        : "Iltimos, xizmat ~ sonini kiriting!"
+        ? "Заказ успешно отправлен ✨"
+        : "Buyurtma yuborildi ✨",
     );
-    return;
-  }
 
-  await sendTelegram();
+    setForm({
+      name: "",
+      phone: "",
+      address: "",
+      addres: "",
+      note: "",
+    });
 
-  alert(
-    language === "ru"
-      ? "Заказ успешно отправлен ✨"
-      : "Buyurtma yuborildi ✨"
-  );
-
-  setForm({
-    name: "",
-    phone: "",
-    address: "",
-    addres: "",
-    note: "",
-  });
-
-  setSelectedServices({});
-  setShowModal(false);
-};
+    setSelectedServices({});
+    setShowModal(false);
+  };
 
   return (
     <div className="py-20">
@@ -274,7 +274,7 @@ export default function Avto() {
             </button>
 
             <h2 className="text-2xl font-bold text-center mb-6 text-black ">
-              {t.order} 
+              {t.order}
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -371,6 +371,7 @@ export default function Avto() {
                 className="w-full  text-black border border-gray-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 p-3 rounded-xl outline-none"
                 value={form.note}
                 onChange={(e) => setForm({ ...form, note: e.target.value })}
+                required
               />
 
               {/* BUTTON */}

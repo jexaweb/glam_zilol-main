@@ -58,7 +58,7 @@ export default function Antiseptik() {
     },
   }[language];
 
- const videos = [
+  const videos = [
     {
       video: "/videos/gilam1.mp4",
       img: "/zilolclengi.png",
@@ -81,17 +81,16 @@ export default function Antiseptik() {
     },
   ];
 
-
   const [selectedServices, setSelectedServices] = useState({});
   const [loadingLoc, setLoadingLoc] = useState(false);
 
   // xizmatni ochish/yopish
-const toggleService = (service) => {
-  setSelectedServices((prev) => ({
-    ...prev,
-    [service]: prev[service] ? null : {},
-  }));
-};
+  const toggleService = (service) => {
+    setSelectedServices((prev) => ({
+      ...prev,
+      [service]: prev[service] ? null : {},
+    }));
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -187,8 +186,6 @@ const toggleService = (service) => {
     );
   };
 
-  
-
   const serviceData = {
     "Yostiq yuvish": {
       tariffs: {
@@ -203,56 +200,56 @@ const toggleService = (service) => {
     phone: "",
   });
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  let isValid = false;
+    let isValid = false;
 
-  for (const service of Object.keys(selectedServices)) {
-    const tariffs = selectedServices[service];
+    for (const service of Object.keys(selectedServices)) {
+      const tariffs = selectedServices[service];
 
-    if (tariffs && typeof tariffs === "object") {
-      for (const tariff of Object.keys(tariffs)) {
-        const qty = tariffs[tariff]?.quantity;
+      if (tariffs && typeof tariffs === "object") {
+        for (const tariff of Object.keys(tariffs)) {
+          const qty = tariffs[tariff]?.quantity;
 
-        if (qty && Number(qty) > 0) {
-          isValid = true;
-          break;
+          if (qty && Number(qty) > 0) {
+            isValid = true;
+            break;
+          }
         }
       }
+
+      if (isValid) break;
     }
 
-    if (isValid) break;
-  }
+    if (!isValid) {
+      alert(
+        language === "ru"
+          ? "Введите количество услуги!"
+          : "Iltimos, xizmat ~ sonini kiriting!",
+      );
+      return;
+    }
 
-  if (!isValid) {
+    await sendTelegram();
+
     alert(
       language === "ru"
-        ? "Введите количество услуги!"
-        : "Iltimos, xizmat ~ sonini kiriting!"
+        ? "Заказ успешно отправлен ✨"
+        : "Buyurtma yuborildi ✨",
     );
-    return;
-  }
 
-  await sendTelegram();
+    setForm({
+      name: "",
+      phone: "",
+      address: "",
+      addres: "",
+      note: "",
+    });
 
-  alert(
-    language === "ru"
-      ? "Заказ успешно отправлен ✨"
-      : "Buyurtma yuborildi ✨"
-  );
-
-  setForm({
-    name: "",
-    phone: "",
-    address: "",
-    addres: "",
-    note: "",
-  });
-
-  setSelectedServices({});
-  setShowModal(false);
-};
+    setSelectedServices({});
+    setShowModal(false);
+  };
 
   const tariffs = [
     {
@@ -503,7 +500,7 @@ const handleSubmit = async (e) => {
               </div>
 
               {/* ADDRESS */}
-              <div className="flex gap-2">
+              <div className="flex gap-2 pointer-events-none">
                 <input
                   className="input w-full "
                   placeholder={t.address}
@@ -512,7 +509,6 @@ const handleSubmit = async (e) => {
                     setForm({ ...form, address: e.target.value })
                   }
                   required
-                  readOnly
                 />
 
                 <button
@@ -535,6 +531,7 @@ const handleSubmit = async (e) => {
                 placeholder={t.note}
                 value={form.note}
                 onChange={(e) => setForm({ ...form, note: e.target.value })}
+                required
               />
 
               {/* BUTTON */}

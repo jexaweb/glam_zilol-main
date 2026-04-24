@@ -338,12 +338,12 @@ export default function Ariza() {
         {/*ADDRESS*/}
         <div className="flex gap-2">
           <input
-            className="input w-full"
+            className="input w-full pointer-events-none "
             placeholder={t.address}
             value={form.address}
             onChange={(e) => setForm({ ...form, address: e.target.value })}
             required
-            readOnly
+           
           />
 
           <button
@@ -366,6 +366,7 @@ export default function Ariza() {
           placeholder={t.note}
           value={form.note}
           onChange={(e) => setForm({ ...form, note: e.target.value })}
+          required
         />
 
         <button

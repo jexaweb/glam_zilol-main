@@ -21,14 +21,14 @@ export default function Matras() {
     { video: "/videos/mebel3.mp4", img: "/mebel3.png" },
   ];
 
- const serviceData = {
-  [language === "ru" ? "Чистка матраса" : "Matras yuvish"]: {
-    tariffs: {
-      "Premium / 2x / dona": 200000,
-      "Standart / 1x / dona": 100000,
+  const serviceData = {
+    [language === "ru" ? "Чистка матраса" : "Matras yuvish"]: {
+      tariffs: {
+        "Premium / 2x / dona": 200000,
+        "Standart / 1x / dona": 100000,
+      },
     },
-  },
-};
+  };
 
   const [form, setForm] = useState({
     name: "",
@@ -148,79 +148,79 @@ export default function Matras() {
     );
   };
 
-   const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  let isValid = false;
+    let isValid = false;
 
-  for (const service of Object.keys(selectedServices)) {
-    const tariffs = selectedServices[service];
+    for (const service of Object.keys(selectedServices)) {
+      const tariffs = selectedServices[service];
 
-    if (tariffs && typeof tariffs === "object") {
-      for (const tariff of Object.keys(tariffs)) {
-        const qty = tariffs[tariff]?.quantity;
+      if (tariffs && typeof tariffs === "object") {
+        for (const tariff of Object.keys(tariffs)) {
+          const qty = tariffs[tariff]?.quantity;
 
-        if (qty && Number(qty) > 0) {
-          isValid = true;
-          break;
+          if (qty && Number(qty) > 0) {
+            isValid = true;
+            break;
+          }
         }
       }
+
+      if (isValid) break;
     }
 
-    if (isValid) break;
-  }
+    if (!isValid) {
+      alert(
+        language === "ru"
+          ? "Введите количество услуги!"
+          : "Iltimos, xizmat ~ sonini kiriting!",
+      );
+      return;
+    }
 
-  if (!isValid) {
+    await sendTelegram();
+
     alert(
       language === "ru"
-        ? "Введите количество услуги!"
-        : "Iltimos, xizmat ~ sonini kiriting!"
+        ? "Заказ успешно отправлен ✨"
+        : "Buyurtma yuborildi ✨",
     );
-    return;
-  }
 
-  await sendTelegram();
+    setForm({
+      name: "",
+      phone: "",
+      address: "",
+      addres: "",
+      note: "",
+    });
 
-  alert(
-    language === "ru"
-      ? "Заказ успешно отправлен ✨"
-      : "Buyurtma yuborildi ✨"
-  );
+    setSelectedServices({});
+    setShowModal(false);
+  };
+  const tariffs = {
+    uz: [
+      {
+        name: "1 kishilik matras",
+        price: "100 000 so‘m",
+      },
+      {
+        name: "2 kishilik matras",
+        price: "200 000 so‘m",
+      },
+    ],
 
-  setForm({
-    name: "",
-    phone: "",
-    address: "",
-    addres: "",
-    note: "",
-  });
-
-  setSelectedServices({});
-  setShowModal(false);
-};
- const tariffs = {
-  uz: [
-    {
-      name: "1 kishilik matras",
-      price: "100 000 so‘m",
-    },
-    {
-      name: "2 kishilik matras",
-      price: "200 000 so‘m",
-    },
-  ],
-
-  ru: [
-    {
-      name: "1-спальный матрас",
-      price: "100 000 сум",
-    },
-    {
-      name: "2-спальный матрас",
-      price: "200 000 сум",
-    },
-  ],
-};
+    ru: [
+      {
+        name: "1-спальный матрас",
+        price: "100 000 сум",
+      },
+      {
+        name: "2-спальный матрас",
+        price: "200 000 сум",
+      },
+    ],
+  };
 
   const t = {
     uz: {
@@ -237,15 +237,13 @@ export default function Matras() {
       tariff2: "2 kishilik matras",
 
       ctaTitle: "Hoziroq buyurtma bering 📞",
-   
 
-    
       order: "Buyurtma berish",
 
       name: "F.I.O",
       phone: "Tel",
       address: "Lokatsiya tugmani bosing ➡️",
-        addres: "Manzil (margilon ko‘chasi 12 uy)",
+      addres: "Manzil (margilon ko‘chasi 12 uy)",
       note: "Izoh (masalan: ertaga olib ketilsin)",
       send: "Buyurtma yuborish",
       quantity: "Soni",
@@ -258,14 +256,8 @@ export default function Matras() {
       browserError: "Brauzer lokatsiyani qo‘llab-quvvatlamaydi ❗",
 
       call: "Qo‘ng‘iroq qilish",
-     
+
       orderBtn: "Buyurtma berish",
-    
-    
-     
-    
-   
-    
     },
     ru: {
       title: "Профессиональная чистка матрасов 🛏️",
@@ -281,12 +273,6 @@ export default function Matras() {
       tariff2: "Двуспальный матрас",
 
       ctaTitle: "Закажите прямо сейчас 📞",
-      
-
-  
-
-
-
 
       service: "Чистка матраса",
 
@@ -301,7 +287,7 @@ export default function Matras() {
       name: "Ф.И.О",
       phone: "Тел",
       address: "Нажмите кнопку «Местоположение» ➡️",
-       addres: "Адрес (например: улица маргилон 12 дом)",
+      addres: "Адрес (например: улица маргилон 12 дом)",
       note: "Комментарий (например: забрать завтра, адрес: маргилол )",
       send: "Отправить",
       quantity: "Количество",
@@ -412,7 +398,7 @@ export default function Matras() {
           <h2 className="text-3xl font-bold mb-12">{text.tariffsTitle}</h2>
 
           <div className="grid md:grid-cols-2 gap-8">
-     {tariffs[language].map((item, i) => (
+            {tariffs[language].map((item, i) => (
               <div
                 key={i}
                 className="p-6 bg-white rounded-xl shadow hover:shadow-xl transition hover:-translate-y-1"
@@ -553,7 +539,7 @@ export default function Matras() {
               </div>
 
               {/* ADDRESS */}
-              <div className="flex gap-2">
+              <div className="flex gap-2 pointer-events-none">
                 <input
                   className="input w-full "
                   placeholder={t[language].address}
@@ -562,7 +548,6 @@ export default function Matras() {
                     setForm({ ...form, address: e.target.value })
                   }
                   required
-                  readOnly
                 />
 
                 <button
@@ -573,20 +558,19 @@ export default function Matras() {
                   {loadingLoc ? "..." : "📍"}
                 </button>
               </div>
-    <input
-                  className="input w-full "
-                  placeholder={t[language].addres}
-                  value={form.addres}
-                  onChange={(e) =>
-                    setForm({ ...form, addres: e.target.value })
-                  }
-                  required
-                />
+              <input
+                className="input w-full "
+                placeholder={t[language].addres}
+                value={form.addres}
+                onChange={(e) => setForm({ ...form, addres: e.target.value })}
+                required
+              />
               <textarea
                 className="w-full border-2 placeholder:text-black/40  text-black border-gray-300 focus:border-y-amber-500 focus:ring-1 focus:ring-yellow-600 p-3 rounded-xl outline-none"
                 placeholder={t[language].note}
                 value={form.note}
                 onChange={(e) => setForm({ ...form, note: e.target.value })}
+                required
               />
 
               {/* BUTTON */}
