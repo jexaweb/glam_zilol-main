@@ -185,12 +185,12 @@ export default function Yakkandoz() {
             {[
               {
                 title: text.premium,
-                price: "50 000 so'm",
+                price: "45 000 so'm",
                 desc: text.premiumDesc,
               },
               {
                 title: text.standard,
-                price: "40 000 so'm",
+                price: "35 000 so'm",
                 desc: text.standardDesc,
               },
             ].map((item, i) => (

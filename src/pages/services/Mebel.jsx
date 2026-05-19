@@ -43,7 +43,7 @@ export default function Mebel() {
 
       priceTitle: "1 donadan narxlar",
       pricing: [
-        { name: "Mebel", price: "100 000 so'm" },
+        { name: "Mebel", price: "60 000 so'm" },
         { name: "Stul", price: "30 000 so'm" },
       ],
 

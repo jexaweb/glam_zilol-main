@@ -44,21 +44,21 @@ export default function Ariza() {
   const serviceData = {
     "Gilam yuvish": {
       tariffs: {
-        "VIP Premium /1m/kv": 20000,
-        "Premium /1m/kv": 15000,
-        "Standart /1m/kv": 12000,
+        "VIP Premium /1m/kv": 18000,
+        "Premium /1m/kv": 14000,
+        "Standart /1m/kv": 10000,
       },
     },
     "Adyol yuvish": {
       tariffs: {
-        "Premium /1 dona": 80000,
-        "Standart /1 dona": 60000,
+        "Premium /1 dona": 70000,
+        "Standart /1 dona": 50000,
       },
     },
     "Yakkandoz yuvish": {
       tariffs: {
-        "Premium /1 dona": 50000,
-        "Standart /1 dona": 40000,
+        "Premium /1 dona": 45000,
+        "Standart /1 dona": 35000,
       },
     },
     "Parda yuvish": {
@@ -69,7 +69,7 @@ export default function Ariza() {
     },
     "Mebel yuvish": {
       tariffs: {
-        "Mebel /1 dona": 80000,
+        "Mebel /1 dona": 60000,
         "Stul /1 dona": 30000,
       },
     },
