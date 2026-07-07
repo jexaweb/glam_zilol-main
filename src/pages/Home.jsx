@@ -508,11 +508,11 @@ function Home() {
       <ErrorAlert message={error} onClose={() => setError("")} />
 
       {/* ================= MODAL ================= */}
-      {showModal && (
+      {/* {showModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 ">
-          {/* Modal box */}
+         
           <div className="  max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl relative p-4">
-            {/* ❌ Close button */}
+          
             <button
               type="button"
               onClick={() => setShowModal(false)}
@@ -520,12 +520,12 @@ function Home() {
             >
               ✕
             </button>
-
-            {/* 🔥 BU YERGA ARIZA */}
+  
+          
             <Ariza />
           </div>
         </div>
-      )}
+      )} */}
 
       {/* ================= HERO SLIDER ================= */}
       <section className="relative w-full min-h-[90vh] overflow-hidden mt-7 sm:mt-10 md:mt-9">
